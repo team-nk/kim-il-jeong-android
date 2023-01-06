@@ -3,8 +3,8 @@
     android:color="@color/color_main_pressed">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="10dp" />
             <solid android:color="@color/color_background_button_cancel" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
 </ripple>
