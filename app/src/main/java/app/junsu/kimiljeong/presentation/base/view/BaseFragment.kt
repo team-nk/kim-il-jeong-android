@@ -38,4 +38,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
         super.onDestroyView()
         binding.unbind()
     }
+
+    abstract fun initView()
 }

@@ -1,6 +1,5 @@
 package app.junsu.kimiljeong.presentation.view.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import app.junsu.kimiljeong.R
 import app.junsu.kimiljeong.databinding.ActivityLoginBinding
@@ -11,5 +10,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding> (
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initView() {
+
     }
 }
