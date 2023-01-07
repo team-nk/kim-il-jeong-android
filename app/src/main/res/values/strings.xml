@@ -106,6 +106,8 @@
 
     <string name="post_history_check_my_post">내 글 확인하기</string>
 
+    <string name="post">Post</string>
+
     <string name="dlg_birthday_select_birthday">생년월일 선택</string>
     <string name="dlg_birthday_please_enter_birthday">생년월일을 입력해 주세요.</string>
     <string name="dlg_birthday_description">생년월일은 게시판 이용시 사용됩니다. 그 외에는 사용하지 않으며 생일 당일에 자동으로 생일 게시물이 생성됩니다.</string>
