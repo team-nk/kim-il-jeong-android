@@ -16,6 +16,9 @@
     <color name="main_500">#76A9FF</color>
     <color name="main_700">#5E9AFF</color>
 
+    <color name="surface_500">@color/white</color>
+    <color name="surface_700">@color/main_100</color>
+
     <color name="background_500">#F9FAFE</color>
 
     <color name="description">#A7B8CA</color>

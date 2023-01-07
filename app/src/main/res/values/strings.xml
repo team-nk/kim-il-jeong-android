@@ -1,3 +1,138 @@
 <resources>
-    <string name="app_name">Kim Il Jeong</string>
+    <string name="app_name">김일정</string>
+
+    <string name="login">로그인</string>
+    <string name="sign_up">회원가입</string>
+    <string name="log_out">로그아웃</string>
+
+    <string name="do_accept">확인하기</string>
+    <string name="do_cancel">취소하기</string>
+    <string name="do_create">생성하기</string>
+    <string name="do_delete">삭제하기</string>
+    <string name="do_change">변경하기</string>
+    <string name="do_enter">입력하기</string>
+    <string name="do_select">선택하기</string>
+
+    <string name="post_comment">댓글 작성</string>
+
+    <string name="dot_selected">●</string>
+    <string name="email">Email</string>
+    <string name="id">id</string>
+
+    <string name="accept">확인</string>
+    <string name="cancel">취소</string>
+    <string name="next">다음</string>
+
+    <string name="introduction_content_description_next_icon">Introduction Next Page Icon</string>
+    <string name="introduction_content_description_view_pager_image">ViewPager Image</string>
+    <string name="introduction_please_accept_permission">위치 권한을 허용해 주세요.</string>
+
+    <string name="start_login_with_email"><u>이메일로 로그인하기</u></string>
+    <string name="start_content_description_google_social_login">Google Social Login</string>
+    <string name="start_content_description_kakao_social_login">Kakao Social Login</string>
+
+    <string name="login_hint_please_enter_email">Email을 입력하세요</string>
+    <string name="login_hint_please_enter_password">Password를 입력하세요</string>
+    <string name="login_is_kim_il_jeong_first_time_register">김일정이 처음이신가요? <u>회원가입</u></string>
+    <string name="login_error_please_enter_id">아이디를 입력해 주세요.</string>
+    <string name="login_error_login_failed">로그인에 실패하였습니다.</string>
+
+    <string name="sign_up_sign_up">Sign Up</string>
+    <string name="sign_up_hint_please_enter_email">이메일을 입력해 주세요</string>
+    <string name="sign_up_btn_verify_email">이메일 인증</string>
+    <string name="sign_up_hint_please_enter_verification_code">인증번호를 입력해 주세요</string>
+    <string name="sign_up_btn_check_verification_code">확인하기</string>
+    <string name="sign_up_hint_please_enter_id">아이디를 입력해 주세요</string>
+    <string name="sign_up_btn_check_id_duplication">중복 확인</string>
+    <string name="sign_up_hint_please_enter_password">Password를 입력하세요</string>
+    <string name="sign_up_hint_please_enter_password_once_again">Password를 한번 더 입력하세요</string>
+    <string name="sign_up_hint_password_format">비밀번호는 숫자 + 영문자 + 특수 기호를 사용하여 8~15글자로 만들어 주세요.</string>
+    <string name="sign_up_snkbr_error_please_check_id_duplication">아이디 중복 확인을 해 주세요.</string>
+    <string name="sign_up_snkbr_error_please_verify_email">이메일 인증을 해 주세요.</string>
+    <string name="sign_up_snkbr_email_verification_code_has_sent">이메일 인증 코드가 전송되었습니다.</string>
+    <string name="sign_up_snkbr_available_id">사용하실 수 있는 아이디입니다.</string>
+    <string name="sign_up_dlg_success_title">회원가입이 완료되었습니다!</string>
+    <string name="sign_up_dlg_success_content">확인 버튼을 누르면 로그인 화면으로 이동합니다. 다시 로그인 해 주세요.</string>
+    <string name="sign_up_error_unavailbale_id">사용하실 수 없는 아이디입니다.</string>
+    <string name="sign_up_error_failed_to_register">회원가입에 실패하였습니다.</string>
+    <string name="sign_up_error_please_enter_necessary_information">필수 정보를 입력해 주세요.</string>
+    <string name="sign_up_error_please_enter_email">이메일을 입력해 주세요.</string>
+    <string name="sign_up_error_please_check_email_format">이메일 형식을 확인해 주세요.</string>
+    <string name="sign_up_error_id_already_exists">이미 존재하는 아이디입니다.</string>
+    <string name="sign_up_error_incorrect_verification_code">인증번호가 올바르지 않습니다.</string>
+    <string name="sign_up_error_please_enter_correct_verification_code">올바른 인증 코드를 입력해 주세요.</string>
+    <string name="sign_up_error_password_incorrect">비밀번호가 일치하지 않습니다.</string>
+
+    <string name="post_create_new_post">글 작성하기</string>
+
+    <string name="map_please_allow_permission">지도를 사용하기 위해 위치 권한을 허용해 주세요.</string>
+
+    <string name="my_page_check_my_schedule">내 일정 확인하기</string>
+    <string name="my_page_show_my_post">내가 쓴 게시물 보기</string>
+    <string name="my_page_enter_or_edit_birthday">생년월일 입력하기/수정하기</string>
+    <string name="my_page_content_description_icon_go_to_depth_icon">Icon Go To Depth</string>
+    <string name="my_page_application_information">어플리케이션 정보</string>
+    <string name="my_page_change_password">비밀번호 변경하기</string>
+    <string name="my_page_dlg_logout_title">로그아웃 하시겠습니까?</string>
+    <string name="my_page_change_password_succeed">비밀번호 변경에 성공했습니다.</string>
+
+    <string name="create_schedule_enter_location">위치를 입력하세요</string>
+    <string name="create_schedule_search_location">위치 검색</string>
+    <string name="create_schedule_select_color">색상 설정</string>
+    <string name="create_schedule_is_schedule_all_day">일정이 하루 종일 인가요?</string>
+    <string name="create_schedule_time_start">시작 시간</string>
+    <string name="create_schedule_time_end">종료 시간</string>
+    <string name="create_schedule_create_new_schedule">새로운 일정 생성하기</string>
+    <string name="create_schedule_enter_schedule">일정을 입력하세요</string>
+
+    <string name="change_user_information_change_information">정보 변경하기</string>
+    <string name="change_user_information_change_profile">이미지 변경하기</string>
+    <string name="change_user_information_change_password"><u>비밀번호 변경하기</u></string>
+
+    <string name="change_password_change_password">비밀번호 변경</string>
+    <string name="change_password_please_enter_old_password">기존 Password를 입력하세요</string>
+    <string name="change_password_please_enter_new_password">새로운 Password를 입력하세요</string>
+    <string name="change_password_please_enter_new_password_once_again">새로운 Password를 한 번 더 입력하세요</string>
+
+    <string name="create_new_post_create_new_post">새 글 작성</string>
+    <string name="create_new_post_please_enter_content_first_line_is_title">내용을 입력하세요 (첫 줄은 제목입니다)</string>
+    <string name="create_new_post_please_select_schedule">일정을 선택해 주세요</string>
+    <string name="create_new_post_select_schedule">일정 선택</string>
+
+    <string name="post_details_post_comment">댓글 작성하기</string>
+
+    <string name="post_history_check_my_post">내 글 확인하기</string>
+
+    <string name="dlg_birthday_select_birthday">생년월일 선택</string>
+    <string name="dlg_birthday_please_enter_birthday">생년월일을 입력해 주세요.</string>
+    <string name="dlg_birthday_description">생년월일은 게시판 이용시 사용됩니다. 그 외에는 사용하지 않으며 생일 당일에 자동으로 생일 게시물이 생성됩니다.</string>
+    <string name="dlg_birthday_please_select_birthday">생년월일을 선택하세요</string>
+    <string name="dlg_birthday_please_select_schedule">일정을 선택해 주세요</string>
+
+    <string name="dlg_specific_schedule_content_description_ping">Ping</string>
+
+    <string name="post_comment_error_please_enter_comment">댓글을 입력하세요.</string>
+
+    <string name="error_failed_to_connect_to_server">서버와 연결할 수 없습니다.</string>
+    <string name="error_loading_failed">로딩 실패…</string>
+
+    <string name="error_password_incorrect">비밀번호가 일치하지 않습니다.</string>
+
+    <string name="content_description_kim_il_jeong_logo">Kim il jeong Logo</string>
+    <string name="content_description_profile_image">Profile Image</string>
+
+    <string name="calendar_content_description_il_jeong_add_button">IlJeong Add Button</string>
+    <string name="calendar_today_schedule">오늘의 일정</string>
+
+    <string name="dlg_location_select_location">위치 선택</string>
+
+    <string-array name="clndr_day_of_the_week">
+        <item>SUN</item>
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+    </string-array>
 </resources>
