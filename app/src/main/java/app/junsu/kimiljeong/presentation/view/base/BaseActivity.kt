@@ -11,14 +11,14 @@ abstract class BaseActivity<V : ViewDataBinding, ViewModel>(
     @LayoutRes layoutId : Int,
 ) : AppCompatActivity(){
 
-    private val binding : V by lazy {
+    protected val binding : V by lazy {
         DataBindingUtil.setContentView(
             this,
             layoutId,
         )
     }
 
-    private val viewModel : ViewModel by viewModels()
+    protected val viewModel : ViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
