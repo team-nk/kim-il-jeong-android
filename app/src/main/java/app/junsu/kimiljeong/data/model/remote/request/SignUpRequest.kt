@@ -7,5 +7,5 @@ data class SignUpRequest(
     @SerializedName("code") val verificationCode: String,
     @SerializedName("account_id") val accountId: String,
     @SerializedName("password") val password: String,
-    @SerializedName("re_password") val repeatPassword: String,
+    @SerializedName("re_password") val passwordRepeat: String,
 )
