@@ -20,7 +20,7 @@
 
             <TextView
                 style="@style/TextViewGlobalSubTitle"
-                android:text="@string/login_en"
+                android:text="@string/calendar"
                 android:textColor="#448AFF" />
 
         </LinearLayout>
