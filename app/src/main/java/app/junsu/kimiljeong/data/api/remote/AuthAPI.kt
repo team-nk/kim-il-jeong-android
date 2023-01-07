@@ -1,13 +1,7 @@
 package app.junsu.kimiljeong.data.api.remote
 
-import app.junsu.kimiljeong.data.model.remote.request.ChangeBirthdayRequest
-import app.junsu.kimiljeong.data.model.remote.request.ChangePasswordRequest
-import app.junsu.kimiljeong.data.model.remote.request.LoginRequest
-import app.junsu.kimiljeong.data.model.remote.request.SignUpRequest
-import app.junsu.kimiljeong.data.model.remote.response.BooleanResponse
-import app.junsu.kimiljeong.data.model.remote.response.LoginResponse
-import app.junsu.kimiljeong.data.model.remote.response.RenewTokenResponse
-import app.junsu.kimiljeong.data.model.remote.response.SelfInformationResponse
+import app.junsu.kimiljeong.data.model.remote.request.*
+import app.junsu.kimiljeong.data.model.remote.response.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -56,4 +50,9 @@ interface AuthAPI {
     fun checkIdDuplication(
         @Query("account-id") id: String,
     ): Response<BooleanResponse>
+
+    @POST("/image")
+    fun uploadImage(
+        @Body request: UploadImageRequest,
+    ): Response<UploadImageResponse>
 }
