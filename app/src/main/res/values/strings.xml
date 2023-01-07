@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">김일정</string>
+    <string name="app_name_en">Kim il jeong</string>
 
     <string name="login">로그인</string>
+    <string name="login_en">Login</string>
     <string name="sign_up">회원가입</string>
     <string name="log_out">로그아웃</string>
 

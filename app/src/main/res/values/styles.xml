@@ -235,4 +235,32 @@
         <item name="android:layout_marginHorizontal">18dp</item>
         <item name="android:backgroundTint">@color/surface_700</item>
     </style>
+
+    <style name="ImageViewGlobalAppLogo">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:src">@drawable/ic_app_logo</item>
+    </style>
+
+    <style name="TextViewGlobalTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:text">@string/app_name_en</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewGlobalSubTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/main_700</item>
+    </style>
+    
+    <style name="LinearLayoutGlobalTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 </resources>
