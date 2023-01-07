@@ -5,19 +5,19 @@
 
         <LinearLayout
             android:id="@+id/image_activity_login_text_logo"
-            style="@style/LinearLayoutAppTitle"
+            style="@style/LinearLayoutGlobalTitle"
             app:layout_constraintBottom_toTopOf="@id/layout_activity_login_information"
             app:layout_constraintStart_toStartOf="@id/layout_activity_login_information"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView style="@style/ImageAppLogo" />
+            <ImageView style="@style/ImageViewGlobalAppLogo" />
 
             <TextView
-                style="@style/TextViewAppTitle"
+                style="@style/TextViewGlobalTitle"
                 android:layout_marginTop="8dp" />
 
             <TextView
-                style="@style/TextViewAppSubTitle"
+                style="@style/TextViewGlobalSubTitle"
                 android:text="@string/login_en" />
 
         </LinearLayout>

@@ -236,13 +236,13 @@
         <item name="android:backgroundTint">@color/surface_700</item>
     </style>
 
-    <style name="ImageAppLogo">
+    <style name="ImageViewGlobalAppLogo">
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">36dp</item>
         <item name="android:src">@drawable/ic_app_logo</item>
     </style>
 
-    <style name="TextViewAppTitle" parent="Widget.AppCompat.TextView">
+    <style name="TextViewGlobalTitle" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">28sp</item>
@@ -251,14 +251,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextViewAppSubTitle" parent="Widget.AppCompat.TextView">
+    <style name="TextViewGlobalSubTitle" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/main_700</item>
     </style>
     
-    <style name="LinearLayoutAppTitle">
+    <style name="LinearLayoutGlobalTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
