@@ -4,7 +4,6 @@
     <string name="app_logo_description">app logo</string>
 
     <string name="login">로그인</string>
-    <string name="login_en">Login</string>
     <string name="sign_up">회원가입</string>
     <string name="log_out">로그아웃</string>
 
@@ -15,6 +14,9 @@
     <string name="do_change">변경하기</string>
     <string name="do_enter">입력하기</string>
     <string name="do_select">선택하기</string>
+
+    <string name="login_en">Login</string>
+    <string name="post_en">Post</string>
 
     <string name="post_comment">댓글 작성</string>
 
@@ -105,8 +107,6 @@
     <string name="post_details_post_comment">댓글 작성하기</string>
 
     <string name="post_history_check_my_post">내 글 확인하기</string>
-
-    <string name="post">Post</string>
 
     <string name="dlg_birthday_select_birthday">생년월일 선택</string>
     <string name="dlg_birthday_please_enter_birthday">생년월일을 입력해 주세요.</string>
