@@ -6,7 +6,7 @@ import app.junsu.kimiljeong.databinding.ActivityIntroductionPagerBinding
 import app.junsu.kimiljeong.presentation.base.view.BaseActivity
 
 class IntroductionPagerActivity : BaseActivity<ActivityIntroductionPagerBinding>(
-    R.layout.activity_introduction_pager
+    R.layout.activity_introduction_pager,
 ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
