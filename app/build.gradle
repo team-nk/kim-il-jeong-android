@@ -46,9 +46,9 @@ dependencies {
     def calendarview_version = "1.4.3"
     def gms_maps_version = "18.1.0"
     def gms_location_version = "21.0.1"
-    def circle_indicator_version = "3.1.0"
+    def circle_imageview_version = "3.1.0"
 
-    implementation "de.hdodenhof:circleimageview:$circleindicator_version"
+    implementation "de.hdodenhof:circleimageview:$circle_imageview_version"
 
     implementation "com.google.android.gms:play-services-maps:$gms_maps_version"
     implementation "com.google.android.gms:play-services-location:$gms_location_version"
