@@ -17,7 +17,7 @@ interface PostAPI {
 
     @POST("/post")
     fun createPost(
-        @Body createPostRequest: CreatePostRequest,
+        @Body request: CreatePostRequest,
     ): Response<Void>
 
     @GET("/post/birthday")
