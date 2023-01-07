@@ -44,6 +44,11 @@ dependencies {
     def okhttp_version = "4.10.0"
     def nav_version = "2.5.3"
     def calendarview_version = "1.4.3"
+    def gms_maps_version = "18.1.0"
+    def gms_location_version = "21.0.1"
+
+    implementation "com.google.android.gms:play-services-maps:$gms_maps_version"
+    implementation "com.google.android.gms:play-services-location:$gms_location_version"
 
     implementation "com.prolificinteractive:material-calendarview:$calendarview_version"
 
