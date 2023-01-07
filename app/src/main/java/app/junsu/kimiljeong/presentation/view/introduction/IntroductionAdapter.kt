@@ -10,7 +10,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import app.junsu.kimiljeong.R
 
-class IntroductionPagerAdapter(private val context: Context) : PagerAdapter() {
+class IntroductionAdapter(private val context: Context) : PagerAdapter() {
 
     private val layoutInflater by lazy {
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -33,7 +33,7 @@ class IntroductionPagerAdapter(private val context: Context) : PagerAdapter() {
 
     @SuppressLint("MissingInflatedId", "InflateParams")
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = layoutInflater.inflate(R.layout.item_introduction_pager, null)
+        val view = layoutInflater.inflate(R.layout.item_introduction, null)
         val image = view.findViewById<ImageView>(R.id.image_item_introduction_pager_item)
         val viewpager = container as ViewPager
 

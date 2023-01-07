@@ -2,22 +2,25 @@ package app.junsu.kimiljeong.presentation.view.introduction
 
 import android.os.Bundle
 import app.junsu.kimiljeong.R
-import app.junsu.kimiljeong.databinding.ActivityIntroductionPagerBinding
+import app.junsu.kimiljeong.databinding.ActivityIntroductionBinding
 import app.junsu.kimiljeong.presentation.base.view.BaseActivity
 
-class IntroductionPagerActivity : BaseActivity<ActivityIntroductionPagerBinding>(
-    R.layout.activity_introduction_pager,
+class IntroductionActivity : BaseActivity<ActivityIntroductionBinding>(
+    R.layout.activity_introduction,
 ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initView() {
         initViewPager()
         initNextButton()
         initTabLayout()
     }
 
     private fun initViewPager() {
-        binding.vpIntroduction.adapter = IntroductionPagerAdapter(this)
+        binding.vpIntroduction.adapter = IntroductionAdapter(this)
         binding.tabLayoutIntroductionViewPager.setupWithViewPager(binding.vpIntroduction)
     }
 
