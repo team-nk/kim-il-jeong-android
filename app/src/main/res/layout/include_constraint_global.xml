@@ -22,8 +22,7 @@
 
         <TextView
             style="@style/TextViewGlobalSubTitle"
-            android:text="@string/post_en"
-            android:textColor="#448AFF" />
+            android:text="@string/post_en" />
 
     </LinearLayout>
 
