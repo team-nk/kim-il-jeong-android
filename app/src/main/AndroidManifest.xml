@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".di.application.KimIlJeongApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,13 +16,6 @@
         android:theme="@style/Theme.KimIlJeong"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".presentation.view.introduction.IntroductionActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".presentation.view.start.StartActivity"
             android:exported="false">
@@ -61,5 +55,4 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAIS6OUMsW_KE72EL6mVX4Y3uBuKbky_nU" />
     </application>
-
 </manifest>
