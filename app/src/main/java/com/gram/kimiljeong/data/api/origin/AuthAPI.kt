@@ -1,4 +1,4 @@
-package com.gram.kimiljeong.data.api.remote
+package com.gram.kimiljeong.data.api.origin
 
 import com.gram.kimiljeong.data.model.remote.request.*
 import com.gram.kimiljeong.data.model.remote.response.*
