@@ -8,6 +8,13 @@
             android:id="@+id/included_fragment_calendar_header"
             layout="@layout/include_constraint_global"/>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_fragment_calendar_horizontal_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12"/>
+
         <ScrollView
             android:id="@+id/scroll_view_fragment_calendar_main"
             android:layout_width="0dp"
@@ -16,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_fragment_calendar_vertical_2"
             app:layout_constraintStart_toStartOf="@id/guideline_fragment_calendar_vertical_1"
-            app:layout_constraintTop_toBottomOf="@id/included_fragment_calendar_header">
+            app:layout_constraintTop_toBottomOf="@id/guideline_fragment_calendar_horizontal_1">
 
             <LinearLayout
                 android:layout_width="match_parent"
