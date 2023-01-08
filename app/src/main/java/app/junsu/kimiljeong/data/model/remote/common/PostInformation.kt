@@ -1,6 +1,7 @@
 package app.junsu.kimiljeong.data.model.remote.common
 
-import app.junsu.kimiljeong.data.model.remote.common.PostInformation.Color.*
+import app.junsu.kimiljeong.data.common.Color
+import app.junsu.kimiljeong.data.util.toColor
 import com.google.gson.annotations.SerializedName
 
 data class PostInformation(
@@ -11,26 +12,5 @@ data class PostInformation(
     @SerializedName("address") val address: String,
     @SerializedName("color") private val _color: String,
 ) {
-    lateinit var color: Color
-
-    private operator fun invoke() {
-        color = _color.toColor()
-    }
-
-    private fun String.toColor(): Color {
-        return when (this) {
-            RED.toString() -> RED
-            BLUE.toString() -> BLUE
-            YELLOW.toString() -> YELLOW
-            GREEN.toString() -> GREEN
-            PURPLE.toString() -> PURPLE
-            else -> {
-                ERROR
-            }
-        }
-    }
-
-    enum class Color {
-        RED, BLUE, YELLOW, GREEN, PURPLE, ERROR, ;
-    }
+    val color: Color = _color.toColor()
 }
