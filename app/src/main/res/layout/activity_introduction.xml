@@ -9,13 +9,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@id/tab_layout_introduction_viewPager"
+            app:layout_constraintBottom_toTopOf="@id/tab_layout_introduction_view_pager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout_introduction_viewPager"
+            android:id="@+id/tab_layout_introduction_view_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="@id/vp_introduction"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="@id/vp_introduction"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout_introduction_viewPager">
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_introduction_view_pager">
 
             <TextView
                 android:layout_width="wrap_content"
