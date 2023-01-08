@@ -22,11 +22,8 @@ object NetworkModule {
         requestInterceptor: RequestInterceptor,
         responseInterceptor: ResponseInterceptor,
     ): OkHttpClient {
-        return OkHttpClient
-            .Builder()
-            .addInterceptor(requestInterceptor)
-            .addInterceptor(responseInterceptor)
-            .build()
+        return OkHttpClient.Builder().addInterceptor(requestInterceptor)
+            .addInterceptor(responseInterceptor).build()
     }
 
     @Provides
@@ -34,10 +31,7 @@ object NetworkModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 }
