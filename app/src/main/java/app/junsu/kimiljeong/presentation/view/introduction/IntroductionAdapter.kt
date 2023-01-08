@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import app.junsu.kimiljeong.R
+import com.gram.kimiljeong.R
 
 class IntroductionAdapter(
     private val mContext: Context,
