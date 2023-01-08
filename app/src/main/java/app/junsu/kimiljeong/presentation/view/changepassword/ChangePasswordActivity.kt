@@ -6,7 +6,7 @@ import app.junsu.kimiljeong.databinding.ActivityChangePasswordBinding
 import app.junsu.kimiljeong.presentation.base.view.BaseActivity
 
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
-    R.layout.activity_change_password
+    R.layout.activity_change_password,
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
