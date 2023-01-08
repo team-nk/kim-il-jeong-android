@@ -9,34 +9,34 @@ import retrofit2.http.*
 interface ScheduleAPI {
 
     @GET("/schedule")
-    fun inquireDateScheduleList(
+    suspend fun inquireDateScheduleList(
         @Query("date") date: String,
     ): Response<InquireScheduleListResponse>
 
     @POST("/schedule")
-    fun createSchedule(
+    suspend fun createSchedule(
         @Body request: ScheduleInformation,
     ): Response<Void>
 
     @PUT("/schedule/{schedule-id}")
-    fun editSchedule(
+    suspend fun editSchedule(
         @Path("schedule-id") scheduleId: String,
         @Body request: ScheduleInformation,
     ): Response<Void>
 
     @DELETE("/schedule/{schedule-id")
-    fun removeSchedule(
+    suspend fun removeSchedule(
         @Path("schedule-id") scheduleId: String,
     ): Response<Void>
 
     @GET("/schedule/map")
-    fun inquireSpecificLocationOfScheduleList(
+    suspend fun inquireSpecificLocationOfScheduleList(
         @Body request: SpecificLocationOfScheduleListRequest,
     ): Response<InquireScheduleListResponse>
 
     @GET("/schedule/list")
-    fun inquireEntireScheduleList(): Response<InquireScheduleListResponse>
+    suspend fun inquireEntireScheduleList(): Response<InquireScheduleListResponse>
 
     @GET("/schedule/choose")
-    fun inquireChooseScheduleList(): Response<InquireScheduleListResponse> // TODO 서버에 Response 키값 통일 요청
+    suspend fun inquireChooseScheduleList(): Response<InquireScheduleListResponse> // TODO 서버에 Response 키값 통일 요청
 }
