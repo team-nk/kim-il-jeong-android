@@ -1,4 +1,4 @@
-package app.junsu.kimiljeong.presentation.view.introduction
+package com.gram.kimiljeong.presentation.view.introduction
 
 import android.annotation.SuppressLint
 import android.content.Context

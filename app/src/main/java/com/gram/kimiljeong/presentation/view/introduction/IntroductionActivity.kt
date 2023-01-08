@@ -1,7 +1,7 @@
-package app.junsu.kimiljeong.presentation.view.introduction
+package com.gram.kimiljeong.presentation.view.introduction
 
 import android.os.Bundle
-import app.junsu.kimiljeong.presentation.base.view.BaseActivity
+import com.gram.kimiljeong.presentation.view.base.view.BaseActivity
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.ActivityIntroductionBinding
 

@@ -1,6 +1,6 @@
-package app.junsu.kimiljeong.presentation.view.post
+package com.gram.kimiljeong.presentation.view.post
 
-import app.junsu.kimiljeong.presentation.base.view.BaseFragment
+import com.gram.kimiljeong.presentation.view.base.view.BaseFragment
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.FragmentPostBinding
 

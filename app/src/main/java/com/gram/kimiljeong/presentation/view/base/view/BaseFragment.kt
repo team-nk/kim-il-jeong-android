@@ -1,4 +1,4 @@
-package app.junsu.kimiljeong.presentation.base.view
+package com.gram.kimiljeong.presentation.view.base.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

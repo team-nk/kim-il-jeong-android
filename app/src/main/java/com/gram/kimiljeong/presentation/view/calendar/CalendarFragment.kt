@@ -1,8 +1,8 @@
-package app.junsu.kimiljeong.presentation.view.calendar
+package com.gram.kimiljeong.presentation.view.calendar
 
 import android.os.Bundle
 import android.view.View
-import app.junsu.kimiljeong.presentation.base.view.BaseFragment
+import com.gram.kimiljeong.presentation.view.base.view.BaseFragment
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.FragmentCalendarBinding
 
