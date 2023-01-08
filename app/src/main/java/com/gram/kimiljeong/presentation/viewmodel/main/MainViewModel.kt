@@ -9,15 +9,14 @@ import com.gram.kimiljeong.data.model.remote.response.SelfInformationResponse
 import com.gram.kimiljeong.data.repository.origin.UserRepository
 import com.gram.kimiljeong.presentation.view.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    application: Application,
     private val userRepository: UserRepository,
-    @ApplicationContext application: Application,
 ) : BaseViewModel(application) {
 
     init {
