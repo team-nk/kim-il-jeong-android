@@ -4,7 +4,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundPrimary">
 
         <include
-            android:id="@+id/include_activity_login_header"
+            android:id="@+id/included_activity_login_header"
             layout="@layout/include_constraint_login"/>
 
         <LinearLayout
@@ -12,10 +12,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="@id/include_activity_login_header"
+            app:layout_constraintTop_toTopOf="@id/included_activity_login_header"
             app:layout_constraintEnd_toEndOf="@id/guideline_activity_login_vertical_2"
             app:layout_constraintStart_toStartOf="@id/guideline_activity_login_vertical_1"
-            app:layout_constraintBottom_toBottomOf="@id/include_activity_login_header">
+            app:layout_constraintBottom_toBottomOf="@id/included_activity_login_header">
 
             <EditText
                 android:id="@+id/et_activity_login_email"

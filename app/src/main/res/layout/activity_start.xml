@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundPrimary">
 
         <include
-            android:id="@+id/include_activity_start_header"
+            android:id="@+id/included_activity_start_header"
             layout="@layout/include_constraint_login"/>
 
         <LinearLayout
@@ -13,10 +13,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/include_activity_start_header"
+            app:layout_constraintBottom_toBottomOf="@id/included_activity_start_header"
             app:layout_constraintEnd_toEndOf="@id/tv_activity_start_login_email"
             app:layout_constraintStart_toStartOf="@id/tv_activity_start_login_email"
-            app:layout_constraintTop_toTopOf="@id/include_activity_start_header"
+            app:layout_constraintTop_toTopOf="@id/included_activity_start_header"
             app:layout_constraintVertical_bias="0.8">
 
             <ImageView
