@@ -1,9 +1,9 @@
 package app.junsu.kimiljeong.presentation.view.introduction
 
 import android.os.Bundle
-import app.junsu.kimiljeong.R
-import app.junsu.kimiljeong.databinding.ActivityIntroductionBinding
 import app.junsu.kimiljeong.presentation.base.view.BaseActivity
+import com.gram.kimiljeong.R
+import com.gram.kimiljeong.databinding.ActivityIntroductionBinding
 
 class IntroductionActivity : BaseActivity<ActivityIntroductionBinding>(
     R.layout.activity_introduction,
