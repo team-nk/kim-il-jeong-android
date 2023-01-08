@@ -12,7 +12,5 @@ class LoginActivity : BaseActivity<ActivityLoginBinding> (
         super.onCreate(savedInstanceState)
     }
 
-    override fun initView() {
-
-    }
+    override fun initView() {}
 }

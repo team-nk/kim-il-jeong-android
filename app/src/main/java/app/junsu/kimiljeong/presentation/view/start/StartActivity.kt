@@ -13,7 +13,5 @@ class StartActivity : BaseActivity<ActivityStartBinding>(
         super.onCreate(savedInstanceState)
     }
 
-    override fun initView() {
-
-    }
+    override fun initView() {}
 }
