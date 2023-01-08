@@ -3,31 +3,47 @@ package com.gram.kimiljeong.di.module
 import com.gram.kimiljeong.data.api.remote.AuthAPI
 import com.gram.kimiljeong.data.api.remote.PostAPI
 import com.gram.kimiljeong.data.api.remote.ScheduleAPI
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface APIModule {
+object APIModule {
 
-    @Binds
+    @Provides
     @Singleton
-    fun provideAuthApi(): AuthAPI {
-        TODO()
+    fun provideAuthApi(
+        retrofit: Retrofit,
+    ): AuthAPI {
+        return retrofit.create(
+            /* service = */
+            AuthAPI::class.java,
+        )
     }
 
-    @Binds
+    @Provides
     @Singleton
-    fun providePostApi(): PostAPI {
-        TODO()
+    fun providePostApi(
+        retrofit: Retrofit,
+    ): PostAPI {
+        return retrofit.create(
+            /* service = */
+            PostAPI::class.java,
+        )
     }
 
-    @Binds
+    @Provides
     @Singleton
-    fun provideScheduleApi(): ScheduleAPI {
-        TODO()
+    fun provideScheduleApi(
+        retrofit: Retrofit,
+    ): ScheduleAPI {
+        return retrofit.create(
+            /* service = */
+            ScheduleAPI::class.java,
+        )
     }
 }
