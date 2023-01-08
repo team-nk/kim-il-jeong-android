@@ -3,7 +3,7 @@ package com.gram.kimiljeong.data.repository.implement
 import com.gram.kimiljeong.data.api.remote.AuthAPI
 import com.gram.kimiljeong.data.model.remote.request.*
 import com.gram.kimiljeong.data.model.remote.response.*
-import com.gram.kimiljeong.data.repository.`interface`.UserRepository
+import com.gram.kimiljeong.data.repository.origin.UserRepository
 import retrofit2.Response
 import javax.inject.Inject
 

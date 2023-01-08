@@ -17,7 +17,6 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(
         requestInterceptor: RequestInterceptor,
         responseInterceptor: ResponseInterceptor,
@@ -27,7 +26,6 @@ object NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit {

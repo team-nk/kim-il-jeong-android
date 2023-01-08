@@ -9,7 +9,9 @@ import com.gram.kimiljeong.presentation.view.calendar.CalendarFragment
 import com.gram.kimiljeong.presentation.view.map.MapFragment
 import com.gram.kimiljeong.presentation.view.mypage.MyPageFragment
 import com.gram.kimiljeong.presentation.view.post.PostFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main,
 ) {

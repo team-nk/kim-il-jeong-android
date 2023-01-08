@@ -1,7 +1,8 @@
+/*
 package com.gram.kimiljeong.di.module
 
-import com.gram.kimiljeong.data.repository.`interface`.UserRepository
 import com.gram.kimiljeong.data.repository.implement.UserRepositoryImpl
+import com.gram.kimiljeong.data.repository.inter.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,3 +19,4 @@ interface RepositoryModule {
         userRepositoryImpl: UserRepositoryImpl,
     ): UserRepository
 }
+*/
