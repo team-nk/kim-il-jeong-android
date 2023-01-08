@@ -1,5 +1,6 @@
 package com.gram.kimiljeong.di.module
 
+import com.gram.kimiljeong.BuildConfig.BASE_URL
 import com.gram.kimiljeong.data.interceptor.RequestInterceptor
 import com.gram.kimiljeong.data.interceptor.ResponseInterceptor
 import dagger.Module
@@ -14,8 +15,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    private var retrofit: Retrofit? = null
 
     @Provides
     @Singleton
@@ -35,8 +34,8 @@ object NetworkModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit {
-        return retrofit ?: Retrofit.Builder()
-            .baseUrl(""/*Todo BASE_URL*/)
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
