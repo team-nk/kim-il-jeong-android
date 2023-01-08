@@ -1,22 +1,18 @@
-package app.junsu.kimiljeong.presentation.view.main
+package com.gram.kimiljeong.presentation.view.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import app.junsu.kimiljeong.R
-import app.junsu.kimiljeong.databinding.ActivityMainBinding
-import app.junsu.kimiljeong.presentation.base.view.BaseActivity
-import app.junsu.kimiljeong.presentation.view.calendar.CalendarFragment
-import app.junsu.kimiljeong.presentation.view.map.MapFragment
-import app.junsu.kimiljeong.presentation.view.mypage.MyPageFragment
-import app.junsu.kimiljeong.presentation.view.post.PostFragment
+import com.gram.kimiljeong.R
+import com.gram.kimiljeong.databinding.ActivityMainBinding
+import com.gram.kimiljeong.presentation.view.base.view.BaseActivity
+import com.gram.kimiljeong.presentation.view.calendar.CalendarFragment
+import com.gram.kimiljeong.presentation.view.map.MapFragment
+import com.gram.kimiljeong.presentation.view.mypage.MyPageFragment
+import com.gram.kimiljeong.presentation.view.post.PostFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main,
 ) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun initView() {
         initBottomNavigationView()
     }
