@@ -17,13 +17,17 @@ class UserRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun sendVerificationMail(email: String): Response<Void> {
+    override suspend fun sendVerificationMail(
+        email: String,
+    ): Response<Void> {
         return authApi.sendVerificationMail(
             email = email,
         )
     }
 
-    override suspend fun signUp(request: SignUpRequest): Response<Void> {
+    override suspend fun signUp(
+        request: SignUpRequest,
+    ): Response<Void> {
         return authApi.signUp(
             request = request,
         )
@@ -33,19 +37,25 @@ class UserRepositoryImpl @Inject constructor(
         return authApi.getSelfInformation()
     }
 
-    override suspend fun login(request: LoginRequest): Response<LoginResponse> {
+    override suspend fun login(
+        request: LoginRequest,
+    ): Response<LoginResponse> {
         return authApi.login(
             request = request,
         )
     }
 
-    override suspend fun changePassword(request: ChangePasswordRequest): Response<Void> {
+    override suspend fun changePassword(
+        request: ChangePasswordRequest,
+    ): Response<Void> {
         return authApi.changePassword(
             request = request,
         )
     }
 
-    override suspend fun changeBirthdayRequest(request: ChangeBirthdayRequest): Response<Void> {
+    override suspend fun changeBirthdayRequest(
+        request: ChangeBirthdayRequest,
+    ): Response<Void> {
         return authApi.changeBirthdayRequest(
             request = request,
         )
@@ -61,13 +71,17 @@ class UserRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun checkIdDuplication(id: String): Response<BooleanResponse> {
+    override suspend fun checkIdDuplication(
+        id: String,
+    ): Response<BooleanResponse> {
         return authApi.checkIdDuplication(
             id = id,
         )
     }
 
-    override suspend fun uploadImage(request: UploadImageRequest): Response<UploadImageResponse> {
+    override suspend fun uploadImage(
+        request: UploadImageRequest,
+    ): Response<UploadImageResponse> {
         return authApi.uploadImage(
             request = request,
         )
