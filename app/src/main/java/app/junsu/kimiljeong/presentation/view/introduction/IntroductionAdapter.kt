@@ -11,11 +11,11 @@ import androidx.viewpager.widget.ViewPager
 import app.junsu.kimiljeong.R
 
 class IntroductionAdapter(
-    private val context: Context,
+    private val mContext: Context,
 ) : PagerAdapter() {
 
     private val layoutInflater by lazy {
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
     private val images = intArrayOf(
