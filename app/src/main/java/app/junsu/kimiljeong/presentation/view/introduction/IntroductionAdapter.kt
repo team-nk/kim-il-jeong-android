@@ -10,7 +10,9 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import app.junsu.kimiljeong.R
 
-class IntroductionAdapter(private val context: Context) : PagerAdapter() {
+class IntroductionAdapter(
+    private val context: Context,
+) : PagerAdapter() {
 
     private val layoutInflater by lazy {
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
