@@ -1,9 +1,9 @@
-package com.gram.kimiljeong.data.repository.implement
+package com.gram.kimiljeong.data.repository.remote.implement
 
 import com.gram.kimiljeong.data.api.remote.AuthAPI
 import com.gram.kimiljeong.data.model.remote.request.*
 import com.gram.kimiljeong.data.model.remote.response.*
-import com.gram.kimiljeong.data.repository.origin.UserRepository
+import com.gram.kimiljeong.data.repository.remote.origin.UserRepository
 import retrofit2.Response
 import javax.inject.Inject
 
