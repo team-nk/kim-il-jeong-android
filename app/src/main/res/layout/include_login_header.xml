@@ -20,7 +20,7 @@
         app:layout_constraintGuide_percent="0.05"/>
 
     <LinearLayout
-        android:id="@+id/layout_fragment_post_title"
+        android:id="@+id/layout_login_header"
         style="@style/LinearLayoutGlobalTitle"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@id/gl_include_login_vertical_1"
@@ -29,10 +29,12 @@
         <ImageView style="@style/ImageViewGlobalAppLogo" />
 
         <TextView
+            android:id="@+id/tv_include_login_title"
             style="@style/TextViewGlobalTitle"
             android:layout_marginTop="8dp" />
 
         <TextView
+            android:id="@+id/tv_include_login_sub_title"
             style="@style/TextViewGlobalSubTitle"
             android:text="@string/login_en"/>
 

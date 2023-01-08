@@ -17,6 +17,9 @@
 
     <string name="login_en">Login</string>
     <string name="post_en">Post</string>
+    <string name="calendar_en">Calendar</string>
+    <string name="welcome">Welcome!</string>
+    <string name="my_page">MyPage</string>
 
     <string name="post_comment">댓글 작성</string>
 
