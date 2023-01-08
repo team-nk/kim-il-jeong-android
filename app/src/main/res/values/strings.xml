@@ -4,7 +4,6 @@
     <string name="app_logo_description">app logo</string>
 
     <string name="login">로그인</string>
-    <string name="login_en">Login</string>
     <string name="sign_up">회원가입</string>
     <string name="log_out">로그아웃</string>
 
@@ -15,6 +14,9 @@
     <string name="do_change">변경하기</string>
     <string name="do_enter">입력하기</string>
     <string name="do_select">선택하기</string>
+
+    <string name="login_en">Login</string>
+    <string name="post_en">Post</string>
 
     <string name="post_comment">댓글 작성</string>
 
