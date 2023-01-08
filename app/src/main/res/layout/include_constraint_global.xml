@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout_fragment_post_title"
+        android:id="@+id/linear_layout_fragment_post_title"
         style="@style/LinearLayoutGlobalTitle"
         android:layout_marginVertical="20dp"
         app:layout_constraintTop_toTopOf="parent"
