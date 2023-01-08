@@ -40,7 +40,7 @@
             android:name=".presentation.view.changepassword.ChangePasswordActivity"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
+                android:name="android.com.lib_name"
                 android:value="" />
         </activity>
         <activity
@@ -53,7 +53,7 @@
             </intent-filter>
 
             <meta-data
-                android:name="android.app.lib_name"
+                android:name="android.com.lib_name"
                 android:value="" />
         </activity>
 
