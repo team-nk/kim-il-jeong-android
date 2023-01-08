@@ -6,7 +6,7 @@
 
         <include
             android:id="@+id/included_activity_start_header"
-            layout="@layout/include_constraint_login"/>
+            layout="@layout/include_login_header"/>
 
         <LinearLayout
             android:id="@+id/layout_activity_start_social_login_button"

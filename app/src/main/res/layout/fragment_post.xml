@@ -6,10 +6,10 @@
 
         <include
             android:id="@+id/included_fragment_post_header"
-            layout="@layout/include_constraint_global" />
+            layout="@layout/include_global_header" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_fragment_post_horizontal_1"
+            android:id="@+id/gl_fragment_post_horizontal_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -21,9 +21,9 @@
             android:layout_height="0dp"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="@id/included_fragment_post_header"
-            app:layout_constraintEnd_toEndOf="@id/guideline_fragment_post_vertical_2"
-            app:layout_constraintStart_toStartOf="@id/guideline_fragment_post_vertical_1"
-            app:layout_constraintTop_toBottomOf="@id/guideline_fragment_post_horizontal_1" />
+            app:layout_constraintEnd_toEndOf="@id/gl_fragment_post_vertical_2"
+            app:layout_constraintStart_toStartOf="@id/gl_fragment_post_vertical_1"
+            app:layout_constraintTop_toBottomOf="@id/gl_fragment_post_horizontal_1" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btn_fragment_post_post"
@@ -39,14 +39,14 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_fragment_post_vertical_1"
+            android:id="@+id/gl_fragment_post_vertical_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_fragment_post_vertical_2"
+            android:id="@+id/gl_fragment_post_vertical_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
