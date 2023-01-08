@@ -8,51 +8,51 @@ import retrofit2.http.*
 interface AuthAPI {
 
     @PUT("/auth")
-    fun renewToken(
+    suspend fun renewToken(
         @Header("Refresh-Token") refreshToken: String,
     ): Response<RenewTokenResponse>
 
     @GET("/mail")
-    fun sendVerificationMail(
+    suspend fun sendVerificationMail(
         @Query("email") email: String,
     ): Response<Void>
 
     @POST("/user")
-    fun signUp(
+    suspend fun signUp(
         @Body request: SignUpRequest,
     ): Response<Void>
 
     @GET("/user")
-    fun getSelfInformation(): Response<SelfInformationResponse>
+    suspend fun getSelfInformation(): Response<SelfInformationResponse>
 
     @POST("/user/login")
-    fun login(
+    suspend fun login(
         @Body request: LoginRequest,
     ): Response<LoginResponse>
 
     @PATCH("/user/password")
-    fun changePassword(
+    suspend fun changePassword(
         @Body request: ChangePasswordRequest,
     ): Response<Void>
 
     @PATCH("/user/birthday")
-    fun changeBirthdayRequest(
+    suspend fun changeBirthdayRequest(
         @Body request: ChangeBirthdayRequest,
     ): Response<Void>
 
     @GET("/user/code")
-    fun checkVerificationCode(
+    suspend fun checkVerificationCode(
         @Query("email") email: String,
         @Query("code") code: String,
     ): Response<BooleanResponse>
 
     @GET("/user/check")
-    fun checkIdDuplication(
+    suspend fun checkIdDuplication(
         @Query("account-id") id: String,
     ): Response<BooleanResponse>
 
     @POST("/image")
-    fun uploadImage(
+    suspend fun uploadImage(
         @Body request: UploadImageRequest,
     ): Response<UploadImageResponse>
 }

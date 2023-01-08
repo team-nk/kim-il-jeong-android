@@ -13,23 +13,23 @@ import retrofit2.http.Path
 interface PostAPI {
 
     @GET("/post")
-    fun inquirePostList(): Response<InquirePostListResponse>
+    suspend fun inquirePostList(): Response<InquirePostListResponse>
 
     @POST("/post")
-    fun createPost(
+    suspend fun createPost(
         @Body request: CreatePostRequest,
     ): Response<Void>
 
     @GET("/post/birthday")
-    fun inquireBirthdayList(): Response<InquireBirthdayListResponse>
+    suspend fun inquireBirthdayList(): Response<InquireBirthdayListResponse>
 
     @GET("/comment/{post-id}")
-    fun inquireCommentList(
+    suspend fun inquireCommentList(
         @Path("post-id") postId: Int,
     ): Response<InquireCommentListResponse>
 
     @POST("/comment/{post-id}")
-    fun createComment(
+    suspend fun createComment(
         @Path("post-id") postId: Int,
     ): Response<Void>
 }
