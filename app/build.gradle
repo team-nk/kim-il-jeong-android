@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'app.junsu.kimiljeong'
+    namespace 'com.gram.kimiljeong'
     compileSdk 33
 
     defaultConfig {
