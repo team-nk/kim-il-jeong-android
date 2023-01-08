@@ -12,6 +12,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
+
+    override fun initView() {}
 }

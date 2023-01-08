@@ -15,6 +15,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initView() {
         initBottomNavigationView()
     }
 
