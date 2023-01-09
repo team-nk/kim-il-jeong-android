@@ -1,7 +1,7 @@
 package com.gram.kimiljeong.di.module
 
 import com.gram.kimiljeong.BuildConfig.BASE_URL
-import com.gram.kimiljeong.data.interceptor.RequestInterceptor
+import com.gram.kimiljeong.data.interceptor.HeaderAuthorizationInterceptor
 import com.gram.kimiljeong.data.interceptor.ResponseInterceptor
 import dagger.Module
 import dagger.Provides
@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -18,10 +17,10 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-        requestInterceptor: RequestInterceptor,
+        headerAuthorizationInterceptor: HeaderAuthorizationInterceptor,
         responseInterceptor: ResponseInterceptor,
     ): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(requestInterceptor)
+        return OkHttpClient.Builder().addInterceptor(headerAuthorizationInterceptor)
             .addInterceptor(responseInterceptor).build()
     }
 
