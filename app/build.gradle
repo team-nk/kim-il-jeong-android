@@ -51,6 +51,9 @@ dependencies {
     def gms_maps_version = "18.1.0"
     def gms_location_version = "21.0.1"
     def circleimageview_version = "3.1.0"
+    def start_activity_util_version = "0.0.1"
+
+    implementation "com.github.Android-Utility:start-activity-utility:$start_activity_util_version"
 
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
 
