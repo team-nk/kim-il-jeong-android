@@ -44,4 +44,19 @@ interface UserRepository {
     suspend fun uploadImage(
         request: UploadImageRequest,
     ): Response<UploadImageResponse>
+
+    suspend fun saveAccessToken(
+        token: String,
+    )
+
+    suspend fun saveRefreshToken(
+        token: String,
+    )
+
+    suspend fun fetchTokens(): Pair<String, String>
+
+    suspend fun saveTokens(
+        refreshToken: String,
+        accessToken: String,
+    )
 }
