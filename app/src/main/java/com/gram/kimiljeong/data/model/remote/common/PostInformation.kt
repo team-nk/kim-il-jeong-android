@@ -1,7 +1,7 @@
 package com.gram.kimiljeong.data.model.remote.common
 
 import com.gram.kimiljeong.data.common.Color
-import com.gram.kimiljeong.data.util.toColor
+import com.gram.kimiljeong.data.extension.toColor
 import com.google.gson.annotations.SerializedName
 
 data class PostInformation(
