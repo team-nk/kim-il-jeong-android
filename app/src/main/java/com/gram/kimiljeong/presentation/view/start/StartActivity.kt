@@ -1,6 +1,6 @@
 package com.gram.kimiljeong.presentation.view.start
 
-import android.content.Intent
+import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.ActivityStartBinding
 import com.gram.kimiljeong.presentation.view.base.view.BaseActivity
@@ -18,10 +18,8 @@ class StartActivity : BaseActivity<ActivityStartBinding>(
     private fun initStartLoginWithEmailButton() {
         binding.tvActivityStartLoginEmail.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    LoginActivity::class.java,
-                ),
+                context = this,
+                to = LoginActivity::class.java,
             )
         }
     }
