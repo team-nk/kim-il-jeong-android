@@ -1,7 +1,7 @@
 package com.gram.kimiljeong.di.module
 
-import com.gram.kimiljeong.data.repository.implement.UserRepositoryImpl
-import com.gram.kimiljeong.data.repository.origin.UserRepository
+import com.gram.kimiljeong.data.repository.remote.implement.UserRepositoryImpl
+import com.gram.kimiljeong.data.repository.remote.origin.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

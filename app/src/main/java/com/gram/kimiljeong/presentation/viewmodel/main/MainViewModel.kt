@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.data.model.remote.response.SelfInformationResponse
-import com.gram.kimiljeong.data.repository.origin.UserRepository
+import com.gram.kimiljeong.data.repository.remote.origin.UserRepository
 import com.gram.kimiljeong.presentation.view.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO

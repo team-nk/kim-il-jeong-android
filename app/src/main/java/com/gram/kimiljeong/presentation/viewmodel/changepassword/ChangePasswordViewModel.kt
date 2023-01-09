@@ -2,7 +2,7 @@ package com.gram.kimiljeong.presentation.viewmodel.changepassword
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.gram.kimiljeong.data.repository.origin.UserRepository
+import com.gram.kimiljeong.data.repository.remote.origin.UserRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
