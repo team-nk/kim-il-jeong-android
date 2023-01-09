@@ -1,6 +1,7 @@
 package com.gram.kimiljeong.data.repository.remote.implement
 
 import com.gram.kimiljeong.data.api.remote.AuthAPI
+import com.gram.kimiljeong.data.common.preferences.AuthPreferences
 import com.gram.kimiljeong.data.model.remote.request.*
 import com.gram.kimiljeong.data.model.remote.response.*
 import com.gram.kimiljeong.data.repository.remote.origin.UserRepository
@@ -9,6 +10,7 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val authApi: AuthAPI,
+    private val authPreferences: AuthPreferences,
 ) : UserRepository {
 
     override suspend fun renewToken(refreshToken: String): Response<RenewTokenResponse> {
@@ -84,6 +86,29 @@ class UserRepositoryImpl @Inject constructor(
     ): Response<UploadImageResponse> {
         return authApi.uploadImage(
             request = request,
+        )
+    }
+
+    override suspend fun saveAccessToken(token: String) {
+        authPreferences.saveAccessToken(
+            token,
+        )
+    }
+
+    override suspend fun saveRefreshToken(token: String) {
+        authPreferences.saveRefreshToken(
+            token,
+        )
+    }
+
+    override suspend fun fetchTokens(): Pair<String, String> {
+        return authPreferences.fetchTokens()
+    }
+
+    override suspend fun saveTokens(refreshToken: String, accessToken: String) {
+        authPreferences.saveTokens(
+            refreshToken = refreshToken,
+            accessToken = accessToken,
         )
     }
 }
