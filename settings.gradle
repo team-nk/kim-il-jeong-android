@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = "Kim Il Jeong"
+rootProject.name = "kim-il-jeong-android"
 include ':app'

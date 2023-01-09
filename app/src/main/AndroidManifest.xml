@@ -2,10 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
-        android:name=".di.application.KimIlJeongApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,54 +10,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KimIlJeong"
-        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.Kimiljeongandroid"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.view.changeuserinformation.ChangeUserInformationActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".presentation.view.start.StartActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".presentation.view.login.LoginActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".presentation.view.changepassword.ChangePasswordActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.com.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".presentation.view.main.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
+
             <meta-data
-                android:name="android.com.lib_name"
+                android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAIS6OUMsW_KE72EL6mVX4Y3uBuKbky_nU" />
     </application>
 
 </manifest>

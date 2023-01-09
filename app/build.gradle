@@ -9,11 +9,11 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    namespace 'com.gram.kimiljeong'
+    namespace 'team.nk.kimiljeong'
     compileSdk 33
 
     defaultConfig {
-        applicationId "app.junsu.kimiljeong"
+        applicationId "team.nk.kimiljeong"
         minSdk 26
         targetSdk 33
         versionCode 1
