@@ -5,6 +5,7 @@ import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.FragmentMypageBinding
 import com.gram.kimiljeong.presentation.view.base.view.BaseFragment
 import com.gram.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
+import com.gram.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,6 +15,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     override fun initView() {
         initMypageHeader()
         initEditProfileButton()
+        initEditBirthdayButton()
     }
 
     private fun initMypageHeader(){
@@ -31,6 +33,17 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 startActivity(
                     context = this,
                     to = ChangeUserInformationActivity::class.java,
+                )
+            }
+        }
+    }
+
+    private fun initEditBirthdayButton(){
+        binding.btnFrgamentMypageEditBirthday.setOnClickListener{
+            EnterBirthdayBottomSheetDialogFragment().also {
+                it.show(
+                    requireActivity().supportFragmentManager,
+                    this.tag,
                 )
             }
         }
