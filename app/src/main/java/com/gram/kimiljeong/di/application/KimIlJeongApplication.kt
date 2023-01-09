@@ -4,4 +4,19 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class KimIlJeongApplication : Application()
+class KimIlJeongApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        initTokens()
+    }
+
+    private fun initTokens() {
+        /*CoroutineScope(Dispatchers.IO).launch {
+            userRepository.fetchTokens().run {
+                accessToken = first
+                refreshToken = second
+            }
+        }*/
+    }
+}

@@ -1,4 +1,4 @@
-package com.gram.kimiljeong.data.util
+package com.gram.kimiljeong.data.extension
 
 import com.gram.kimiljeong.data.common.Color
 

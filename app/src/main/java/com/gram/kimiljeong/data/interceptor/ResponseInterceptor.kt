@@ -3,8 +3,9 @@ package com.gram.kimiljeong.data.interceptor
 import com.gram.kimiljeong.data.common.HTTPStatusCode.UNAUTHORIZED
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class ResponseInterceptor : Interceptor {
+class ResponseInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(chain.request()).also {
             when (it.code) {
