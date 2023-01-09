@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/item_bottom_navigation_main_calendar"
+        android:enabled="true"
         android:icon="@drawable/ic_bn_main_calendar"
         android:title="@string/dot_selected" />
     <item
         android:id="@+id/item_bottom_navigation_main_map"
+        android:enabled="true"
         android:icon="@drawable/ic_bn_main_map"
         android:title="@string/dot_selected" />
     <item
         android:id="@+id/item_bottom_navigation_main_post"
+        android:enabled="true"
         android:icon="@drawable/ic_bn_main_notification"
         android:title="@string/dot_selected" />
     <item
         android:id="@+id/item_bottom_navigation_main_mypage"
+        android:enabled="true"
         android:icon="@drawable/ic_bn_main_my_page"
         android:title="@string/dot_selected" />
 </menu>

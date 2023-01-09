@@ -119,7 +119,7 @@
         <item name="android:textColor">@color/description</item>
     </style>
 
-    <style name="BottomNavigationViewMain" parent="Widget.Material3.BottomNavigationView">
+    <style name="BottomNavigationViewMain" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:background">@drawable/bg_main_bn</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">72dp</item>
