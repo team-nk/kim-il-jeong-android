@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/BackgroundPrimary"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_include_global_vertical_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/BackgroundPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_include_global_horizontal_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_include_global_vertical_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
-    <LinearLayout
-        android:id="@+id/layout_global_header"
-        style="@style/LinearLayoutGlobalTitle"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/gl_include_global_horizontal_1"
-        app:layout_constraintStart_toEndOf="@id/gl_include_global_vertical_1">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_include_global_horizontal_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
 
-        <TextView
-            android:id="@+id/tv_include_global_title"
-            style="@style/TextViewGlobalTitle"
-            android:layout_marginTop="8dp" />
+        <LinearLayout
+            android:id="@+id/layout_global_header"
+            style="@style/LinearLayoutGlobalTitle"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/gl_include_global_vertical_1"
+            app:layout_constraintTop_toBottomOf="@id/gl_include_global_horizontal_1">
 
-        <TextView
-            android:id="@+id/tv_include_global_sub_title"
-            style="@style/TextViewGlobalSubTitle"
-            android:text="@string/post_en" />
+            <TextView
+                android:id="@+id/tv_include_global_title"
+                style="@style/TextViewGlobalTitle"
+                android:layout_marginTop="8dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_include_global_sub_title"
+                style="@style/TextViewGlobalSubTitle"
+                android:text="@string/post_en" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

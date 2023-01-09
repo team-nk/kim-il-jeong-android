@@ -11,10 +11,11 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
     override fun initView() {
-        view?.run {
-            findViewById<TextView>(R.id.tv_include_global_title).text = getString(R.string.welcome)
-            findViewById<TextView>(R.id.tv_include_global_sub_title).text =
-                getString(R.string.my_page)
+        binding.includedFragmentMypageHeader.run{
+            tvIncludeGlobalTitle
+                .text = getString(R.string.welcome)
+            tvIncludeGlobalSubTitle
+                .text = getString(R.string.my_page)
         }
     }
 }
