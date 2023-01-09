@@ -4,6 +4,7 @@ import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import com.gram.kimiljeong.R
 import com.gram.kimiljeong.databinding.FragmentMypageBinding
 import com.gram.kimiljeong.presentation.view.base.view.BaseFragment
+import com.gram.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import com.gram.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import com.gram.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +17,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initMypageHeader()
         initEditProfileButton()
         initEditBirthdayButton()
+        initChangePasswordButton()
     }
 
     private fun initMypageHeader(){
@@ -44,6 +46,17 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 it.show(
                     requireActivity().supportFragmentManager,
                     this.tag,
+                )
+            }
+        }
+    }
+
+    private fun initChangePasswordButton(){
+        binding.btnFragmentMypageChangePassword.setOnClickListener {
+            requireActivity().run {
+                startActivity(
+                    context = requireActivity(),
+                    to = ChangePasswordActivity::class.java,
                 )
             }
         }
