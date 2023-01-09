@@ -11,8 +11,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     R.layout.fragment_calendar,
 ) {
     override fun initView() {
-        binding.includedFragmentCalendarHeader
-            .findViewById<TextView>(R.id.tv_include_global_sub_title)
+        binding.includedFragmentCalendarHeader.tvIncludeGlobalSubTitle
             .text = getString(R.string.calendar_en)
     }
 }
