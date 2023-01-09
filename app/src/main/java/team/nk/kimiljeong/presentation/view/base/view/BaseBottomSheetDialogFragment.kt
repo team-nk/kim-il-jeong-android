@@ -19,7 +19,7 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             layoutId,
@@ -31,9 +31,13 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         initView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.unbind()
     }
 
     abstract fun initView()
