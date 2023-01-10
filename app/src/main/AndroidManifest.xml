@@ -29,5 +29,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".presentation.view.changepassword.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.view.changeuserinformation.ChangeUserInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.view.start.StartActivity"
+            android:exported="false" />
     </application>
 </manifest>
