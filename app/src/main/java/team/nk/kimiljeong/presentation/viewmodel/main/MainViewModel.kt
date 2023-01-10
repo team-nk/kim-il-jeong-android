@@ -17,7 +17,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     application: Application,
     private val userRepository: UserRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(
+    mApplication = application,
+) {
 
     init {
         checkLoggedIn()
