@@ -23,7 +23,7 @@ class AuthPreferencesImpl @Inject constructor(
         mSharedPreferencesEditor.putBoolean(
             IS_LOGGED_IN,
             loggedIn,
-        )
+        ).apply()
     }
 
     override suspend fun isLoggedIn(): Boolean {
