@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
-import team.nk.kimiljeong.presentation.view.base.viewmodel.BaseViewModel
+import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel

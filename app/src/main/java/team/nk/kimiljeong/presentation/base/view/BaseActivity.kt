@@ -1,4 +1,4 @@
-package team.nk.kimiljeong.presentation.view.base.view
+package team.nk.kimiljeong.presentation.base.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

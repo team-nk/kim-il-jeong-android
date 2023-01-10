@@ -6,7 +6,7 @@ import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityMainBinding
-import team.nk.kimiljeong.presentation.view.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.calendar.CalendarFragment
 import team.nk.kimiljeong.presentation.view.map.MapFragment
 import team.nk.kimiljeong.presentation.view.mypage.MyPageFragment

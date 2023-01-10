@@ -4,7 +4,7 @@ import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityStartBinding
-import team.nk.kimiljeong.presentation.view.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.login.LoginActivity
 
 @AndroidEntryPoint
