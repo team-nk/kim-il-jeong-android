@@ -32,5 +32,8 @@
         <activity
             android:name=".presentation.view.start.StartActivity"
             android:exported="true" />
+        <activity
+            android:name=".presentation.view.login.LoginActivity"
+            android:exported="true" />
     </application>
 </manifest>
