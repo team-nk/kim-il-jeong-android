@@ -9,12 +9,26 @@ class EnterBirthdayBottomSheetDialogFragment :
         R.layout.dialog_enter_birthday,
     ) {
     override fun initView() {
+        initSelectBirthdayButton()
         initCancelButton()
+        initEnterBirthdayButton()
+    }
+
+    private fun initSelectBirthdayButton(){
+        binding.btnDlgEnterBirthdaySelectBirthday.setOnClickListener {
+            // TODO show calendar logic
+        }
     }
 
     private fun initCancelButton(){
         binding.btnDlgEnterBirthdayCancel.setOnClickListener {
             dismiss()
+        }
+    }
+
+    private fun initEnterBirthdayButton(){
+        binding.btnDlgEnterBirthdayEnter.setOnClickListener {
+            // TODO server logic
         }
     }
 }
