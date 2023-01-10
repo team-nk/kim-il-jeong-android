@@ -10,22 +10,40 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
-import team.nk.kimiljeong.presentation.view.base.viewmodel.BaseViewModel
+import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     application: Application,
     private val userRepository: UserRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(
+    mApplication = application,
+) {
 
     init {
-        getSelfInformation()
+        checkLoggedIn()
     }
 
+    private val _needToLogin = MutableLiveData<Boolean>()
+    internal val needToLogin: LiveData<Boolean>
+        get() = _needToLogin
+
     private val _userInformation = MutableLiveData<SelfInformationResponse>()
-    val userInformation: LiveData<SelfInformationResponse>
+    internal val userInformation: LiveData<SelfInformationResponse>
         get() = _userInformation
+
+    internal fun checkLoggedIn() {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                userRepository.checkLoggedIn()
+            }.onSuccess {
+                _needToLogin.postValue(it.not())
+            }.onFailure {
+                _needToLogin.postValue(true)
+            }
+        }
+    }
 
     internal fun getSelfInformation() {
         viewModelScope.launch(IO) {
