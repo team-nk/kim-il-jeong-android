@@ -64,7 +64,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         ) {
             if (it) {
                 startActivity(
-                    this, MainActivity::class.java,
+                    this,
+                    MainActivity::class.java,
                 )
             }
         }
