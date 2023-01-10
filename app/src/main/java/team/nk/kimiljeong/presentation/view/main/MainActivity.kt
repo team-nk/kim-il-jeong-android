@@ -70,7 +70,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         ) {
             if (it) {
                 startActivity(
-                    this, StartActivity::class.java,
+                    this,
+                    StartActivity::class.java,
                 )
             }
         }
