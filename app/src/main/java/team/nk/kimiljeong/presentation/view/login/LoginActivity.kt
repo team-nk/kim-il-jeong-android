@@ -2,11 +2,11 @@ package team.nk.kimiljeong.presentation.view.login
 
 import androidx.activity.viewModels
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
-import app.junsu.startactivityutility.ShowSnackBarUtil.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityLoginBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.view.main.MainActivity
 import team.nk.kimiljeong.presentation.view.register.RegisterActivity
 import team.nk.kimiljeong.presentation.viewmodel.login.LoginViewModel
