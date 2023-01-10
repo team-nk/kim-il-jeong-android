@@ -32,6 +32,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        observeEvent()
         initView()
     }
 
@@ -41,4 +42,10 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     abstract fun initView()
+
+    protected open fun observeEvent() {
+        observeSnackBarMessage()
+    }
+
+    protected open fun observeSnackBarMessage() {}
 }
