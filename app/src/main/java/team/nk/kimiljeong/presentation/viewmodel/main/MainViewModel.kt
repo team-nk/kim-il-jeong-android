@@ -23,9 +23,25 @@ class MainViewModel @Inject constructor(
         getSelfInformation()
     }
 
+    private val _isLoggedIn = MutableLiveData<Boolean>()
+    internal val isLoggedIn: LiveData<Boolean>
+        get() = _isLoggedIn
+
     private val _userInformation = MutableLiveData<SelfInformationResponse>()
-    val userInformation: LiveData<SelfInformationResponse>
+    internal val userInformation: LiveData<SelfInformationResponse>
         get() = _userInformation
+
+    internal fun checkLoggedIn() {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                userRepository.checkLoggedIn()
+            }.onSuccess {
+                _isLoggedIn.postValue(it)
+            }.onFailure {
+                _isLoggedIn.postValue(false)
+            }
+        }
+    }
 
     internal fun getSelfInformation() {
         viewModelScope.launch(IO) {
