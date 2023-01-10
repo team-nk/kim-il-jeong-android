@@ -1,4 +1,4 @@
-package team.nk.kimiljeong.presentation.view.base.view
+package team.nk.kimiljeong.presentation.base.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -20,8 +20,15 @@ abstract class BaseActivity<B : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
+        observeEvent()
         initView()
     }
 
-    abstract fun initView()
+    abstract fun initView() // TODO make protected
+
+    protected open fun observeEvent() {
+        observeSnackBarMessage()
+    }
+
+    protected open fun observeSnackBarMessage() {}
 }

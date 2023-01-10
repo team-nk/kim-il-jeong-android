@@ -1,4 +1,4 @@
-package team.nk.kimiljeong.presentation.view.base.viewmodel
+package team.nk.kimiljeong.presentation.base.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

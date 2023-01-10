@@ -24,6 +24,12 @@ interface UserRepository {
 
     suspend fun getSelfInformation(): Response<SelfInformationResponse>
 
+    suspend fun checkLoggedIn(): Boolean
+
+    suspend fun setToLoggedIn()
+
+    suspend fun setToLoggedOut()
+
     suspend fun login(
         request: LoginRequest,
     ): Response<LoginResponse>

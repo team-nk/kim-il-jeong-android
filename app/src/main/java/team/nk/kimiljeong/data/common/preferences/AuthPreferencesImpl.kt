@@ -2,6 +2,7 @@ package team.nk.kimiljeong.data.common.preferences
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import dagger.hilt.android.qualifiers.ApplicationContext
 import team.nk.kimiljeong.data.common.SharedPreferencesKey.ACCESS_TOKEN
 import team.nk.kimiljeong.data.common.SharedPreferencesKey.IS_LOGGED_IN
 import team.nk.kimiljeong.data.common.SharedPreferencesKey.REFRESH_TOKEN
@@ -9,12 +10,10 @@ import team.nk.kimiljeong.data.common.SharedPreferencesName.DEFAULT
 import javax.inject.Inject
 
 class AuthPreferencesImpl @Inject constructor(
-    private val mContext: Context,
+    @ApplicationContext private val mContext: Context,
 ) : AuthPreferences {
 
-    private val mSharedPreferences by lazy {
-        mContext.getSharedPreferences(DEFAULT, MODE_PRIVATE)
-    }
+    private val mSharedPreferences = mContext.getSharedPreferences(DEFAULT, MODE_PRIVATE)
 
     private val mSharedPreferencesEditor by lazy {
         mSharedPreferences.edit()
@@ -24,10 +23,10 @@ class AuthPreferencesImpl @Inject constructor(
         mSharedPreferencesEditor.putBoolean(
             IS_LOGGED_IN,
             loggedIn,
-        )
+        ).apply()
     }
 
-    override fun isLoggedIn(): Boolean {
+    override suspend fun isLoggedIn(): Boolean {
         return mSharedPreferences.getBoolean(
             IS_LOGGED_IN,
             false,

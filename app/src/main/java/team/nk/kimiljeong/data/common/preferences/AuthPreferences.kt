@@ -2,12 +2,12 @@ package team.nk.kimiljeong.data.common.preferences
 
 interface AuthPreferences {
 
-    fun isLoggedIn(): Boolean
-
     fun setLoginStatus(loggedIn: Boolean)
 
     fun fetchAccessToken(): String
     fun fetchRefreshToken(): String
+
+    suspend fun isLoggedIn(): Boolean
 
     suspend fun fetchTokens(): Pair<String, String>
 
