@@ -23,5 +23,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
         initView()
     }
 
-    abstract fun initView()
+    abstract fun initView() // TODO make protected
+
+    protected open fun observeEvent() {}
 }
