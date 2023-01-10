@@ -26,5 +26,9 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     abstract fun initView() // TODO make protected
 
-    protected open fun observeEvent() {}
+    protected open fun observeEvent() {
+        observeSnackBarMessage()
+    }
+
+    protected open fun observeSnackBarMessage() {}
 }
