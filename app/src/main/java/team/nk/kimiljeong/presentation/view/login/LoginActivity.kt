@@ -1,9 +1,8 @@
 package team.nk.kimiljeong.presentation.view.login
 
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
+import app.junsu.startactivityutility.ShowSnackBarUtil.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityLoginBinding
@@ -76,8 +75,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
         viewModel.snackBarMessage.observe(
             this@LoginActivity,
         ) {
-            // TODO make snackBar library
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            binding.root.showShortSnackBar(it)
         }
     }
 }
