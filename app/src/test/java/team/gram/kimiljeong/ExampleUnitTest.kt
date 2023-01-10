@@ -1,4 +1,4 @@
-package com.gram.kimiljeong
+package team.gram.kimiljeong
 
 import org.junit.Test
 
