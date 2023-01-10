@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel(application) {
 
     init {
-        getSelfInformation()
+        checkLoggedIn()
     }
 
     private val _isLoggedIn = MutableLiveData<Boolean>()
