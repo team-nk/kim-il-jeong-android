@@ -29,5 +29,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".presentation.view.start.StartActivity"
+            android:exported="true" />
     </application>
 </manifest>
