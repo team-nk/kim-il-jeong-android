@@ -65,13 +65,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     }
 
     private fun observeLoginStatus() {
-        viewModel.isLoggedIn.observe(
+        viewModel.needToLogin.observe(
             this@MainActivity,
         ) {
             if (it) {
-                TODO("Renew Token!! viewModel.renewToken()")
-            } else {
-                // requireLogin()
                 startActivity(
                     this, StartActivity::class.java,
                 )

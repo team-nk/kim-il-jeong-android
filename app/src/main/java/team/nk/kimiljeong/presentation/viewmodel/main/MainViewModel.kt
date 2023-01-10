@@ -25,9 +25,9 @@ class MainViewModel @Inject constructor(
         checkLoggedIn()
     }
 
-    private val _isLoggedIn = MutableLiveData<Boolean>()
-    internal val isLoggedIn: LiveData<Boolean>
-        get() = _isLoggedIn
+    private val _needToLogin = MutableLiveData<Boolean>()
+    internal val needToLogin: LiveData<Boolean>
+        get() = _needToLogin
 
     private val _userInformation = MutableLiveData<SelfInformationResponse>()
     internal val userInformation: LiveData<SelfInformationResponse>
@@ -38,9 +38,9 @@ class MainViewModel @Inject constructor(
             kotlin.runCatching {
                 userRepository.checkLoggedIn()
             }.onSuccess {
-                _isLoggedIn.postValue(it)
+                _needToLogin.postValue(it.not())
             }.onFailure {
-                _isLoggedIn.postValue(false)
+                _needToLogin.postValue(true)
             }
         }
     }
