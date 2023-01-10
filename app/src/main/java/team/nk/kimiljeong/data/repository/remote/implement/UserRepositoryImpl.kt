@@ -47,6 +47,18 @@ class UserRepositoryImpl @Inject constructor(
         return authPreferences.isLoggedIn()
     }
 
+    override suspend fun setToLoggedIn() {
+        authPreferences.setLoginStatus(
+            loggedIn = true,
+        )
+    }
+
+    override suspend fun setToLoggedOut() {
+        authPreferences.setLoginStatus(
+            loggedIn = false,
+        )
+    }
+
     override suspend fun login(
         request: LoginRequest,
     ): Response<LoginResponse> {
