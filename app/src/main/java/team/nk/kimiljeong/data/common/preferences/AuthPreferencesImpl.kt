@@ -27,7 +27,7 @@ class AuthPreferencesImpl @Inject constructor(
         )
     }
 
-    override fun isLoggedIn(): Boolean {
+    override suspend fun isLoggedIn(): Boolean {
         return mSharedPreferences.getBoolean(
             IS_LOGGED_IN,
             false,
