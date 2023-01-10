@@ -11,11 +11,29 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
 ) {
     override fun initView() {
         initCancelButton()
+        initChangePasswordButton()
     }
 
-    private fun initCancelButton(){
+    private fun initCancelButton() {
         binding.btnActivityChangePasswordCancel.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun initChangePasswordButton() {
+        binding.run {
+            btnActivityChangePasswordChange.setOnClickListener {
+                val oldPassword = binding.etActivityChangePasswordOldPassword.text.toString()
+                val newPassword = binding.etActivityChangePasswordNewPassword.text.toString()
+                val newPasswordRepeat =
+                    binding.etActivityChangePasswordNewPasswordRepeat.text.toString()
+                if (oldPassword.isNotEmpty() &&
+                    newPassword.isNotEmpty() ==
+                    newPasswordRepeat.isNotEmpty()
+                ) {
+                    // TODO server logic
+                }
+            }
         }
     }
 }
