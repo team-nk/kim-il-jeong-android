@@ -8,5 +8,13 @@ class EnterBirthdayBottomSheetDialogFragment :
     BaseBottomSheetDialogFragment<DialogEnterBirthdayBinding>(
         R.layout.dialog_enter_birthday,
     ) {
-    override fun initView() {}
+    override fun initView() {
+        initCancelButton()
+    }
+
+    private fun initCancelButton(){
+        binding.btnDlgEnterBirthdayCancel.setOnClickListener {
+            dismiss()
+        }
+    }
 }

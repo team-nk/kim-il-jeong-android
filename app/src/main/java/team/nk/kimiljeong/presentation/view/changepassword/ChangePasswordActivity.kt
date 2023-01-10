@@ -9,5 +9,13 @@ import team.nk.kimiljeong.presentation.view.base.view.BaseActivity
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
     R.layout.activity_change_password,
 ) {
-    override fun initView() {}
+    override fun initView() {
+        initCancelButton()
+    }
+
+    private fun initCancelButton(){
+        binding.btnActivityChangePasswordCancel.setOnClickListener {
+            finish()
+        }
+    }
 }

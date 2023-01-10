@@ -7,5 +7,13 @@ import team.nk.kimiljeong.presentation.view.base.view.BaseActivity
 class ChangeUserInformationActivity : BaseActivity<ActivityChangeUserInformationBinding>(
     R.layout.activity_change_user_information,
 ) {
-    override fun initView() {}
+    override fun initView() {
+        initCancleButton()
+    }
+
+    private fun initCancleButton(){
+        binding.btnActivityChangeUserInformationCancel.setOnClickListener {
+            finish()
+        }
+    }
 }
