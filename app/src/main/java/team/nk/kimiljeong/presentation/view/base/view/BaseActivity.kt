@@ -20,8 +20,8 @@ abstract class BaseActivity<B : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
-        initView()
         observeEvent()
+        initView()
     }
 
     abstract fun initView() // TODO make protected
