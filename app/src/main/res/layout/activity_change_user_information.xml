@@ -28,6 +28,7 @@
                 android:src="@drawable/img_global_temp" />
 
             <TextView
+                android:id="@+id/tv_activity_change_user_information_change_image"
                 style="@style/TextViewHintPrimary"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="48dp"

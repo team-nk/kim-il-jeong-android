@@ -9,5 +9,31 @@ import team.nk.kimiljeong.presentation.base.view.BaseActivity
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
     R.layout.activity_change_password,
 ) {
-    override fun initView() {}
+    override fun initView() {
+        initCancelButton()
+        initChangePasswordButton()
+    }
+
+    private fun initCancelButton() {
+        binding.btnActivityChangePasswordCancel.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun initChangePasswordButton() {
+        binding.run {
+            btnActivityChangePasswordChange.setOnClickListener {
+                val oldPassword = binding.etActivityChangePasswordOldPassword.text.toString()
+                val newPassword = binding.etActivityChangePasswordNewPassword.text.toString()
+                val newPasswordRepeat =
+                    binding.etActivityChangePasswordNewPasswordRepeat.text.toString()
+                if (oldPassword.isNotEmpty() &&
+                    newPassword.isNotEmpty() ==
+                    newPasswordRepeat.isNotEmpty()
+                ) {
+                    // TODO server logic
+                }
+            }
+        }
+    }
 }
