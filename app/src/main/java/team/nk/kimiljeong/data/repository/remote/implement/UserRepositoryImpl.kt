@@ -1,7 +1,6 @@
 package team.nk.kimiljeong.data.repository.remote.implement
 
 import com.gram.kimiljeong.data.model.remote.response.SelfInformationResponse
-import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.AuthAPI
 import team.nk.kimiljeong.data.common.preferences.AuthPreferences
@@ -10,6 +9,7 @@ import team.nk.kimiljeong.data.model.remote.response.BooleanResponse
 import team.nk.kimiljeong.data.model.remote.response.LoginResponse
 import team.nk.kimiljeong.data.model.remote.response.RenewTokenResponse
 import team.nk.kimiljeong.data.model.remote.response.UploadImageResponse
+import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -41,6 +41,10 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getSelfInformation(): Response<SelfInformationResponse> {
         return authApi.getSelfInformation()
+    }
+
+    override suspend fun checkLoggedIn(): Boolean {
+        return authPreferences.isLoggedIn()
     }
 
     override suspend fun login(
