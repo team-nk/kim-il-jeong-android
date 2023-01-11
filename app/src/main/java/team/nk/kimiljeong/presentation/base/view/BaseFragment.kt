@@ -8,10 +8,13 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import team.nk.kimiljeong.presentation.common.ShowSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showLongSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
-) : Fragment() {
+) : Fragment(), ShowSnackBar {
 
     protected lateinit var binding: B
 
@@ -48,4 +51,16 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     protected open fun observeSnackBarMessage() {}
+
+    override fun showShortSnackBar(text: String) {
+        binding.root.showShortSnackBar(
+            text = text,
+        )
+    }
+
+    override fun showLongSnackBar(text: String) {
+        binding.root.showLongSnackBar(
+            text = text,
+        )
+    }
 }
