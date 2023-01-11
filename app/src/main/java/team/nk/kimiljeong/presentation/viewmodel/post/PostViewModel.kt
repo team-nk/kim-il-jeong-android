@@ -19,6 +19,10 @@ class PostViewModel @Inject constructor(
     private val postRepository: PostRepository,
 ) : BaseViewModel(application) {
 
+    init {
+        inquirePosts()
+    }
+
     private val _posts = MutableLiveData<List<PostInformation>>()
     val posts: LiveData<List<PostInformation>>
         get() = _posts
@@ -29,9 +33,7 @@ class PostViewModel @Inject constructor(
                 postRepository.inquirePostList()
             }.onSuccess {
                 if (it.isSuccessful) {
-                    _posts.postValue(
-                        it.body()!!.posts
-                    )
+                    _posts.postValue(it.body()!!.posts)
                 } else {
                     _snackBarMessage.postValue(
                         mApplication.getString(
