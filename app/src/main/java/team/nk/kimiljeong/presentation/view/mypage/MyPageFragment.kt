@@ -17,6 +17,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
 
+    // TODO make MyPage ViewModel too
     private val viewModel by lazy {
         ViewModelProvider(requireActivity())[MainViewModel::class.java]
     }
