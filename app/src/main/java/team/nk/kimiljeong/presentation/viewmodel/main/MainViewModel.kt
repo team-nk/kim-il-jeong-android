@@ -39,6 +39,7 @@ class MainViewModel @Inject constructor(
                 userRepository.checkLoggedIn()
             }.onSuccess {
                 _needToLogin.postValue(it.not())
+                getSelfInformation()
             }.onFailure {
                 _needToLogin.postValue(true)
             }

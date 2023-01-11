@@ -52,6 +52,7 @@ dependencies {
     def gms_location_version = "21.0.1"
     def circleimageview_version = "3.1.0"
     def start_activity_util_version = "0.0.1"
+    def glide_version = "4.14.2"
 
     implementation "com.github.Android-Utility:start-activity-utility:$start_activity_util_version"
 
@@ -64,6 +65,9 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"

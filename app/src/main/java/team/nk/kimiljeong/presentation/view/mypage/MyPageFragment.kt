@@ -1,26 +1,49 @@
 package team.nk.kimiljeong.presentation.view.mypage
 
+import androidx.lifecycle.ViewModelProvider
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentMypageBinding
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
+import team.nk.kimiljeong.presentation.view.adapter.bindingadapter.loadImageFrom
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
+import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
+
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity())[MainViewModel::class.java]
+    }
+
     override fun initView() {
-        initMypageHeader()
+        initHeader()
+        initButtons()
+        initUserInformation()
+    }
+
+    private fun initUserInformation() {
+        with(binding) {
+            viewModel.userInformation.value.run {
+                tvFragmentMypageId.text = this!!.id.also { println("HIHIHIHIHI $it") }
+                tvFragmentMypageEmail.text = this.email.also { println(it) }
+                imageFragmentMypageUserProfile.loadImageFrom(this.profileUrl).also { println(it) }
+            }
+        }
+    }
+
+    private fun initButtons() {
         initEditProfileButton()
         initEditBirthdayButton()
         initChangePasswordButton()
     }
 
-    private fun initMypageHeader() {
+    private fun initHeader() {
         binding.includedFragmentMypageHeader.run {
             tvIncludeGlobalTitle
                 .text = getString(R.string.welcome)
@@ -44,7 +67,9 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         binding.btnFrgamentMypageEditBirthday.setOnClickListener {
             EnterBirthdayBottomSheetDialogFragment().also {
                 it.show(
+                    /* manager = */
                     requireActivity().supportFragmentManager,
+                    /* tag = */
                     this.tag,
                 )
             }

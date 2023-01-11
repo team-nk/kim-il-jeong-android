@@ -56,7 +56,15 @@ class LoginViewModel @Inject constructor(
                     }.onSuccess {
                         if (it.isSuccessful) {
                             _isLoginSucceed.postValue(true)
-                            userRepository.setToLoggedIn()
+                            userRepository.run {
+                                setToLoggedIn()
+                                it.body()?.let { body ->
+                                    saveTokens(
+                                        refreshToken = body.refreshToken,
+                                        accessToken = body.accessToken,
+                                    )
+                                }
+                            }
                         } else {
                             _isLoginSucceed.postValue(false)
                             _snackBarMessage.postValue(
