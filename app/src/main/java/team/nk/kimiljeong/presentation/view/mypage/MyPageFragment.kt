@@ -30,10 +30,10 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     private fun initUserInformation() {
         with(binding) {
             viewModel.userInformation.value?.let {
-                tvFragmentMypageId.text = it.id.also { println("HIHIHIHIHI $it") }
-                tvFragmentMypageEmail.text = it.email.also { println(it) }
-                imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl).also { println(it) }
-            } ?:{
+                tvFragmentMypageId.text = it.id
+                tvFragmentMypageEmail.text = it.email
+                imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl)
+            } ?: {
                 //TODO서버 토큰 갱신 API로직 호출
                 showShortSnackBar(
                     getString(
