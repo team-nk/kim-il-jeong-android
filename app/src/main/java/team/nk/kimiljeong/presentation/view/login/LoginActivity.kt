@@ -2,6 +2,7 @@ package team.nk.kimiljeong.presentation.view.login
 
 import androidx.activity.viewModels
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
+import app.junsu.startactivityutil.StartActivityUtil.startActivityRemovingBackStack
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityLoginBinding
@@ -26,7 +27,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
     private fun initRegisterButton() {
         binding.tvActivityLoginGoToRegister.setOnClickListener {
             startActivity(
-                this, RegisterActivity::class.java,
+                context = this,
+                to = RegisterActivity::class.java,
             )
         }
     }
@@ -62,9 +64,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             this@LoginActivity,
         ) {
             if (it) {
-                startActivity(
-                    this,
-                    MainActivity::class.java,
+                startActivityRemovingBackStack(
+                    context = this,
+                    to = MainActivity::class.java,
                 )
             }
         }
