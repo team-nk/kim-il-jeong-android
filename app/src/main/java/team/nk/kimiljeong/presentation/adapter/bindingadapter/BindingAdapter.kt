@@ -1,4 +1,4 @@
-package team.nk.kimiljeong.presentation.view.adapter.bindingadapter
+package team.nk.kimiljeong.presentation.adapter.bindingadapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
