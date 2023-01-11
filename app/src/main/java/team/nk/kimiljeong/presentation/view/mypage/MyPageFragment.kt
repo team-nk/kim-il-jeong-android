@@ -29,10 +29,10 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
 
     private fun initUserInformation() {
         with(binding) {
-            viewModel.userInformation.value.run {
-                tvFragmentMypageId.text = this!!.id.also { println("HIHIHIHIHI $it") }
-                tvFragmentMypageEmail.text = this.email.also { println(it) }
-                imageFragmentMypageUserProfile.loadImageFrom(this.profileUrl).also { println(it) }
+            viewModel.userInformation.value?.let {
+                tvFragmentMypageId.text = it.id.also { println("HIHIHIHIHI $it") }
+                tvFragmentMypageEmail.text = it.email.also { println(it) }
+                imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl).also { println(it) }
             }
         }
     }
