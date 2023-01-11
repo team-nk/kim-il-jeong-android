@@ -33,6 +33,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 tvFragmentMypageId.text = it.id.also { println("HIHIHIHIHI $it") }
                 tvFragmentMypageEmail.text = it.email.also { println(it) }
                 imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl).also { println(it) }
+            } ?:{
+                //TODO서버 토큰 갱신 API로직 호출
+                showShortSnackBar(
+                    getString(
+                        R.string.error_failed_to_connect_to_server,
+                    ),
+                )
             }
         }
     }
