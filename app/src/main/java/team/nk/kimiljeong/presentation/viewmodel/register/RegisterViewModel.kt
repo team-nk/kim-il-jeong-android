@@ -25,6 +25,14 @@ class RegisterViewModel @Inject constructor(
     internal val register: LiveData<Boolean>
         get() = _register
 
+    private val _checkIdDuplicationResponse = MutableLiveData<Boolean>()
+    internal val checkIdDuplicationResponse: LiveData<Boolean>
+        get() = _checkIdDuplicationResponse
+
+    private val _isIdDuplicationChecked = MutableLiveData<Boolean>()
+    internal val isIdDuplicationChecked: LiveData<Boolean>
+        get() = _isIdDuplicationChecked
+
     internal fun register(
         email: String,
         verificationCode: String,
@@ -83,6 +91,31 @@ class RegisterViewModel @Inject constructor(
                         }
                     }.onFailure {
                         _register.postValue(false)
+                    }
+                }
+            }
+        }
+    }
+
+    internal fun checkIdDuplication(
+        accountId: String,
+    ) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                userRepository.checkIdDuplication(
+                    accountId,
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    if (it.isSuccessful) {
+                        _checkIdDuplicationResponse.postValue(true)
+                        _isIdDuplicationChecked.postValue(true)
+                    } else {
+                        _snackBarMessage.postValue(
+                            mApplication.getString(
+                                R.string.sign_up_error_id_already_exists,
+                            )
+                        )
                     }
                 }
             }

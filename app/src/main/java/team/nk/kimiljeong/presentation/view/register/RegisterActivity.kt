@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.register
 
+import android.view.View
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
@@ -16,6 +17,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
 
     override fun initView() {
         initRegisterButton()
+        initCheckIdDuplicationButton()
     }
 
     override fun observeEvent() {
@@ -37,9 +39,27 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
         }
     }
 
+    private fun initCheckIdDuplicationButton() {
+        with(binding) {
+            btnActivityRegisterCheckIdDuplication.setOnClickListener {
+                etActivityRegisterId.text.toString().run {
+                    if (this.isNotBlank()) {
+                        viewModel.checkIdDuplication(
+                            accountId = this,
+                        )
+                    } else {
+                        showShortSnackBar(
+                            getString(R.string.sign_up_hint_please_enter_id),
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     private fun observeRegister() {
         viewModel.snackBarMessage.observe(
-            this
+            this,
         ) {
             showShortSnackBar(it)
         }
@@ -51,5 +71,29 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
                 finish()
             }
         }
+        viewModel.checkIdDuplicationResponse.observe(
+            this,
+        ) {
+            if (it) {
+                showShortSnackBar(
+                    getString(
+                        R.string.sign_up_snkbr_available_id,
+                    )
+                )
+                binding.etActivityRegisterId.disable()
+                binding.btnActivityRegisterCheckIdDuplication.disable()
+            } else {
+                showShortSnackBar(
+                    getString(
+                        R.string.sign_up_error_unavailbale_id,
+                    )
+                )
+            }
+        }
+    }
+
+    internal fun View.disable() {
+        alpha = 0.4f
+        isEnabled = false
     }
 }
