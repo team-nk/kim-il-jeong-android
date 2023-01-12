@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <View
+            android:id="@+id/indicator_item_calendar_today_schedule"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_margin="16dp"
+            tools:background="@drawable/bg_create_schedule_color_indicator_blue_unchecked" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_calendar_today_schedule_date"
+                style="@style/TextViewDescriptionPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                tools:text="2022-05-08 06:38" />
+
+            <TextView
+                android:id="@+id/tv_item_calendar_today_schedule_title"
+                style="@style/TextViewBodyPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="제목제목" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
