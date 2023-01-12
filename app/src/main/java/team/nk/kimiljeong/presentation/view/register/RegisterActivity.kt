@@ -1,13 +1,10 @@
 package team.nk.kimiljeong.presentation.view.register
 
 import androidx.activity.viewModels
-import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityRegisterBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
-import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
-import team.nk.kimiljeong.presentation.view.login.LoginActivity
 import team.nk.kimiljeong.presentation.viewmodel.register.RegisterViewModel
 
 @AndroidEntryPoint
@@ -50,11 +47,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
             this,
         ) {
             if (it) {
-                showShortSnackBar(getString(R.string.sign_up_dlg_success_title))
-                startActivity(
-                    context = this,
-                    to = LoginActivity::class.java,
-                )
+                setResult(RESULT_OK)
+                finish()
             }
         }
     }
