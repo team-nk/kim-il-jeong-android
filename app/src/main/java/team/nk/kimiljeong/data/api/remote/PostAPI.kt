@@ -1,14 +1,14 @@
 package team.nk.kimiljeong.data.api.remote
 
-import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
-import team.nk.kimiljeong.data.model.remote.response.InquireBirthdayListResponse
-import team.nk.kimiljeong.data.model.remote.response.InquireCommentListResponse
-import team.nk.kimiljeong.data.model.remote.response.InquirePostListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
+import team.nk.kimiljeong.data.model.remote.response.InquireBirthdayListResponse
+import team.nk.kimiljeong.data.model.remote.response.InquireCommentListResponse
+import team.nk.kimiljeong.data.model.remote.response.InquirePostListResponse
 
 interface PostAPI {
 
