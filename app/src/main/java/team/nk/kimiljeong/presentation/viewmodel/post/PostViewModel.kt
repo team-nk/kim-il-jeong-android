@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.presentation.viewmodel.post
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,15 +33,25 @@ class PostViewModel @Inject constructor(
             kotlin.runCatching {
                 postRepository.inquirePostList()
             }.onSuccess {
+                println("HIHIHIHI ${it.isSuccessful}")
                 if (it.isSuccessful) {
+
+                    // todo remove
+                    Log.e(this.javaClass.simpleName, "inquirePosts: ", )
                     _posts.postValue(it.body()!!.posts)
+                    println(it.body()) // TODO remove
                 } else {
+
+                    Log.e(this.javaClass.simpleName, "inquirePosts: ", )
+
                     _snackBarMessage.postValue(
                         mApplication.getString(
                             R.string.error_failed_to_connect_to_server,
                         ),
                     )
                 }
+            }.onFailure {
+                println(it)
             }
         }
     }

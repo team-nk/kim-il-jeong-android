@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.di.module
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,8 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
     ): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create(
+                GsonBuilder().setLenient().create(),
+            )).build()
     }
 }

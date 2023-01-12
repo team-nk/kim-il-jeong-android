@@ -18,7 +18,7 @@ class PostRepositoryImpl @Inject constructor(
     }
 
     override suspend fun createPost(request: CreatePostRequest): Response<Void> {
-        return createPost(request)
+        return postApi.createPost(request)
     }
 
     override suspend fun createComment(postId: Int): Response<Void> {
