@@ -1,7 +1,9 @@
 package team.nk.kimiljeong.presentation.view.login
 
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import app.junsu.startactivityutil.StartActivityUtil.startActivityRemovingBackStack
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
@@ -19,16 +21,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
 
     private val viewModel by viewModels<LoginViewModel>()
 
+    private lateinit var registerActivityResultLauncher: ActivityResultLauncher<Intent>
+
     override fun initView() {
+        initActivityResultLauncher()
         initLoginButton()
         initRegisterButton()
     }
 
     private fun initRegisterButton() {
         binding.tvActivityLoginGoToRegister.setOnClickListener {
-            startActivity(
-                context = this,
-                to = RegisterActivity::class.java,
+            registerActivityResultLauncher.launch(
+                Intent(
+                    this,
+                    RegisterActivity::class.java
+                )
             )
         }
     }
@@ -40,6 +47,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
                     email = etActivityLoginEmail.text.toString(),
                     password = etActivityLoginPassword.text.toString(),
                 )
+            }
+        }
+    }
+
+    private fun initActivityResultLauncher() {
+        registerActivityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == RESULT_OK) {
+                showShortSnackBar(getString(R.string.sign_up_dlg_success_title))
             }
         }
     }
