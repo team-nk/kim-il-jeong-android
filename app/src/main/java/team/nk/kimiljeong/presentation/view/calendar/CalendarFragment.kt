@@ -37,7 +37,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inquireDateScheduleList(Calendar.getInstance().time)
+        inquireDateScheduleList(
+            date = Calendar.getInstance().time,
+            isToday = true,
+        )
     }
 
     private fun initHeader() {
@@ -60,10 +63,16 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             }
             setOnDateChangedListener { _, date, _ ->
                 if (date == today) {
-                    inquireDateScheduleList(Calendar.getInstance().time)
+                    inquireDateScheduleList(
+                        date = Calendar.getInstance().time,
+                        isToday = true
+                    )
                     removeDecorators()
                 } else {
-                    inquireDateScheduleList(date.date)
+                    inquireDateScheduleList(
+                        date = date.date,
+                        isToday = false,
+                    )
                     addDecorator(TodayDecorator(requireActivity()))
                 }
             }
@@ -97,7 +106,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                 adapter = ScheduleAdapter(
                     viewModel.setScheduleList(
                         list = it,
-                        currentTime = SimpleDateFormat("HH:mm:ss", Locale.KOREA).format(Calendar.getInstance().time)
+                        currentTime = SimpleDateFormat(
+                            "HH:mm:ss",
+                            Locale.KOREA
+                        ).format(Calendar.getInstance().time)
                     )
                 )
                 layoutManager = LinearLayoutManager(requireActivity())
@@ -116,13 +128,15 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
     private fun inquireDateScheduleList(
         date: Date,
-    ){
+        isToday: Boolean,
+    ) {
         println(date)
         viewModel.inquireDateScheduleList(
-            SimpleDateFormat(
+            date = SimpleDateFormat(
                 "yyyy-MM-dd'T'00:00:00.SSS'Z'",
                 Locale.KOREA,
-            ).format(date)
+            ).format(date),
+            isToday = isToday
         )
     }
 }

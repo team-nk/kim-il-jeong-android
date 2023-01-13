@@ -25,6 +25,10 @@ class CalendarViewModel @Inject constructor(
     val schedules: LiveData<List<ScheduleInformation>>
         get() = _schedules
 
+    private val _isToday = MutableLiveData<Boolean>()
+    val isToday: LiveData<Boolean>
+        get() = _isToday
+
     internal fun inquireSchedules() {
         viewModelScope.launch(IO) {
             kotlin.runCatching {
@@ -45,12 +49,14 @@ class CalendarViewModel @Inject constructor(
 
     internal fun inquireDateScheduleList(
         date: String,
-    ){
-        viewModelScope.launch(IO){
+        isToday: Boolean,
+    ) {
+        viewModelScope.launch(IO) {
             kotlin.runCatching {
                 scheduleRepository.inquireDateScheduleList(date)
             }.onSuccess {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
+                    _isToday.postValue(isToday)
                     _schedules.postValue(it.body()?.schedules)
                 } else {
                     _snackBarMessage.postValue(
@@ -66,13 +72,18 @@ class CalendarViewModel @Inject constructor(
     internal fun setScheduleList(
         list: List<ScheduleInformation>,
         currentTime: String,
-    ): List<ScheduleInformation>{
+    ): List<ScheduleInformation> {
         val scheduleList = arrayListOf<ScheduleInformation>()
-        for(i in list.indices){
-           if(dateProcess(list[i].endsAt!!.split('T')[1]).minus(dateProcess(currentTime)) >= 0){
-               scheduleList.add(list[i])
-           }
+        if(isToday.value!!){
+            for (i in list.indices) {
+                if (dateProcess(list[i].endsAt!!.split('T')[1]).minus(dateProcess(currentTime)) >= 0) {
+                    scheduleList.add(list[i])
+                }
+            }
+        }else{
+            scheduleList.addAll(list)
         }
+
         return scheduleList
     }
 
