@@ -15,3 +15,6 @@ class PostInspectActivity @Inject constructor(
 
     }
 }
+
+// 이런 코드는 클린하지 않아요. 사용하면 안됩니다 ㅠㅠ
+var selectedPostInformation: PostInformation? = null

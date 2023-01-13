@@ -8,6 +8,7 @@ import team.nk.kimiljeong.databinding.ItemPostBinding
 import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.view.post.ItemClickListener
 import team.nk.kimiljeong.presentation.view.post.selectedItemId
+import team.nk.kimiljeong.presentation.view.postinspect.selectedPostInformation
 
 class PostAdapter(
     var posts: List<PostInformation>,
@@ -48,6 +49,7 @@ class PostAdapter(
             }
 
             selectedItemId = post.id
+            selectedPostInformation = post
         }
     }
 }
