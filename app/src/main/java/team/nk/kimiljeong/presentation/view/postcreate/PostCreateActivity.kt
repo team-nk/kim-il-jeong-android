@@ -5,7 +5,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityPostCreateBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
-import team.nk.kimiljeong.presentation.view.post.selectedPostId
 import team.nk.kimiljeong.presentation.viewmodel.postcreate.PostCreateViewModel
 
 @AndroidEntryPoint
@@ -28,7 +27,6 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
         with(binding) {
             btnActivityCreateNewPostCreate.setOnClickListener {
                 viewModel.createPost(
-                    selectedPostId!!,
                     etCreateNewPostTitle.text!!.toString(),
                     etCreateNewPostContent.text!!.toString(),
                 )

@@ -14,7 +14,7 @@ import team.nk.kimiljeong.data.model.remote.request.CreateCommentRequest
 import team.nk.kimiljeong.data.repository.remote.origin.PostRepository
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
-import team.nk.kimiljeong.presentation.view.post.selectedPostId
+import team.nk.kimiljeong.presentation.common.selectedPostId
 import javax.inject.Inject
 
 @HiltViewModel
