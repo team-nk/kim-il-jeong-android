@@ -65,7 +65,7 @@
                 android:layout_marginVertical="8dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_post_comment_text_label"
+                android:background="@drawable/bg_comment_et_primary"
                 android:hint="@string/post_comment_error_please_enter_comment"
                 android:paddingStart="16dp"
                 android:textSize="14sp"
