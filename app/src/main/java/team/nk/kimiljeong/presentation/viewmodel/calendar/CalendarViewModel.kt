@@ -20,10 +20,6 @@ class CalendarViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
 ) : BaseViewModel(mApplication = application) {
 
-    init {
-        inquireSchedules()
-    }
-
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
     val schedules: LiveData<List<ScheduleInformation>>
         get() = _schedules
