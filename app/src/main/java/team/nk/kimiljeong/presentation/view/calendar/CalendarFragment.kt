@@ -10,6 +10,7 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
+import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 
@@ -74,7 +75,14 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     }
 
     private fun observeSchedules() {
-
+        viewModel.schedules.observe(
+            viewLifecycleOwner,
+        ) {
+            binding.rvFragmentCalendarTodaySchedule.run {
+                adapter = ScheduleAdapter(it)
+                adapter!!.notifyDataSetChanged()
+            }
+        }
     }
 
     override fun observeSnackBarMessage() {
