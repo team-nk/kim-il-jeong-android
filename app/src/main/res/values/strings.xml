@@ -133,6 +133,8 @@
     <string name="calendar_today_schedule">오늘의 일정</string>
 
     <string name="dlg_location_select_location">위치 선택</string>
+    <string name="post_create_please_enter_title">제목을 입력해 주세요</string>
+    <string name="post_create_please_enter_content">내용을 입력해 주세요.</string>
 
     <string-array name="clndr_day_of_the_week">
         <item>SUN</item>
