@@ -45,11 +45,10 @@ class PostAdapter(
                 )
                 root.setOnClickListener {
                     onItemClick.onItemClick()
+                    selectedPostId = post.id
+                    selectedPostInformation = post
                 }
             }
-
-            selectedPostId = post.id
-            selectedPostInformation = post
         }
     }
 }
