@@ -1,7 +1,9 @@
 package team.nk.kimiljeong.presentation.view.postinspect
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
@@ -9,6 +11,7 @@ import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ActivityPostInspectBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.util.parseColorToResource
+import team.nk.kimiljeong.presentation.view.comment.CommentActivity
 import team.nk.kimiljeong.presentation.viewmodel.postinspect.PostInspectViewModel
 import javax.inject.Inject
 
@@ -17,6 +20,12 @@ class PostInspectActivity @Inject constructor(
 ) : BaseActivity<ActivityPostInspectBinding>(
     R.layout.activity_post_inspect,
 ) {
+
+    private val postLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) {
+        viewModel.inquireComments()
+    }
 
     private val viewModel by viewModels<PostInspectViewModel>()
 
@@ -30,6 +39,17 @@ class PostInspectActivity @Inject constructor(
 
     override fun initView() {
         initPostInformation()
+        initButtons()
+    }
+
+    private fun initButtons() {
+        binding.tvActivityPostInspectPostComment.setOnClickListener {
+            postLauncher.launch(
+                Intent(
+                    this, CommentActivity::class.java,
+                ),
+            )
+        }
     }
 
     override fun observeEvent() {
