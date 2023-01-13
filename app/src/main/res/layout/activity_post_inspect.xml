@@ -21,11 +21,12 @@
                 style="@style/TextViewBodyPrimary"
                 tools:text="제목이 여기에!!" />
 
-            <FrameLayout
-                android:id="@+id/layout_activity_post_schedule_container"
+            <include
+                android:id="@+id/included_activity_post_schedule_container"
+                layout="@layout/item_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="60dp" />
+                android:layout_marginVertical="8dp" />
 
             <TextView
                 android:id="@+id/tv_activity_post_inspect_content"
