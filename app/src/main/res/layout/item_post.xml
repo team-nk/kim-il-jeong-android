@@ -8,7 +8,7 @@
         android:layout_marginTop="8dp">
 
         <View
-            android:id="@+id/view_item_post_post_tag"
+            android:id="@+id/indicator_item_post_color"
             android:layout_width="4dp"
             android:layout_height="4dp"
             android:layout_marginTop="8dp"
@@ -19,7 +19,7 @@
             android:id="@+id/tv_item_post_title"
             style="@style/TextViewPostTitle"
             android:layout_marginStart="6dp"
-            app:layout_constraintStart_toEndOf="@id/view_item_post_post_tag"
+            app:layout_constraintStart_toEndOf="@id/indicator_item_post_color"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="자치 회의를 시작하려 합니다" />
 
