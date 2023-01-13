@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundPrimary">
 
         <include
             android:id="@+id/included_fragment_calendar_header"
-            layout="@layout/include_global_header"/>
+            layout="@layout/include_global_header" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_fragment_calendar_horizontal_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15"/>
+            app:layout_constraintGuide_percent="0.15" />
 
         <ScrollView
             android:id="@+id/scroll_view_fragment_calendar_main"
@@ -74,6 +75,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_fragment_calendar_today_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_schedule" />
             </LinearLayout>
         </ScrollView>
 
