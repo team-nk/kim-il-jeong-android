@@ -33,6 +33,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     override fun initView() {
         initHeader()
         initCalendar()
+        initScheduleTextView(
+            isToday = true,
+            date = today.date,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,14 +72,34 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                         isToday = true
                     )
                     removeDecorators()
+                    initScheduleTextView(
+                        isToday = true,
+                        date = date.date,
+                    )
                 } else {
                     inquireDateScheduleList(
                         date = date.date,
                         isToday = false,
                     )
                     addDecorator(TodayDecorator(requireActivity()))
+                    initScheduleTextView(
+                        isToday = false,
+                        date = date.date,
+                    )
                 }
             }
+        }
+    }
+
+    private fun initScheduleTextView(
+        isToday: Boolean,
+        date: Date,
+    ) {
+        if (isToday) {
+            binding.tvFragmentCalendarSchedule.text = getString(R.string.calendar_today_schedule)
+        } else {
+            binding.tvFragmentCalendarSchedule.text =
+                SimpleDateFormat("MM월 dd일 일정", Locale.KOREA).format(date)
         }
     }
 
