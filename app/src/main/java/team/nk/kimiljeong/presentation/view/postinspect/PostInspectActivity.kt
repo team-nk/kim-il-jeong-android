@@ -8,6 +8,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ActivityPostInspectBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.viewmodel.postinspect.PostInspectViewModel
 import javax.inject.Inject
 
@@ -28,13 +29,12 @@ class PostInspectActivity @Inject constructor(
     }
 
     override fun initView() {
-        
+        initPostInformation()
     }
 
     override fun observeEvent() {
         super.observeEvent()
         observeComments()
-        observePostInformation()
     }
 
     @SuppressLint("SetTextI18n")
@@ -48,7 +48,24 @@ class PostInspectActivity @Inject constructor(
         }
     }
 
-    private fun observePostInformation() {
+    private fun initPostInformation() {
+        selectedPostInformation?.let {
+            with(binding) {
+                tvActivityPostInspectTitle.text = it.title
+                tvActivityPostInspectContent.text = it.content
+                includedActivityPostScheduleContainer.run {
+                    tvItemPostTitle.text = it.title
+                    tvItemPostAccountId.text = it.accountId
+                    tvItemPostAddress.text = it.address
+                    tvItemPostDate.text = it.timeCreated
+                    tvItemPostScheduleContent.text = it.scheduleContent
+                    indicatorItemPostColor.setBackgroundResource(
+                        parseColorToResource(it.color),
+                    )
+                }
+            }
+
+        }
     }
 }
 
