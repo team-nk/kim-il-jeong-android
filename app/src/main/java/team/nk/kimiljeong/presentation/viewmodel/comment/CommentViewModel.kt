@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.CommentInformation
+import team.nk.kimiljeong.data.model.remote.request.CreateCommentRequest
 import team.nk.kimiljeong.data.repository.remote.origin.PostRepository
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
@@ -27,6 +28,10 @@ class CommentViewModel @Inject constructor(
         inquireComments()
         getSelfInformation()
     }
+
+    private val _shouldClearCommentLabel = MutableLiveData<Boolean>()
+    internal val shouldClearCommentLabel: LiveData<Boolean>
+        get() = _shouldClearCommentLabel
 
     private val _userInformation = MutableLiveData<SelfInformationResponse>()
     internal val userInformation: LiveData<SelfInformationResponse>
@@ -67,6 +72,38 @@ class CommentViewModel @Inject constructor(
                             R.string.error_failed_to_connect_to_server,
                         ),
                     )
+                }
+            }
+        }
+    }
+
+    internal fun createComment(comment: String) {
+        if (comment.isBlank()) {
+            _snackBarMessage.postValue(
+                mApplication.getString(
+                    R.string.post_comment_error_please_enter_comment,
+                ),
+            )
+        } else {
+            viewModelScope.launch(IO) {
+                runCatching {
+                    postRepository.createComment(
+                        postId = selectedPostId!!,
+                        request = CreateCommentRequest(
+                            comment,
+                        )
+                    )
+                }.onSuccess {
+                    if (it.isSuccessful) {
+                        _shouldClearCommentLabel.postValue(true)
+                        inquireComments()
+                    } else {
+                        _snackBarMessage.postValue(
+                            mApplication.getString(
+                                R.string.error_failed_to_connect_to_server,
+                            ),
+                        )
+                    }
                 }
             }
         }
