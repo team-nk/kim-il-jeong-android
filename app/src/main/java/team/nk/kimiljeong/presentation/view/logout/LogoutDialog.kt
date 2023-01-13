@@ -6,7 +6,7 @@ import team.nk.kimiljeong.databinding.DialogDoubleButtonBinding
 import team.nk.kimiljeong.presentation.base.view.BaseDialogFragment
 import team.nk.kimiljeong.presentation.view.start.StartActivity
 
-class LogoutFragment : BaseDialogFragment<DialogDoubleButtonBinding>(
+class LogoutDialog : BaseDialogFragment<DialogDoubleButtonBinding>(
     R.layout.dialog_double_button,
 ) {
     override fun initView() {
