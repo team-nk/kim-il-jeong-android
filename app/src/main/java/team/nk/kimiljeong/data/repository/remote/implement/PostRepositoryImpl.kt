@@ -22,7 +22,10 @@ class PostRepositoryImpl @Inject constructor(
         return postApi.createPost(request)
     }
 
-    override suspend fun createComment(postId: Int, request: CreateCommentRequest): Response<Void> {
+    override suspend fun createComment(
+        postId: Int,
+        request: CreateCommentRequest,
+    ): Response<Void> {
         return postApi.createComment(postId, request)
     }
 
