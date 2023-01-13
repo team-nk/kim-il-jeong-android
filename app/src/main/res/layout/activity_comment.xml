@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundPrimary">
 
         <TextView
             android:id="@+id/tv_activity_comment_add_comment"
@@ -26,6 +24,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="56dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +64,7 @@
                 android:layout_marginVertical="8dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_post_comment_text_label"
+                android:background="@drawable/bg_comment_et_primary"
                 android:hint="@string/post_comment_error_please_enter_comment"
                 android:paddingStart="16dp"
                 android:textSize="14sp"

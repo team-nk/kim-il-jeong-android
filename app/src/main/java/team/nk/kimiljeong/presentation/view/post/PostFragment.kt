@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.post
 
+import android.content.Intent
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import team.nk.kimiljeong.databinding.FragmentPostBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.PostAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
+import team.nk.kimiljeong.presentation.view.postinspect.PostInspectActivity
 import team.nk.kimiljeong.presentation.viewmodel.post.PostViewModel
 import javax.inject.Inject
 
@@ -34,16 +36,21 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
         viewModel.posts.observe(
             viewLifecycleOwner,
         ) {
-            Log.e(this.javaClass.simpleName, it.isNullOrEmpty().toString(),)
+            Log.e(this.javaClass.simpleName, it.isNullOrEmpty().toString())
             initPosts(it)
         }
     }
 
     private fun initPosts(posts: List<PostInformation>) {
         binding.rvFragmentPostMain.run {
-            adapter = PostAdapter(
-                posts = posts,
-            )
+            adapter = PostAdapter(posts = posts, object : ItemClickListener {
+                override fun onItemClick() {
+                    startActivity(Intent(
+                        requireActivity(),
+                        PostInspectActivity::class.java,
+                    ).putExtra("postId", selectedPostId))
+                }
+            })
             layoutManager = LinearLayoutManager(
                 requireActivity(),
             )
@@ -59,3 +66,10 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
         }
     }
 }
+
+interface ItemClickListener {
+    fun onItemClick()
+}
+
+// TODO 로직 다시 짜기
+var selectedPostId: Int? = null

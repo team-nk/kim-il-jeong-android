@@ -3,7 +3,7 @@ package team.nk.kimiljeong.data.model.remote.common
 import com.google.gson.annotations.SerializedName
 
 data class PostInformation(
-    @SerializedName("id") val id: String,
+    @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
     @SerializedName("schedule_content") val scheduleContent: String,

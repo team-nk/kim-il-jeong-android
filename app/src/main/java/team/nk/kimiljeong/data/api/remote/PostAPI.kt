@@ -5,6 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import team.nk.kimiljeong.data.model.remote.request.CreateCommentRequest
 import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireBirthdayListResponse
 import team.nk.kimiljeong.data.model.remote.response.InquireCommentListResponse
@@ -31,5 +32,6 @@ interface PostAPI {
     @POST("/comment/{post-id}")
     suspend fun createComment(
         @Path("post-id") postId: Int,
+        @Body request: CreateCommentRequest,
     ): Response<Void>
 }
