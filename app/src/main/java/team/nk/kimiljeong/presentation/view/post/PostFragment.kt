@@ -47,7 +47,7 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
                 override fun onItemClick() {
                     startActivity(Intent(
                         requireActivity(), PostInspectActivity::class.java,
-                    ).putExtra("postId", selectedItemId))
+                    ).putExtra("postId", selectedPostId))
                 }
             })
             layoutManager = LinearLayoutManager(
@@ -71,4 +71,4 @@ interface ItemClickListener {
 }
 
 // TODO 로직 다시 짜기
-var selectedItemId: Int? = null
+var selectedPostId: Int? = null

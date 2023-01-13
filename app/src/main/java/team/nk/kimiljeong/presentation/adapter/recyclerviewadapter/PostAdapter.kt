@@ -7,7 +7,7 @@ import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ItemPostBinding
 import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.view.post.ItemClickListener
-import team.nk.kimiljeong.presentation.view.post.selectedItemId
+import team.nk.kimiljeong.presentation.view.post.selectedPostId
 import team.nk.kimiljeong.presentation.view.postinspect.selectedPostInformation
 
 class PostAdapter(
@@ -48,7 +48,7 @@ class PostAdapter(
                 }
             }
 
-            selectedItemId = post.id
+            selectedPostId = post.id
             selectedPostInformation = post
         }
     }
