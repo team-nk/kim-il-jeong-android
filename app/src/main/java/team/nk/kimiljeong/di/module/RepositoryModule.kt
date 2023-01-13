@@ -5,8 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import team.nk.kimiljeong.data.repository.remote.implement.PostRepositoryImpl
+import team.nk.kimiljeong.data.repository.remote.implement.ScheduleRepositoryImpl
 import team.nk.kimiljeong.data.repository.remote.implement.UserRepositoryImpl
 import team.nk.kimiljeong.data.repository.remote.origin.PostRepository
+import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import javax.inject.Singleton
 
@@ -25,4 +27,10 @@ interface RepositoryModule {
     fun providePostRepository(
         postRepositoryImpl: PostRepositoryImpl,
     ): PostRepository
+
+    @Singleton
+    @Binds
+    fun provideScheduleRepository(
+        scheduleRepositoryImpl: ScheduleRepositoryImpl,
+    ): ScheduleRepository
 }
