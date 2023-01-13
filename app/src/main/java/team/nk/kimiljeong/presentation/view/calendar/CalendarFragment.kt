@@ -1,6 +1,8 @@
 package team.nk.kimiljeong.presentation.view.calendar
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,11 +25,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     R.layout.fragment_calendar,
 ) {
 
+    private val viewModel by viewModels<CalendarViewModel>()
+
     private val today by lazy {
         CalendarDay.today()
     }
-
-    private val viewModel by viewModels<CalendarViewModel>()
 
     override fun initView() {
         initHeader()
@@ -55,11 +57,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             }
             setOnDateChangedListener { _, date, _ ->
                 if (date == today) {
-                    inquireDateScheduleList(date.date)
+                    inquireDateScheduleList(Calendar.getInstance().time)
                     removeDecorators()
                 } else {
-                    addDecorator(TodayDecorator(requireActivity()))
                     inquireDateScheduleList(date.date)
+                    addDecorator(TodayDecorator(requireActivity()))
                 }
             }
         }
@@ -67,12 +69,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
     inner class TodayDecorator(context: Context) : DayViewDecorator {
 
-        private val date = today
         private val drawable =
             AppCompatResources.getDrawable(context, R.drawable.bg_calendar_date_today)
 
         override fun shouldDecorate(day: CalendarDay): Boolean {
-            return day == date
+            return day == today
         }
 
         override fun decorate(view: DayViewFacade?) {
