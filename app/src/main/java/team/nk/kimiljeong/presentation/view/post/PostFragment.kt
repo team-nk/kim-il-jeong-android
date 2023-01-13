@@ -46,7 +46,8 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
             adapter = PostAdapter(posts = posts, object : ItemClickListener {
                 override fun onItemClick() {
                     startActivity(Intent(
-                        requireActivity(), PostInspectActivity::class.java,
+                        requireActivity(),
+                        PostInspectActivity::class.java,
                     ).putExtra("postId", selectedPostId))
                 }
             })
