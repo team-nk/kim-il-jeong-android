@@ -46,6 +46,7 @@
             app:layout_constraintStart_toStartOf="@id/guideline_activity_post_inspect_vertical_1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_activity_post_inspect_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp">
