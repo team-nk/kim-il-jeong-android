@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.request.SignUpRequest
@@ -17,13 +17,118 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     application: Application,
     private val userRepository: UserRepository,
-) : BaseViewModel(
-    mApplication = application,
-) {
+) : BaseViewModel(application) {
 
-    private val _register = MutableLiveData<Boolean>()
-    internal val register: LiveData<Boolean>
-        get() = _register
+    private val _checkIdDuplicationResponse = MutableLiveData<Boolean>()
+    internal val checkIdDuplicationResponse: LiveData<Boolean>
+        get() = _checkIdDuplicationResponse
+
+    private val _isRegisterSuccess = MutableLiveData<Boolean>()
+    internal val isRegisterSuccess: LiveData<Boolean>
+        get() = _isRegisterSuccess
+
+    private val _isEmailVerificationCodeSent = MutableLiveData<Boolean>()
+    internal val isEmailVerificationCodeSent: LiveData<Boolean>
+        get() = _isEmailVerificationCodeSent
+
+    private val _isVerificationCodeChecked = MutableLiveData<Boolean>()
+    internal val isVerificationCodeChecked: LiveData<Boolean>
+        get() = _isVerificationCodeChecked
+
+    private val _isIdDuplicationChecked = MutableLiveData<Boolean>()
+    internal val isIdDuplicationChecked: LiveData<Boolean>
+        get() = _isIdDuplicationChecked
+
+    private lateinit var email: String
+
+    internal fun verifyEmail(
+        email: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                this@RegisterViewModel.email = email
+                userRepository.sendVerificationMail(email)
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    when (it.code()) {
+                        200 -> {
+                            _isEmailVerificationCodeSent.postValue(true)
+                        }
+                        else -> {
+                            _snackBarMessage.postValue(
+                                mApplication.getString(
+                                    R.string.sign_up_error_please_check_email_format,
+                                ),
+                            )
+                        }
+                    }
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    internal fun checkVerificationCode(
+        verificationCode: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                userRepository.checkVerificationCode(
+                    this@RegisterViewModel.email,
+                    verificationCode,
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    when (it.code()) {
+                        200 -> {
+                            _isVerificationCodeChecked.postValue(true)
+                        }
+                        else -> {
+                            _snackBarMessage.postValue(
+                                mApplication.getString(
+                                    R.string.sign_up_error_please_enter_correct_verification_code,
+                                ),
+                            )
+                        }
+                    }
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    internal fun checkIdDuplication(
+        accountId: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                userRepository.checkIdDuplication(
+                    accountId,
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _checkIdDuplicationResponse.postValue(true)
+                    _isIdDuplicationChecked.postValue(true)
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.sign_up_error_id_already_exists,
+                        ),
+                    )
+                }
+            }
+        }
+    }
 
     internal fun register(
         email: String,
@@ -32,42 +137,15 @@ class RegisterViewModel @Inject constructor(
         password: String,
         passwordRepeat: String,
     ) {
-        mApplication.run {
-            if (email.isBlank()) {
-                _snackBarMessage.postValue(
-                    getString(
-                        R.string.sign_up_error_please_enter_email,
-                    ),
-                )
-            } else if (verificationCode.isBlank()) {
-                _snackBarMessage.postValue(
-                    getString(
-                        R.string.sign_up_hint_please_enter_verification_code,
-                    )
-                )
-            } else if (accountId.isBlank()) {
-                _snackBarMessage.postValue(
-                    getString(
-                        R.string.sign_up_hint_please_enter_id,
-                    )
-                )
-            } else if (password.isBlank()) {
-                _snackBarMessage.postValue(
-                    getString(
-                        R.string.sign_up_hint_please_enter_password,
-                    )
-                )
-            } else if (passwordRepeat.isBlank()) {
-                _snackBarMessage.postValue(
-                    getString(
-                        R.string.sign_up_hint_please_enter_password_once_again,
-                    )
-                )
-            } else {
-                viewModelScope.launch(IO) {
+        if (password == passwordRepeat) {
+            if (isEmailVerificationCodeSent.value == true &&
+                isVerificationCodeChecked.value == true &&
+                isIdDuplicationChecked.value == true
+            ) {
+                viewModelScope.launch(Dispatchers.IO) {
                     kotlin.runCatching {
                         userRepository.signUp(
-                            request = SignUpRequest(
+                            SignUpRequest(
                                 email = email,
                                 verificationCode = verificationCode,
                                 accountId = accountId,
@@ -77,15 +155,34 @@ class RegisterViewModel @Inject constructor(
                         )
                     }.onSuccess {
                         if (it.isSuccessful) {
-                            _register.postValue(true)
-                        } else {
-                            println(it.errorBody()?.string())
+                            when (it.code()) {
+                                201 -> {
+                                    _isRegisterSuccess.postValue(true)
+                                }
+                                else -> {
+                                    _snackBarMessage.postValue(
+                                        mApplication.getString(
+                                            R.string.sign_up_error_failed_to_register,
+                                        ),
+                                    )
+                                }
+                            }
                         }
-                    }.onFailure {
-                        _register.postValue(false)
                     }
                 }
+            } else {
+                _snackBarMessage.postValue(
+                    mApplication.getString(
+                        R.string.sign_up_error_please_enter_necessary_information,
+                    ),
+                )
             }
+        } else {
+            _snackBarMessage.postValue(
+                mApplication.getString(
+                    R.string.sign_up_error_password_incorrect,
+                ),
+            )
         }
     }
 }
