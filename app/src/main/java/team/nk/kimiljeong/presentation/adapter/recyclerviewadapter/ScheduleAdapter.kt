@@ -8,6 +8,7 @@ import team.nk.kimiljeong.data.common.Color.*
 import team.nk.kimiljeong.data.extension.toColor
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.ItemScheduleBinding
+import team.nk.kimiljeong.presentation.util.parseColorToResource
 
 class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
@@ -19,15 +20,7 @@ class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
                 tvItemCalendarTodayScheduleTitle.text = schedule.content
                 tvItemCalendarTodayScheduleDate.text = schedule.startsAt ?: "Something Wrong"
                 indicatorItemCalendarTodaySchedule.setBackgroundResource(
-                    when (schedule.color?.toColor()) {
-                        RED -> R.drawable.bg_create_schedule_color_indicator_red_unchecked
-                        BLUE -> R.drawable.bg_create_schedule_color_indicator_blue_unchecked
-                        YELLOW -> R.drawable.bg_create_schedule_color_indicator_yellow_unchecked
-                        PURPLE -> R.drawable.bg_create_schedule_color_indicator_purple_unchecked
-                        GREEN -> R.drawable.bg_create_schedule_color_indicator_green_unchecked
-                        ERROR -> R.drawable.img_global_temp
-                        null -> R.drawable.img_global_temp
-                    }
+                    parseColorToResource(schedule.color)
                 )
             }
         }
