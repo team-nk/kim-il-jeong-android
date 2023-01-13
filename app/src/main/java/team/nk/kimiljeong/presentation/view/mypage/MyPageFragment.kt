@@ -5,11 +5,12 @@ import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentMypageBinding
-import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.adapter.bindingadapter.loadImageFrom
+import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
+import team.nk.kimiljeong.presentation.view.logout.LogoutFragment
 import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
@@ -49,6 +50,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initEditProfileButton()
         initEditBirthdayButton()
         initChangePasswordButton()
+        initLogoutButton()
     }
 
     private fun initHeader() {
@@ -90,6 +92,17 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 startActivity(
                     context = requireActivity(),
                     to = ChangePasswordActivity::class.java,
+                )
+            }
+        }
+    }
+
+    private fun initLogoutButton() {
+        binding.btnFragmentMypageLogout.setOnClickListener {
+            LogoutFragment().also {
+                it.show(
+                    requireActivity().supportFragmentManager,
+                    this.tag,
                 )
             }
         }
