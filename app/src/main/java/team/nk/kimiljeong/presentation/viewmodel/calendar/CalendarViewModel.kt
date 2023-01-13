@@ -12,6 +12,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,10 @@ class CalendarViewModel @Inject constructor(
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
     val schedules: LiveData<List<ScheduleInformation>>
         get() = _schedules
+
+    private val _isToday = MutableLiveData<Boolean>()
+    val isToday: LiveData<Boolean>
+        get() = _isToday
 
     internal fun inquireSchedules() {
         viewModelScope.launch(IO) {
@@ -44,12 +49,14 @@ class CalendarViewModel @Inject constructor(
 
     internal fun inquireDateScheduleList(
         date: String,
-    ){
-        viewModelScope.launch(IO){
+        isToday: Boolean,
+    ) {
+        viewModelScope.launch(IO) {
             kotlin.runCatching {
                 scheduleRepository.inquireDateScheduleList(date)
             }.onSuccess {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
+                    _isToday.postValue(isToday)
                     _schedules.postValue(it.body()?.schedules)
                 } else {
                     _snackBarMessage.postValue(
@@ -61,4 +68,26 @@ class CalendarViewModel @Inject constructor(
             }
         }
     }
+
+    internal fun setScheduleList(
+        list: List<ScheduleInformation>,
+        currentTime: String,
+    ): List<ScheduleInformation> {
+        val scheduleList = arrayListOf<ScheduleInformation>()
+        if(isToday.value!!){
+            for (i in list.indices) {
+                if (dateProcess(list[i].endsAt!!.split('T')[1]).minus(dateProcess(currentTime)) >= 0) {
+                    scheduleList.add(list[i])
+                }
+            }
+        }else{
+            scheduleList.addAll(list)
+        }
+
+        return scheduleList
+    }
+
+    private fun dateProcess(
+        text: String?,
+    ): Int = Integer.parseInt(text?.replace(":", "").toString())
 }

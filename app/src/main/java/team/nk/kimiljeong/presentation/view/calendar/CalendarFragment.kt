@@ -12,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
@@ -32,11 +33,18 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     override fun initView() {
         initHeader()
         initCalendar()
+        initScheduleTextView(
+            isToday = true,
+            date = today.date,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inquireDateScheduleList(Calendar.getInstance().time)
+        inquireDateScheduleList(
+            date = Calendar.getInstance().time,
+            isToday = true,
+        )
     }
 
     private fun initHeader() {
@@ -59,13 +67,39 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             }
             setOnDateChangedListener { _, date, _ ->
                 if (date == today) {
-                    inquireDateScheduleList(Calendar.getInstance().time)
+                    inquireDateScheduleList(
+                        date = Calendar.getInstance().time,
+                        isToday = true
+                    )
                     removeDecorators()
+                    initScheduleTextView(
+                        isToday = true,
+                        date = date.date,
+                    )
                 } else {
-                    inquireDateScheduleList(date.date)
+                    inquireDateScheduleList(
+                        date = date.date,
+                        isToday = false,
+                    )
                     addDecorator(TodayDecorator(requireActivity()))
+                    initScheduleTextView(
+                        isToday = false,
+                        date = date.date,
+                    )
                 }
             }
+        }
+    }
+
+    private fun initScheduleTextView(
+        isToday: Boolean,
+        date: Date,
+    ) {
+        if (isToday) {
+            binding.tvFragmentCalendarSchedule.text = getString(R.string.calendar_today_schedule)
+        } else {
+            binding.tvFragmentCalendarSchedule.text =
+                SimpleDateFormat("MM월 dd일 일정", Locale.KOREA).format(date)
         }
     }
 
@@ -93,7 +127,15 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             viewLifecycleOwner,
         ) {
             binding.rvFragmentCalendarTodaySchedule.run {
-                adapter = ScheduleAdapter(it)
+                adapter = ScheduleAdapter(
+                    viewModel.setScheduleList(
+                        list = it,
+                        currentTime = SimpleDateFormat(
+                            "HH:mm:ss",
+                            Locale.KOREA
+                        ).format(Calendar.getInstance().time)
+                    )
+                )
                 layoutManager = LinearLayoutManager(requireActivity())
             }
         }
@@ -110,12 +152,15 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
     private fun inquireDateScheduleList(
         date: Date,
-    ){
+        isToday: Boolean,
+    ) {
+        println(date)
         viewModel.inquireDateScheduleList(
-            SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            date = SimpleDateFormat(
+                "yyyy-MM-dd'T'00:00:00.SSS'Z'",
                 Locale.KOREA,
-            ).format(date)
+            ).format(date),
+            isToday = isToday
         )
     }
 }

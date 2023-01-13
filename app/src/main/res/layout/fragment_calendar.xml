@@ -50,6 +50,7 @@
                     android:layout_marginTop="32dp">
 
                     <TextView
+                        android:id="@+id/tv_fragment_calendar_schedule"
                         style="@style/TextViewTitlePrimary"
                         android:layout_marginVertical="12dp"
                         android:text="@string/calendar_today_schedule"
