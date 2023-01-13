@@ -77,10 +77,11 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/tv_fragment_calendar_today_schedule"
+                    android:id="@+id/rv_fragment_calendar_today_schedule"
                     android:layout_width="match_parent"
-                    tools:listitem="@layout/item_calendar_today_schedule"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_schedule" />
             </LinearLayout>
         </ScrollView>
 
