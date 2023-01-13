@@ -45,4 +45,25 @@ class CalendarViewModel @Inject constructor(
             }
         }
     }
+
+    internal fun inquireDateScheduleList(
+        date: String,
+    ){
+        viewModelScope.launch(IO){
+            kotlin.runCatching {
+                scheduleRepository.inquireDateScheduleList(date)
+            }.onSuccess {
+                println(it.code())
+                if(it.isSuccessful){
+                    _schedules.postValue(it.body()?.schedules)
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
 }
