@@ -24,7 +24,9 @@ class PostInspectActivity @Inject constructor(
     private val postLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) {
-        viewModel.inquireComments()
+        if ((it.resultCode == RESULT_OK) || (it.resultCode == RESULT_CANCELED)) {
+            viewModel.inquireComments()
+        }
     }
 
     private val viewModel by viewModels<PostInspectViewModel>()
