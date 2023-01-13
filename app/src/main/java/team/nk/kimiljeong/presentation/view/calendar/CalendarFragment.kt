@@ -16,6 +16,7 @@ import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
+import team.nk.kimiljeong.presentation.view.schedule.AddScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -37,6 +38,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             isToday = true,
             date = today.date,
         )
+        initAddSchedulebutton()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,6 +102,17 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
         } else {
             binding.tvFragmentCalendarSchedule.text =
                 SimpleDateFormat("MM월 dd일 일정", Locale.KOREA).format(date)
+        }
+    }
+
+    private fun initAddSchedulebutton(){
+        binding.btnFragmentCalendarAddSchedule.setOnClickListener {
+            AddScheduleBottomSheetDialogFragment().also {
+                it.show(
+                    requireActivity().supportFragmentManager,
+                    it.tag,
+                )
+            }
         }
     }
 
