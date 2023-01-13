@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import team.nk.kimiljeong.data.model.remote.common.CommentInformation
 import team.nk.kimiljeong.databinding.ItemCommentBinding
+import team.nk.kimiljeong.presentation.adapter.bindingadapter.loadImageFrom
 
 class CommentAdapter(
     private val comments: List<CommentInformation>,
@@ -13,7 +14,14 @@ class CommentAdapter(
     inner class ViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: CommentInformation) {
-
+            with(binding) {
+                tvItemCommentAccountId.text = comment.accountId
+                tvItremCommentContent.text = comment.content
+                tvItemCommentTimeCreated.text = comment.timeCreated
+                imageItemCommentProfile.loadImageFrom(
+                    comment.profileUrl ?: "https://avatars.githubusercontent.com/u/101160207?v=4",
+                )
+            }
         }
     }
 
