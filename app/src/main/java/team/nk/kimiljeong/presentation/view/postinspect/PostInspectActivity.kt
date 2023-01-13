@@ -45,7 +45,7 @@ class PostInspectActivity @Inject constructor(
     }
 
     private fun initButtons() {
-        binding.tvActivityPostInspectPostComment.setOnClickListener {
+        binding.layoutActivityPostInspectComment.setOnClickListener {
             postLauncher.launch(
                 Intent(
                     this, CommentActivity::class.java,
