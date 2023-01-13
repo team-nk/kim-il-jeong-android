@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ItemPostBinding
 import team.nk.kimiljeong.presentation.util.parseColorToResource
+import team.nk.kimiljeong.presentation.view.post.ItemClickListener
+import team.nk.kimiljeong.presentation.view.post.selectedItemId
 
 class PostAdapter(
     var posts: List<PostInformation>,
+    private val onItemClick: ItemClickListener,
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +42,12 @@ class PostAdapter(
                 indicatorItemPostColor.setBackgroundResource(
                     parseColorToResource(post.color)
                 )
+                root.setOnClickListener {
+                    onItemClick.onItemClick()
+                }
             }
+
+            selectedItemId = post.id
         }
     }
 }
