@@ -4,6 +4,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityCommentBinding
+import team.nk.kimiljeong.presentation.adapter.bindingadapter.loadImageFrom
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.CommentAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.viewmodel.comment.CommentViewModel
@@ -15,20 +16,64 @@ class CommentActivity : BaseActivity<ActivityCommentBinding>(
 
     private val viewModel by viewModels<CommentViewModel>()
 
+    private lateinit var rvAdapter: CommentAdapter
+
     override fun initView() {
+        initCommentLabel()
+    }
+
+    private fun initCommentLabel() {
+        initCreateCommentButton()
+    }
+
+    private fun initCreateCommentButton() {
+        with(binding) {
+            imageActivityCommentSend.setOnClickListener {
+                viewModel.createComment(
+                    etActivityCommentInput.text.toString(),
+                )
+            }
+        }
     }
 
     override fun observeEvent() {
-        initComments()
+        observeComments()
+        observeLabelProfileImage()
+        observeShouldRefreshRecyclerView()
     }
 
-    private fun initComments() {
+    private fun observeShouldRefreshRecyclerView() {
+        viewModel.shouldClearCommentLabel.observe(
+            this@CommentActivity,
+        ) {
+            if (it) {
+                binding.etActivityCommentInput.setText("")
+            }
+        }
+    }
+
+    private fun observeLabelProfileImage() {
+        viewModel.userInformation.observe(
+            this@CommentActivity,
+        ) {
+            binding.imageActivityCommentProfile.loadImageFrom(it.profileUrl)
+        }
+    }
+
+    private fun observeComments() {
         viewModel.comments.observe(
             this@CommentActivity,
         ) {
             binding.rvActivityCommentList.run {
-                adapter = CommentAdapter(it)
+                rvAdapter = CommentAdapter(it).also {
+                    adapter = it
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        setResult(RESULT_OK)
     }
 }
