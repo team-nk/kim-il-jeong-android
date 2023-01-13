@@ -12,6 +12,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,4 +62,21 @@ class CalendarViewModel @Inject constructor(
             }
         }
     }
+
+    internal fun setScheduleList(
+        list: List<ScheduleInformation>,
+        currentTime: String,
+    ): List<ScheduleInformation>{
+        val scheduleList = arrayListOf<ScheduleInformation>()
+        for(i in list.indices){
+           if(dateProcess(list[i].endsAt!!.split('T')[1]).minus(dateProcess(currentTime)) >= 0){
+               scheduleList.add(list[i])
+           }
+        }
+        return scheduleList
+    }
+
+    private fun dateProcess(
+        text: String?,
+    ): Int = Integer.parseInt(text?.replace(":", "").toString())
 }

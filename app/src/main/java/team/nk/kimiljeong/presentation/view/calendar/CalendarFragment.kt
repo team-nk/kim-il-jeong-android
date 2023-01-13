@@ -12,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
@@ -93,7 +94,12 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             viewLifecycleOwner,
         ) {
             binding.rvFragmentCalendarTodaySchedule.run {
-                adapter = ScheduleAdapter(it)
+                adapter = ScheduleAdapter(
+                    viewModel.setScheduleList(
+                        list = it,
+                        currentTime = SimpleDateFormat("HH:mm:ss", Locale.KOREA).format(Calendar.getInstance().time)
+                    )
+                )
                 layoutManager = LinearLayoutManager(requireActivity())
             }
         }
@@ -111,9 +117,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     private fun inquireDateScheduleList(
         date: Date,
     ){
+        println(date)
         viewModel.inquireDateScheduleList(
             SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                "yyyy-MM-dd'T'00:00:00.SSS'Z'",
                 Locale.KOREA,
             ).format(date)
         )
