@@ -2,6 +2,7 @@ package team.nk.kimiljeong.presentation.view.calendar
 
 import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.viewModels
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -10,11 +11,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
+import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 
 @AndroidEntryPoint
 class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     R.layout.fragment_calendar,
 ) {
+
+    private val viewModel by viewModels<CalendarViewModel>()
+
     override fun initView() {
         initHeader()
         initCalendar()
@@ -60,6 +65,24 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
         override fun decorate(view: DayViewFacade?) {
             view?.setSelectionDrawable(drawable!!)
+        }
+    }
+
+    override fun observeEvent() {
+        super.observeEvent()
+        observeSchedules()
+    }
+
+    private fun observeSchedules() {
+
+    }
+
+    override fun observeSnackBarMessage() {
+        super.observeSnackBarMessage()
+        viewModel.snackBarMessage.observe(
+            viewLifecycleOwner,
+        ) {
+            showShortSnackBar(it)
         }
     }
 }
