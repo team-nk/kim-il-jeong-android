@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ItemPostBinding
+import team.nk.kimiljeong.presentation.util.parseColorToResource
 
 class PostAdapter(
     var posts: List<PostInformation>,
@@ -31,6 +32,13 @@ class PostAdapter(
         internal fun bind(post: PostInformation) {
             binding.run {
                 tvItemPostTitle.text = post.title
+                tvItemPostAccountId.text = post.accountId
+                tvItemPostAddress.text = post.address
+                tvItemPostDate.text = post.timeCreated
+                tvItemPostScheduleContent.text = post.scheduleContent
+                indicatorItemPostColor.setBackgroundResource(
+                    parseColorToResource(post.color)
+                )
             }
         }
     }
