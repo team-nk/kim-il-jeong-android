@@ -2,6 +2,7 @@ package team.nk.kimiljeong.data.repository.remote.implement
 
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.PostAPI
+import team.nk.kimiljeong.data.model.remote.request.CreateCommentRequest
 import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireBirthdayListResponse
 import team.nk.kimiljeong.data.model.remote.response.InquireCommentListResponse
@@ -21,8 +22,8 @@ class PostRepositoryImpl @Inject constructor(
         return postApi.createPost(request)
     }
 
-    override suspend fun createComment(postId: Int): Response<Void> {
-        return postApi.createComment(postId)
+    override suspend fun createComment(postId: Int, request: CreateCommentRequest): Response<Void> {
+        return postApi.createComment(postId, request)
     }
 
     override suspend fun inquireBirthdayList(): Response<InquireBirthdayListResponse> {
