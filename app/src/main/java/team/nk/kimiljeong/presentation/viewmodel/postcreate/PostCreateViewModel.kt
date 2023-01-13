@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.presentation.viewmodel.postcreate
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -28,13 +29,19 @@ class PostCreateViewModel @Inject constructor(
         title: String,
         content: String,
     ) {
-        if (title.isEmpty()) {
+        if (title.isBlank()) {
             _snackBarMessage.postValue(
                 mApplication.getString(
                     R.string.post_create_please_enter_title,
                 ),
             )
-        } else if (content.isEmpty()) {
+        } else if (title.length > 30) {
+            _snackBarMessage.postValue(
+                mApplication.getString(
+                    R.string.post_create_please_set_title_under_length_30,
+                ),
+            )
+        } else if (content.isBlank()) {
             _snackBarMessage.postValue(
                 mApplication.getString(
                     R.string.post_create_please_enter_content,
@@ -43,12 +50,15 @@ class PostCreateViewModel @Inject constructor(
         } else {
             viewModelScope.launch(IO) {
                 kotlin.runCatching {
-                    postRepository.createPost(CreatePostRequest(
-                        scheduleId = scheduleId,
-                        title = title,
-                        content = content,
-                    ))
+                    postRepository.createPost(
+                        CreatePostRequest(
+                            scheduleId = scheduleId,
+                            title = title,
+                            content = content,
+                        ),
+                    )
                 }.onSuccess {
+                    Log.e(this.javaClass.simpleName, "createPost: ${it.isSuccessful}")
                     _isCreateScheduleSucceed.postValue(if (it.isSuccessful) true
                     else {
                         _snackBarMessage.postValue(
