@@ -20,10 +20,6 @@ class CalendarViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
 ) : BaseViewModel(mApplication = application) {
 
-    init {
-        inquireSchedules()
-    }
-
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
     val schedules: LiveData<List<ScheduleInformation>>
         get() = _schedules
@@ -34,6 +30,26 @@ class CalendarViewModel @Inject constructor(
                 scheduleRepository.inquireEntireScheduleList()
             }.onSuccess {
                 if (it.isSuccessful) {
+                    _schedules.postValue(it.body()?.schedules)
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    internal fun inquireDateScheduleList(
+        date: String,
+    ){
+        viewModelScope.launch(IO){
+            kotlin.runCatching {
+                scheduleRepository.inquireDateScheduleList(date)
+            }.onSuccess {
+                if(it.isSuccessful){
                     _schedules.postValue(it.body()?.schedules)
                 } else {
                     _snackBarMessage.postValue(
