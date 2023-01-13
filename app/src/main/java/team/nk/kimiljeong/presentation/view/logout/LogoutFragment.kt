@@ -1,8 +1,10 @@
 package team.nk.kimiljeong.presentation.view.logout
 
+import app.junsu.startactivityutil.StartActivityUtil.startActivityRemovingBackStack
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogDoubleButtonBinding
 import team.nk.kimiljeong.presentation.base.view.BaseDialogFragment
+import team.nk.kimiljeong.presentation.view.start.StartActivity
 
 class LogoutFragment : BaseDialogFragment<DialogDoubleButtonBinding>(
     R.layout.dialog_double_button,
@@ -10,6 +12,7 @@ class LogoutFragment : BaseDialogFragment<DialogDoubleButtonBinding>(
     override fun initView() {
         initDialogTextView()
         initCancelButton()
+        initLogoutButton()
     }
 
     private fun initDialogTextView() {
@@ -26,6 +29,15 @@ class LogoutFragment : BaseDialogFragment<DialogDoubleButtonBinding>(
     private fun initCancelButton() {
         binding.btnDialogDoubleButtonCancel.setOnClickListener {
             dismiss()
+        }
+    }
+
+    private fun initLogoutButton(){
+        binding.btnDialogDoubleButtonAction.setOnClickListener {
+            requireActivity().startActivityRemovingBackStack(
+                requireActivity(),
+                StartActivity::class.java,
+            )
         }
     }
 
