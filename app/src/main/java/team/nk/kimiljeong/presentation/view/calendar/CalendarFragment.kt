@@ -27,13 +27,15 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
 
     private val viewModel by viewModels<CalendarViewModel>()
 
-    private val today by lazy {
-        CalendarDay.today()
-    }
+    private val today = CalendarDay.today()
 
     override fun initView() {
         initHeader()
         initCalendar()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         inquireDateScheduleList(Calendar.getInstance().time)
     }
 

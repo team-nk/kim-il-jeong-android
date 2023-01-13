@@ -49,7 +49,6 @@ class CalendarViewModel @Inject constructor(
             kotlin.runCatching {
                 scheduleRepository.inquireDateScheduleList(date)
             }.onSuccess {
-                println(it.code())
                 if(it.isSuccessful){
                     _schedules.postValue(it.body()?.schedules)
                 } else {
