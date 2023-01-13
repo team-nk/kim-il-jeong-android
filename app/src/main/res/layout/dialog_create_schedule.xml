@@ -146,10 +146,10 @@
                             android:id="@+id/switch_dialog_create_schedule_is_schedule_all_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:thumb="@drawable/selector_create_schedule_swch_thmb"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:thumbTint="@drawable/selector_create_schedule_swch_thmb" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
