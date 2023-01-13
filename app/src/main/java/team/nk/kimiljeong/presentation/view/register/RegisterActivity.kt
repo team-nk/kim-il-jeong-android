@@ -16,8 +16,10 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
     private val viewModel by viewModels<RegisterViewModel>()
 
     override fun initView() {
-        initRegisterButton()
+        initVerifyEmailButton()
+        initCheckVerificationCodeButton()
         initCheckIdDuplicationButton()
+        initRegisterButton()
     }
 
     override fun observeEvent() {
@@ -25,16 +27,37 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
         observeRegister()
     }
 
-    private fun initRegisterButton() {
-        binding.btnActivityRegisterNext.setOnClickListener {
-            binding.run {
-                viewModel.register(
-                    email = etActivityRegisterEmail.text.toString(),
-                    verificationCode = etActivityRegisterVerificationCode.text.toString(),
-                    accountId = etActivityRegisterId.text.toString(),
-                    password = etActivityRegisterPassword.text.toString(),
-                    passwordRepeat = etActivityRegisterPasswordRepeat.text.toString(),
-                )
+    private fun initVerifyEmailButton() {
+        with(binding) {
+            btnActivityRegisterVerifyEmail.setOnClickListener {
+                val email = etActivityRegisterEmail.text.toString()
+                if (email.isNotBlank()) {
+                    viewModel.verifyEmail(email)
+                } else {
+                    showShortSnackBar(
+                        getString(
+                            R.string.sign_up_hint_please_enter_verification_code,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initCheckVerificationCodeButton() {
+        with(binding) {
+            btnActivityRegisterCheckVerificationCode.setOnClickListener {
+                etActivityRegisterVerificationCode.text.toString().run {
+                    if (this.isNotBlank()) {
+                        viewModel.checkVerificationCode(this)
+                    } else {
+                        showShortSnackBar(
+                            getString(
+                                R.string.sign_up_error_incorrect_verification_code
+                            ),
+                        )
+                    }
+                }
             }
         }
     }
@@ -57,13 +80,43 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
         }
     }
 
+    private fun initRegisterButton() {
+        binding.btnActivityRegisterNext.setOnClickListener {
+            binding.run {
+                viewModel.register(
+                    email = etActivityRegisterEmail.text.toString(),
+                    verificationCode = etActivityRegisterVerificationCode.text.toString(),
+                    accountId = etActivityRegisterId.text.toString(),
+                    password = etActivityRegisterPassword.text.toString(),
+                    passwordRepeat = etActivityRegisterPasswordRepeat.text.toString(),
+                )
+            }
+        }
+    }
+
     private fun observeRegister() {
+        viewModel.isEmailVerificationCodeSent.observe(
+            this,
+        ) {
+            showShortSnackBar(
+                getString(
+                    R.string.sign_up_snkbr_email_verification_code_has_sent,
+                ),
+            )
+            if (it) {
+                with(binding) {
+                    etActivityRegisterEmail.disable()
+                    btnActivityRegisterVerifyEmail.disable()
+                }
+            }
+        }
+
         viewModel.snackBarMessage.observe(
             this,
         ) {
             showShortSnackBar(it)
         }
-        viewModel.register.observe(
+        viewModel.isRegisterSuccess.observe(
             this,
         ) {
             if (it) {
@@ -88,6 +141,17 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
                         R.string.sign_up_error_unavailbale_id,
                     )
                 )
+            }
+        }
+
+        viewModel.isVerificationCodeChecked.observe(
+            this,
+        ) {
+            if (it) {
+                with(binding) {
+                    etActivityRegisterVerificationCode.disable()
+                    btnActivityRegisterCheckVerificationCode.disable()
+                }
             }
         }
     }
