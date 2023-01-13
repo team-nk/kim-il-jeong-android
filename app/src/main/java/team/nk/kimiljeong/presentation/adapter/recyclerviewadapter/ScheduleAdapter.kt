@@ -8,16 +8,19 @@ import team.nk.kimiljeong.data.common.Color.*
 import team.nk.kimiljeong.data.extension.toColor
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.ItemScheduleBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+
 
     inner class ViewHolder(private val binding: ItemScheduleBinding) :
         RecyclerView.ViewHolder(binding.root) {
         internal fun bind(schedule: ScheduleInformation) {
             with(binding) {
                 tvItemCalendarTodayScheduleTitle.text = schedule.content
-                tvItemCalendarTodayScheduleDate.text = schedule.startsAt ?: "Something Wrong"
+                tvItemCalendarTodayScheduleDate.text = schedule.startsAt?.replace("T", " ")
                 indicatorItemCalendarTodaySchedule.setBackgroundResource(
                     when (schedule.color?.toColor()) {
                         RED -> R.drawable.bg_create_schedule_color_indicator_red_unchecked
