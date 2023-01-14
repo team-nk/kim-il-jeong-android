@@ -4,16 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".feature.fragment.calendar.ScheduleFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundBottomSheetDialogPrimary">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/BackgroundAlertDialogPrimary">
 
-        <DatePicker
-            android:layout_width="match_parent"
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendar_view_dlg_date_picker_main"
+            android:layout_width="360dp"
             android:layout_height="match_parent"
-            android:startYear="2023"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_calendar_clndr"
+            android:elevation="4dp"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/constraint"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:mcv_selectionColor="@color/main_700"
+            app:mcv_showOtherDates="other_months" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
+            android:layout_width="0dp"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/btn_dialog_create_schedule_cancel"
+                style="@style/TextViewCancelButtonPrimary"
+                android:layout_marginEnd="8dp"
+                android:text="@string/do_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_dialog_create_schedule_create"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_dialog_create_schedule_create"
+                style="@style/ButtonPrimary"
+                android:layout_marginStart="8dp"
+                android:text="@string/do_select"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_dialog_create_schedule_cancel"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
