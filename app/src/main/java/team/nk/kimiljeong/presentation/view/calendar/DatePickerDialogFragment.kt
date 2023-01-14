@@ -59,7 +59,7 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
     }
 
     private fun initCancelButton(){
-        binding.btnDialogCreateScheduleCancel.setOnClickListener {
+        binding.btnDlgDatePickerCancel.setOnClickListener {
             dismiss()
         }
     }
