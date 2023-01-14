@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +24,7 @@ import team.nk.kimiljeong.BuildConfig
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogSearchLocationBinding
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
+import java.util.*
 
 class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationBinding>(
     R.layout.dialog_search_location,
@@ -106,7 +108,11 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.run {
             mapType = GoogleMap.MAP_TYPE_NORMAL
-            addMarker(googleMap)
+            addCustomMarker(
+                googleMap = googleMap,
+                latitude = currentLocation.latitude,
+                longtitude = currentLocation.longitude,
+            )
             setMinZoomPreference(10F)
             setMaxZoomPreference(18F)
             moveCamera(
@@ -116,8 +122,11 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
                 CameraUpdateFactory.zoomTo(500F)
             )
             setOnMapClickListener {
-                currentLocation = LatLng(it.latitude, it.longitude)
-                addMarker(googleMap)
+                addCustomMarker(
+                    googleMap = googleMap,
+                    latitude = it.latitude,
+                    longtitude = it.longitude,
+                )
             }
         }
     }
@@ -129,10 +138,24 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
         }
     }
 
-    private fun addMarker(googleMap: GoogleMap) {
+    private fun addCustomMarker(
+        googleMap: GoogleMap,
+        latitude: Double,
+        longtitude: Double,
+    ) {
         googleMap.addMarker(
             MarkerOptions()
-                .position(currentLocation)
+                .title(
+                    Geocoder(
+                        requireActivity(),
+                        Locale.KOREA,
+                    ).getFromLocation(
+                        latitude,
+                        longtitude,
+                        1,
+                    )?.first()?.getAddressLine(0)
+                )
+                .position(LatLng(latitude, longtitude))
         )
     }
 }
