@@ -32,23 +32,23 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/btn_dialog_create_schedule_cancel"
+                android:id="@+id/btn_dlg_date_picker_cancel"
                 style="@style/TextViewCancelButtonPrimary"
                 android:layout_marginEnd="8dp"
                 android:text="@string/do_cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_dialog_create_schedule_create"
+                app:layout_constraintEnd_toStartOf="@id/btn_dlg_date_picker_select"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_dialog_create_schedule_create"
+                android:id="@+id/btn_dlg_date_picker_select"
                 style="@style/ButtonPrimary"
                 android:layout_marginStart="8dp"
                 android:text="@string/do_select"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_dialog_create_schedule_cancel"
+                app:layout_constraintStart_toEndOf="@id/btn_dlg_date_picker_cancel"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
