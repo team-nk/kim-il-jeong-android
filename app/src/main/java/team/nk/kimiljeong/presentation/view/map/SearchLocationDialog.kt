@@ -105,10 +105,8 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
 
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.run {
-            addMarker(
-                MarkerOptions()
-                    .position(currentLocation)
-            )
+            mapType = GoogleMap.MAP_TYPE_NORMAL
+            addMarker(googleMap)
             setMinZoomPreference(10F)
             setMaxZoomPreference(18F)
             moveCamera(
@@ -117,14 +115,24 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
             animateCamera(
                 CameraUpdateFactory.zoomTo(500F)
             )
-            mapType = GoogleMap.MAP_TYPE_NORMAL
+            setOnMapClickListener {
+                currentLocation = LatLng(it.latitude, it.longitude)
+                addMarker(googleMap)
+            }
         }
     }
 
     private fun setUserLocation() {
-        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)?.run {
+        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.run {
             currentLocation = LatLng(this.latitude, this.longitude)
             mapFragment.getMapAsync(this@SearchLocationDialog)
         }
+    }
+
+    private fun addMarker(googleMap: GoogleMap) {
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(currentLocation)
+        )
     }
 }
