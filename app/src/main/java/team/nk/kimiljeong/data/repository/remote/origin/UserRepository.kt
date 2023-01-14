@@ -69,4 +69,8 @@ interface UserRepository {
         refreshToken: String,
         accessToken: String,
     )
+
+    suspend fun changeUserInformation(
+        request: ChangeUserInformationRequest,
+    ) : Response<Void>
 }
