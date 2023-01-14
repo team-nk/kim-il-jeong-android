@@ -68,8 +68,8 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_fragment_calendar_add_schedule"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:background="@drawable/ic_global_add"
                         android:contentDescription="@string/calendar_content_description_il_jeong_add_button"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -57,6 +57,7 @@
                         android:minHeight="48dp">
 
                         <TextView
+                            android:id="@+id/tv_dialog_create_schedule_enter_location"
                             style="@style/TextViewBodyPrimary"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/create_schedule_enter_location"
