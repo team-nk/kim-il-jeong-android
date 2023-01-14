@@ -92,6 +92,8 @@
     <string name="create_schedule_time_end">종료 시간</string>
     <string name="create_schedule_create_new_schedule">새로운 일정 생성하기</string>
     <string name="create_schedule_enter_schedule">일정을 입력하세요</string>
+    <string name="create_schedule_date_start">시작 날짜</string>
+    <string name="create_schedule_date_end">종료 날짜</string>
 
     <string name="change_user_information_change_information">정보 변경하기</string>
     <string name="change_user_information_change_profile">이미지 변경하기</string>
