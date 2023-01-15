@@ -27,6 +27,7 @@ class AddScheduleBottomSheetDialogFragment :
     private fun initTextViews() {
         initAddressTextView()
         initStartDateTextView()
+        initStartTimeTextView()
     }
 
     private fun initSearchLocationButton() {
@@ -63,14 +64,20 @@ class AddScheduleBottomSheetDialogFragment :
     }
 
     private fun initAddressTextView() {
-        setFragmentResultListener("address") { requestKey, bundle ->
+        setFragmentResultListener("address") { _, bundle ->
             binding.tvDialogCreateScheduleEnterLocation.text = bundle.getString("address")
         }
     }
 
     private fun initStartDateTextView() {
-        setFragmentResultListener("startDate") { requestKey, bundle ->
+        setFragmentResultListener("startDate") { _, bundle ->
             binding.btnDialogCreateScheduleDateStart.text = bundle.getString("startDate")
+        }
+    }
+
+    private fun initStartTimeTextView() {
+        setFragmentResultListener("startTime") { _, bundle ->
+            binding.btnDialogCreateScheduleTimeStart.text = bundle.getString("startTime")
         }
     }
 }

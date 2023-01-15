@@ -31,6 +31,9 @@
     <string name="cancel">취소</string>
     <string name="next">다음</string>
 
+    <string name="am">오전</string>
+    <string name="pm">오후</string>
+
     <string name="introduction_content_description_next_icon">Introduction Next Page Icon</string>
     <string name="introduction_content_description_view_pager_image">ViewPager Image</string>
     <string name="introduction_please_accept_permission">위치 권한을 허용해 주세요.</string>
