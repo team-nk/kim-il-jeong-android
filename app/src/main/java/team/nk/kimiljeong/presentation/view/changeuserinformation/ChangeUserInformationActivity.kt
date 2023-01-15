@@ -12,7 +12,6 @@ import team.nk.kimiljeong.databinding.ActivityChangeUserInformationBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.viewmodel.changeinformation.ChangeUserInformationViewModel
-import team.nk.kimiljeong.presentation.viewmodel.changepassword.ChangePasswordViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -90,18 +89,16 @@ class ChangeUserInformationActivity @Inject constructor() :
         super.observeEvent()
         viewModel.changeUserInformation.observe(
             this,
-        ){
-            if(it){
-                showShortSnackBar(
-                    text = "정보 변경 성공"
-                )
+        ) {
+            if (it) {
+                setResult(RESULT_OK)
                 finish()
                 // TODO get string resource
             }
         }
         viewModel.snackBarMessage.observe(
             this,
-        ){
+        ) {
             showShortSnackBar(
                 text = it,
             )
