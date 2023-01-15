@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.schedule
 
+import androidx.fragment.app.setFragmentResultListener
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogCreateScheduleBinding
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
@@ -13,9 +14,18 @@ class AddScheduleBottomSheetDialogFragment :
     ) {
 
     override fun initView() {
+        initButtons()
+        initTextViews()
+    }
+
+    private fun initButtons() {
         initSearchLocationButton()
         initSelectDayStartButton()
         initSelectTimeStartButton()
+    }
+
+    private fun initTextViews() {
+        initAddressTextView()
     }
 
     private fun initSearchLocationButton() {
@@ -40,7 +50,7 @@ class AddScheduleBottomSheetDialogFragment :
         }
     }
 
-    private fun initSelectTimeStartButton(){
+    private fun initSelectTimeStartButton() {
         binding.btnDialogCreateScheduleTimeStart.setOnClickListener {
             TimePickerDialogFragment().also {
                 it.show(
@@ -48,6 +58,12 @@ class AddScheduleBottomSheetDialogFragment :
                     it.tag,
                 )
             }
+        }
+    }
+
+    private fun initAddressTextView() {
+        setFragmentResultListener("address") { requestKey, bundle ->
+            binding.tvDialogCreateScheduleEnterLocation.text = bundle.getString("address")
         }
     }
 }
