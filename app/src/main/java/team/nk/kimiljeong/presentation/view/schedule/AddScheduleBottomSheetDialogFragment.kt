@@ -25,6 +25,7 @@ class AddScheduleBottomSheetDialogFragment :
         initSelectTimeStartButton()
         initSelectDayEndButton()
         initSelectTimeEndButton()
+        initCancelButton()
     }
 
     private fun initTextViews() {
@@ -123,7 +124,12 @@ class AddScheduleBottomSheetDialogFragment :
     private fun initEndTimeTextView() {
         setFragmentResultListener("endTime") { _, bundle ->
             binding.btnDialogCreateScheduleTimeEnd.text = bundle.getString("endTime")
+        }
+    }
 
+    private fun initCancelButton(){
+        binding.btnDialogCreateScheduleCancel.setOnClickListener {
+            dismiss()
         }
     }
 }
