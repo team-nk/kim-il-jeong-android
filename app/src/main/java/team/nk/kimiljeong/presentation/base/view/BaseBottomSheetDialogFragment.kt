@@ -19,7 +19,7 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
             layoutId,
