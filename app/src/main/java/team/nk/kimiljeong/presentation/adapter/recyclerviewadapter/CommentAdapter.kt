@@ -18,9 +18,7 @@ class CommentAdapter(
                 tvItemCommentAccountId.text = comment.accountId
                 tvItremCommentContent.text = comment.content
                 tvItemCommentTimeCreated.text = comment.timeCreated
-                imageItemCommentProfile.loadImageFrom(
-                    comment.profileUrl ?: "https://avatars.githubusercontent.com/u/101160207?v=4",
-                )
+                imageItemCommentProfile.loadImageFrom(comment.profileUrl)
             }
         }
     }

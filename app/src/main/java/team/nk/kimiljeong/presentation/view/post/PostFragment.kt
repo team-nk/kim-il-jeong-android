@@ -10,7 +10,6 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentPostBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.PostAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
-import team.nk.kimiljeong.presentation.common.selectedPostId
 import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.view.postcreate.PostCreateActivity
 import team.nk.kimiljeong.presentation.view.postinspect.PostInspectActivity
@@ -73,11 +72,11 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
             viewLifecycleOwner,
         ) {
             postAdapter = PostAdapter(posts = it, object : ItemClickListener {
-                override fun onItemClick() {
+                override fun onPostItemClick(postId: Int) {
                     startActivity(Intent(
                         requireActivity(),
                         PostInspectActivity::class.java,
-                    ).putExtra("postId", selectedPostId))
+                    ).putExtra("postId", postId))
                 }
             })
             binding.rvFragmentPostMain.run {
@@ -100,5 +99,5 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
 }
 
 interface ItemClickListener {
-    fun onItemClick()
+    fun onPostItemClick(postId: Int)
 }

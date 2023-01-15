@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ItemPostBinding
-import team.nk.kimiljeong.presentation.common.selectedPostId
-import team.nk.kimiljeong.presentation.common.selectedPostInformation
 import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.view.post.ItemClickListener
 
@@ -44,9 +42,7 @@ class PostAdapter(
                     parseColorToResource(post.color)
                 )
                 root.setOnClickListener {
-                    onItemClick.onItemClick()
-                    selectedPostId = post.id
-                    selectedPostInformation = post
+                    onItemClick.onPostItemClick(post.id)
                 }
             }
         }
