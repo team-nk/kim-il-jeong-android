@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class PostInformation(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
-    @SerializedName("content") val content: String,
     @SerializedName("schedule_content") val scheduleContent: String,
     @SerializedName("address") val address: String,
     @SerializedName("color") val color: String,
