@@ -12,7 +12,7 @@ import team.nk.kimiljeong.presentation.view.map.SearchLocationDialog
 class AddScheduleBottomSheetDialogFragment :
     BaseBottomSheetDialogFragment<DialogCreateScheduleBinding>(
         R.layout.dialog_create_schedule,
-    ) {
+    ) { // TODO 버튼, 텍스트뷰 초기화 함수 리팩토링
 
     override fun initView() {
         initButtons()
