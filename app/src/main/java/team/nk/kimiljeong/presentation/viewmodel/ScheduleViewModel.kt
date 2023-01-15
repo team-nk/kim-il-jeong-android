@@ -24,8 +24,6 @@ class ScheduleViewModel @Inject constructor(
     internal fun setAddress(
         address: String,
     ){
-        Log.d("TEST", "fuck")
         _address.value = address
-        Log.d("TEST", aaddress.value.toString())
     }
 }
