@@ -6,7 +6,7 @@ import team.nk.kimiljeong.databinding.DialogDoubleButtonBinding
 import team.nk.kimiljeong.presentation.base.view.BaseDialogFragment
 import team.nk.kimiljeong.presentation.view.start.StartActivity
 
-class LogoutDialog : BaseDialogFragment<DialogDoubleButtonBinding>(
+class LogoutDialogFragment : BaseDialogFragment<DialogDoubleButtonBinding>(
     R.layout.dialog_double_button,
 ) {
     override fun initView() {
@@ -32,7 +32,7 @@ class LogoutDialog : BaseDialogFragment<DialogDoubleButtonBinding>(
         }
     }
 
-    private fun initLogoutButton(){
+    private fun initLogoutButton() {
         binding.btnDialogDoubleButtonAction.setOnClickListener {
             requireActivity().startActivityRemovingBackStack(
                 requireActivity(),
@@ -40,5 +40,4 @@ class LogoutDialog : BaseDialogFragment<DialogDoubleButtonBinding>(
             )
         }
     }
-
 }
