@@ -26,8 +26,16 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
         ActivityResultContracts.StartActivityForResult(),
     ) {
         if (it.resultCode == RESULT_OK) {
-            postAdapter.notifyDataSetChanged()
-            binding.rvFragmentPostMain.adapter = postAdapter
+            kotlin.runCatching {
+                postAdapter.notifyDataSetChanged()
+                binding.rvFragmentPostMain.adapter = postAdapter
+            }.onFailure {
+                showShortSnackBar(
+                    getString(
+                        R.string.error_failed_to_connect_to_server,
+                    ),
+                )
+            }
         }
     }
 
