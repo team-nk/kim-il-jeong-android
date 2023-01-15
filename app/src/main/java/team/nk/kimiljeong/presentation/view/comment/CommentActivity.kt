@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.comment
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
@@ -17,6 +18,16 @@ class CommentActivity : BaseActivity<ActivityCommentBinding>(
     private val viewModel by viewModels<CommentViewModel>()
 
     private lateinit var rvAdapter: CommentAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.setPostId(
+            intent.getIntExtra(
+                "postId", 0,
+            )
+        )
+    }
 
     override fun initView() {
         initCommentLabel()

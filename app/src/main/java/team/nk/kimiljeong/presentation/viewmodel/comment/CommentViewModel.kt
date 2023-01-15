@@ -14,7 +14,6 @@ import team.nk.kimiljeong.data.model.remote.request.CreateCommentRequest
 import team.nk.kimiljeong.data.repository.remote.origin.PostRepository
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
-import team.nk.kimiljeong.presentation.common.selectedPostId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +22,13 @@ class CommentViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val postRepository: PostRepository,
 ) : BaseViewModel(application) {
+
+    private var postId: Int? = null
+
+    internal fun setPostId(postId: Int) {
+        this.postId = postId
+        inquireComments()
+    }
 
     init {
         inquireComments()
@@ -44,7 +50,7 @@ class CommentViewModel @Inject constructor(
     internal fun inquireComments() {
         viewModelScope.launch(IO) {
             runCatching {
-                postRepository.inquireCommentList(selectedPostId ?: 0)
+                postRepository.inquireCommentList(postId!!)
             }.onSuccess {
                 if (it.isSuccessful) {
                     _comments.postValue(it.body()?.comments)
@@ -88,7 +94,7 @@ class CommentViewModel @Inject constructor(
             viewModelScope.launch(IO) {
                 runCatching {
                     postRepository.createComment(
-                        postId = selectedPostId!!,
+                        postId = postId!!,
                         request = CreateCommentRequest(
                             comment,
                         )
