@@ -154,7 +154,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
         date: Date,
         isToday: Boolean,
     ) {
-        println(date)
         viewModel.inquireDateScheduleList(
             date = SimpleDateFormat(
                 "yyyy-MM-dd'T'00:00:00.SSS'Z'",
