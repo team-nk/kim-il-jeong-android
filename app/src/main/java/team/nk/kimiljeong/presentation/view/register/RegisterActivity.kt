@@ -36,7 +36,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
                 } else {
                     showShortSnackBar(
                         getString(
-                            R.string.sign_up_hint_please_enter_verification_code,
+                            R.string.sign_up_error_please_enter_email,
                         ),
                     )
                 }
