@@ -12,6 +12,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -34,13 +36,9 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
         SupportMapFragment.newInstance()
     }
 
-    override fun initView() {
-        initMapView()
-        initCloseButton()
-        checkUserPermission()
-    }
-
     private lateinit var currentLocation: LatLng
+
+    private lateinit var address: String
 
     private val locationManager: LocationManager by lazy {
         requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -55,24 +53,27 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
         return BottomSheetDialog(
             requireContext()
         ).apply {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.run {
+                val expanded = BottomSheetBehavior.STATE_EXPANDED
+                state = expanded
+                addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                            state = expanded
+                        }
                     }
-                }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                }
-            })
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                })
+            }
         }
     }
 
-    private fun initMapView() {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.map_dialog_search_location_map_main, mapFragment, "MapTag").commit()
+    override fun initView() {
+        initMapView()
+        initCloseButton()
+        checkUserPermission()
+        initSelectButton()
     }
 
     private fun initCloseButton() {
@@ -95,15 +96,6 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
             requireActivity(),
             Manifest.permission.ACCESS_FINE_LOCATION,
         ) == PackageManager.PERMISSION_GRANTED
-
-    private fun moveToOption() {
-        startActivity(
-            Intent(
-                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-            )
-        )
-    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.run {
@@ -128,7 +120,41 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
                     longtitude = it.longitude,
                 )
             }
+            setAddress(
+                latitude = currentLocation.latitude,
+                longtitude = currentLocation.longitude,
+            )
         }
+    }
+
+    private fun addCustomMarker(
+        googleMap: GoogleMap,
+        latitude: Double,
+        longtitude: Double,
+    ) {
+        setAddress(
+            latitude = latitude,
+            longtitude = longtitude,
+        )
+        googleMap.addMarker(
+            MarkerOptions()
+                .title(address)
+                .position(LatLng(latitude, longtitude))
+        )
+    }
+
+    private fun setAddress(
+        latitude: Double,
+        longtitude: Double,
+    ) {
+        address = Geocoder(
+            requireActivity(),
+            Locale.KOREA,
+        ).getFromLocation(
+            latitude,
+            longtitude,
+            1,
+        )?.first()?.getAddressLine(0).toString()
     }
 
     private fun setUserLocation() {
@@ -138,24 +164,24 @@ class SearchLocationDialog : BaseBottomSheetDialogFragment<DialogSearchLocationB
         }
     }
 
-    private fun addCustomMarker(
-        googleMap: GoogleMap,
-        latitude: Double,
-        longtitude: Double,
-    ) {
-        googleMap.addMarker(
-            MarkerOptions()
-                .title(
-                    Geocoder(
-                        requireActivity(),
-                        Locale.KOREA,
-                    ).getFromLocation(
-                        latitude,
-                        longtitude,
-                        1,
-                    )?.first()?.getAddressLine(0)
-                )
-                .position(LatLng(latitude, longtitude))
+    private fun initMapView() {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.map_dialog_search_location_map_main, mapFragment, "MapTag").commit()
+    }
+
+    private fun moveToOption() {
+        startActivity(
+            Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+            )
         )
+    }
+
+    private fun initSelectButton() {
+        binding.btnDialogSearchLocationSelect.setOnClickListener {
+            setFragmentResult("address", bundleOf("address" to address))
+            dismiss()
+        }
     }
 }
