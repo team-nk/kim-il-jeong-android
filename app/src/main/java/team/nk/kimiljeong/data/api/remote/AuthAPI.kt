@@ -59,4 +59,9 @@ interface AuthAPI {
     suspend fun uploadImage(
         @Body request: UploadImageRequest,
     ): Response<UploadImageResponse>
+
+    @PATCH("/user")
+    suspend fun changeUserInformation(
+        @Body request: ChangeUserInformationRequest,
+    ) : Response<Void>
 }

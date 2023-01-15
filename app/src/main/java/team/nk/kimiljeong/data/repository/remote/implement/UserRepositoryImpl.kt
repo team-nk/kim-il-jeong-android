@@ -131,4 +131,12 @@ class UserRepositoryImpl @Inject constructor(
             accessToken = accessToken,
         )
     }
+
+    override suspend fun changeUserInformation(
+        request: ChangeUserInformationRequest,
+    ): Response<Void> {
+        return authApi.changeUserInformation(
+            request = request,
+        )
+    }
 }
