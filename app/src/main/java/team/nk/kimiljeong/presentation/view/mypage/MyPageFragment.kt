@@ -10,7 +10,7 @@ import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
-import team.nk.kimiljeong.presentation.view.logout.LogoutDialog
+import team.nk.kimiljeong.presentation.view.logout.LogoutDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
@@ -99,7 +99,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
 
     private fun initLogoutButton() {
         binding.btnFragmentMypageLogout.setOnClickListener {
-            LogoutDialog().also {
+            LogoutDialogFragment().also {
                 it.show(
                     requireActivity().supportFragmentManager,
                     this.tag,
