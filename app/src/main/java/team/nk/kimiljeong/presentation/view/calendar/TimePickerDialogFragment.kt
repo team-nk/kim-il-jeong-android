@@ -20,14 +20,27 @@ class TimePickerDialogFragment : BaseDialogFragment<DialogTimePickerBinding>(
 
     private fun initTimePicker() {
         binding.timePickerDlgTimePicker.run {
+            initSelectTime(
+                hour = this.hour,
+                minute = this.minute,
+            )
             setOnTimeChangedListener { _, _, _ ->
-                if (this.hour >= 13) {
-                    selectTime = "${getString(R.string.pm)} ${this.hour.minus(12)}:${this.minute}"
-                } else {
-                    selectTime = "${getString(R.string.am)} ${this.hour}:${this.minute}"
-                }
+                initSelectTime(
+                    hour = this.hour,
+                    minute = this.minute,
+                )
             }
         }
+    }
+
+    private fun initSelectTime(
+        hour: Int,
+        minute: Int,
+    ) {
+        var zero = if (minute < 10) "0" else ""
+        selectTime = if (hour >= 13) {
+            "${getString(R.string.pm)} ${hour.minus(12)}:$zero${minute}"
+        } else "${getString(R.string.am)} ${hour}:$zero${minute}"
     }
 
     private fun initCancelButton() {
