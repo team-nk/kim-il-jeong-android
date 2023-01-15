@@ -74,7 +74,11 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
 
     private fun initSelectButton() {
         binding.btnDlgDatePickerSelect.setOnClickListener {
-            setFragmentResult("startDate", bundleOf("startDate" to selectDate))
+            if (arguments?.getBoolean("isEnd") == true) {
+                setFragmentResult("endDate", bundleOf("endDate" to selectDate))
+            } else {
+                setFragmentResult("startDate", bundleOf("startDate" to selectDate))
+            }
             dismiss()
         }
     }

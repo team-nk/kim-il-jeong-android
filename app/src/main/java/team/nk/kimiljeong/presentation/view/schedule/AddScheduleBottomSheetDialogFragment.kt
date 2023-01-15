@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.schedule
 
+import android.os.Bundle
 import androidx.fragment.app.setFragmentResultListener
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogCreateScheduleBinding
@@ -22,12 +23,14 @@ class AddScheduleBottomSheetDialogFragment :
         initSearchLocationButton()
         initSelectDayStartButton()
         initSelectTimeStartButton()
+        initSelectDayEndButton()
     }
 
     private fun initTextViews() {
         initAddressTextView()
         initStartDateTextView()
         initStartTimeTextView()
+        initEndDateTextView()
     }
 
     private fun initSearchLocationButton() {
@@ -63,6 +66,20 @@ class AddScheduleBottomSheetDialogFragment :
         }
     }
 
+    private fun initSelectDayEndButton() {
+        binding.btnDialogCreateScheduleDateEnd.setOnClickListener {
+            DatePickerDialogFragment().also {
+                val bundle = Bundle()
+                bundle.putBoolean("isEnd", true)
+                it.arguments = bundle
+                it.show(
+                    requireActivity().supportFragmentManager,
+                    it.tag,
+                )
+            }
+        }
+    }
+
     private fun initAddressTextView() {
         setFragmentResultListener("address") { _, bundle ->
             binding.tvDialogCreateScheduleEnterLocation.text = bundle.getString("address")
@@ -78,6 +95,12 @@ class AddScheduleBottomSheetDialogFragment :
     private fun initStartTimeTextView() {
         setFragmentResultListener("startTime") { _, bundle ->
             binding.btnDialogCreateScheduleTimeStart.text = bundle.getString("startTime")
+        }
+    }
+
+    private fun initEndDateTextView() {
+        setFragmentResultListener("endDate") { _, bundle ->
+            binding.btnDialogCreateScheduleDateEnd.text = bundle.getString("endDate")
         }
     }
 }
