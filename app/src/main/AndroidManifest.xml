@@ -51,5 +51,8 @@
         <activity
             android:name=".presentation.view.comment.CommentActivity"
             android:exported="true" />
+        <activity
+            android:name=".presentation.view.postcreate.PostCreateActivity"
+            android:exported="true" />
     </application>
 </manifest>

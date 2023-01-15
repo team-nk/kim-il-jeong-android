@@ -103,7 +103,7 @@
     <string name="change_password_please_enter_new_password_once_again">새로운 Password를 한 번 더 입력하세요</string>
 
     <string name="create_new_post_create_new_post">새 글 작성</string>
-    <string name="create_new_post_please_enter_content_first_line_is_title">내용을 입력하세요 (첫 줄은 제목입니다)</string>
+    <string name="create_new_post_please_enter_title">제목을 입력하세요</string>
     <string name="create_new_post_please_select_schedule">일정을 선택해 주세요</string>
     <string name="create_new_post_select_schedule">일정 선택</string>
 
@@ -133,6 +133,10 @@
     <string name="calendar_today_schedule">오늘의 일정</string>
 
     <string name="dlg_location_select_location">위치 선택</string>
+    <string name="post_create_please_enter_title">제목을 입력해 주세요</string>
+    <string name="post_create_please_enter_content">내용을 입력해 주세요.</string>
+    <string name="post_create_please_set_title_under_length_30">제목은 30자 이내로 입력해 주세요.</string>
+    <string name="create_new_post_please_enter_content">내용을 입력하세요</string>
 
     <string-array name="clndr_day_of_the_week">
         <item>SUN</item>

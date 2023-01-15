@@ -10,6 +10,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ActivityPostInspectBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.common.selectedPostInformation
 import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.view.comment.CommentActivity
 import team.nk.kimiljeong.presentation.viewmodel.postinspect.PostInspectViewModel
@@ -90,6 +91,3 @@ class PostInspectActivity @Inject constructor(
         }
     }
 }
-
-// 이런 코드는 클린하지 않아요. 사용하면 안됩니다 ㅠㅠ
-var selectedPostInformation: PostInformation? = null
