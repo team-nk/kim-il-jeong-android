@@ -9,14 +9,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
 import team.nk.kimiljeong.data.repository.remote.origin.PostRepository
+import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class PostCreateViewModel @Inject constructor(
     application: Application,
+    private val scheduleRepository: ScheduleRepository,
     private val postRepository: PostRepository,
 ) : BaseViewModel(application) {
 
@@ -26,9 +29,31 @@ class PostCreateViewModel @Inject constructor(
         selectedScheduleId = id
     }
 
+    private val _schedules = MutableLiveData<List<ScheduleInformation>>()
+    internal val schedules: LiveData<List<ScheduleInformation>>
+        get() = _schedules
+
     private val _isCreateScheduleSucceed = MutableLiveData<Boolean>()
     val isCreateScheduleSucceed: LiveData<Boolean>
         get() = _isCreateScheduleSucceed
+
+    internal fun inquireScheduleList() {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.inquireChooseScheduleList()
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _schedules.postValue(it.body()?.schedules)
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
 
     internal fun createPost(
         title: String,
