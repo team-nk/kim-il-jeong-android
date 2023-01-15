@@ -21,7 +21,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun createPost(request: CreatePostRequest): Response<Void> {
         return postApi.createPost(
-            request = request
+            request = request,
         )
     }
 
