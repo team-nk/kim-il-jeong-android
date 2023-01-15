@@ -64,6 +64,8 @@
                             style="@style/TextViewBodyPrimary"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/create_schedule_enter_location"
+                            android:layout_width="0dp"
+                            app:layout_constraintEnd_toStartOf="@id/tv_dialog_create_schedule_search_location"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
