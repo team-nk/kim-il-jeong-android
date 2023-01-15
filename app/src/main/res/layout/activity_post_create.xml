@@ -54,8 +54,8 @@
             app:layout_constraintStart_toStartOf="@id/guideline_activity_create_new_post_vertical_1"
             app:layout_constraintTop_toBottomOf="@id/layout_activity_create_new_post_text_input">
 
-            <!-- TODO Make this cardView as a Fragment -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/btn_activity_post_create_select_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
