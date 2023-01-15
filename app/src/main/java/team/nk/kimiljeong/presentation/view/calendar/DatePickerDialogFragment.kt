@@ -2,6 +2,8 @@ package team.nk.kimiljeong.presentation.view.calendar
 
 import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -9,6 +11,8 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogDatePickerBinding
 import team.nk.kimiljeong.presentation.base.view.BaseDialogFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
     R.layout.dialog_date_picker,
@@ -16,9 +20,12 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
 
     private val today = CalendarDay.today()
 
+    private lateinit var selectDate: String
+
     override fun initView() {
         initCalendar()
         initCancelButton()
+        initSelectButton()
     }
 
     private fun initCalendar() {
@@ -35,6 +42,7 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
                 return@setTitleFormatter "${it.year}년 ${it.month + 1}월"
             }
             setOnDateChangedListener { _, date, _ ->
+                selectDate = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date.date)
                 if (date == today) {
                     removeDecorators()
                 } else {
@@ -58,8 +66,15 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
         }
     }
 
-    private fun initCancelButton(){
+    private fun initCancelButton() {
         binding.btnDlgDatePickerCancel.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun initSelectButton() {
+        binding.btnDlgDatePickerSelect.setOnClickListener {
+            setFragmentResult("startDate", bundleOf("startDate" to selectDate))
             dismiss()
         }
     }
