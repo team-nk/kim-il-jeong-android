@@ -51,7 +51,11 @@ class TimePickerDialogFragment : BaseDialogFragment<DialogTimePickerBinding>(
 
     private fun initSelectButton() {
         binding.btnDlgTimePickerSelect.setOnClickListener {
-            setFragmentResult("startTime", bundleOf("startTime" to selectTime))
+            if (arguments?.getBoolean("isEnd") == true) {
+                setFragmentResult("endTime", bundleOf("endTime" to selectTime))
+            } else {
+                setFragmentResult("startTime", bundleOf("startTime" to selectTime))
+            }
             dismiss()
         }
     }

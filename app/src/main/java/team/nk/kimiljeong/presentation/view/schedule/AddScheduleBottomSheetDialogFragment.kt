@@ -24,6 +24,7 @@ class AddScheduleBottomSheetDialogFragment :
         initSelectDayStartButton()
         initSelectTimeStartButton()
         initSelectDayEndButton()
+        initSelectTimeEndButton()
     }
 
     private fun initTextViews() {
@@ -31,6 +32,7 @@ class AddScheduleBottomSheetDialogFragment :
         initStartDateTextView()
         initStartTimeTextView()
         initEndDateTextView()
+        initEndTimeTextView()
     }
 
     private fun initSearchLocationButton() {
@@ -80,6 +82,20 @@ class AddScheduleBottomSheetDialogFragment :
         }
     }
 
+    private fun initSelectTimeEndButton() {
+        binding.btnDialogCreateScheduleTimeEnd.setOnClickListener {
+            TimePickerDialogFragment().also {
+                val bundle = Bundle()
+                bundle.putBoolean("isEnd", true)
+                it.arguments = bundle
+                it.show(
+                    requireActivity().supportFragmentManager,
+                    it.tag,
+                )
+            }
+        }
+    }
+
     private fun initAddressTextView() {
         setFragmentResultListener("address") { _, bundle ->
             binding.tvDialogCreateScheduleEnterLocation.text = bundle.getString("address")
@@ -101,6 +117,13 @@ class AddScheduleBottomSheetDialogFragment :
     private fun initEndDateTextView() {
         setFragmentResultListener("endDate") { _, bundle ->
             binding.btnDialogCreateScheduleDateEnd.text = bundle.getString("endDate")
+        }
+    }
+
+    private fun initEndTimeTextView() {
+        setFragmentResultListener("endTime") { _, bundle ->
+            binding.btnDialogCreateScheduleTimeEnd.text = bundle.getString("endTime")
+
         }
     }
 }
