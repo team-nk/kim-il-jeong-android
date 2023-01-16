@@ -187,7 +187,7 @@ class AddScheduleBottomSheetDialogFragment :
     }
 
     private fun initRadioButton() {
-        for (i in 0..4) {
+        for (i in 0.until(radioButtonList.size)) {
             radioButtonList[i].setOnClickListener {
                 viewModel.setColor(colorList[i])
             }
