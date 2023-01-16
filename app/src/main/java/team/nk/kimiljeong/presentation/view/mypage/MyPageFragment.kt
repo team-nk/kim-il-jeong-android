@@ -3,7 +3,6 @@ package team.nk.kimiljeong.presentation.view.mypage
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
@@ -23,7 +22,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
 
-    private lateinit var myPageFragmentLauncher: ActivityResultLauncher<Intent>
+    private val myPageFragmentLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            showShortSnackBar(
+                text = "정보 변경 성공",
+            )
+            // TODO get string resource
+        }
+    }
 
     // TODO make MyPage ViewModel too
     private val viewModel by lazy {
@@ -34,11 +42,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initHeader()
         initButtons()
         initUserInformation()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initActivityResultLauncher()
     }
 
     private fun initUserInformation() {
@@ -94,19 +97,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                     /* tag = */
                     this.tag,
                 )
-            }
-        }
-    }
-
-    private fun initActivityResultLauncher() {
-        myPageFragmentLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == RESULT_OK) {
-                showShortSnackBar(
-                    text = "정보 변경 성공",
-                )
-                // TODO get string resource
             }
         }
     }
