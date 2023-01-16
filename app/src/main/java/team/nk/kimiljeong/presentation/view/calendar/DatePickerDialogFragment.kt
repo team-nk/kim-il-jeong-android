@@ -39,7 +39,7 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
                 ),
             )
             setTitleFormatter {
-                return@setTitleFormatter "${it.year}년 ${it.month + 1}월"
+                "${it.year}년 ${it.month + 1}월"
             }
             setOnDateChangedListener { _, date, _ ->
                 selectDate = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date.date)
@@ -74,10 +74,19 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
 
     private fun initSelectButton() {
         binding.btnDlgDatePickerSelect.setOnClickListener {
-            if (arguments?.getBoolean("isEnd") == true) {
-                setFragmentResult("endDate", bundleOf("endDate" to selectDate))
-            } else {
-                setFragmentResult("startDate", bundleOf("startDate" to selectDate))
+            when (arguments?.getBoolean("isEnd")) {
+                true -> {
+                    setFragmentResult(
+                        "endDate",
+                        bundleOf("endDate" to selectDate),
+                    )
+                }
+                else -> {
+                    setFragmentResult(
+                        "startDate",
+                        bundleOf("startDate" to selectDate),
+                    )
+                }
             }
             dismiss()
         }

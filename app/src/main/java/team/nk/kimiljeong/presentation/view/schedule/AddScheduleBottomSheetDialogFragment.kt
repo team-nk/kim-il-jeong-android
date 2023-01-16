@@ -12,122 +12,71 @@ import team.nk.kimiljeong.presentation.view.map.SearchLocationDialog
 class AddScheduleBottomSheetDialogFragment :
     BaseBottomSheetDialogFragment<DialogCreateScheduleBinding>(
         R.layout.dialog_create_schedule,
-    ) { // TODO 버튼, 텍스트뷰 초기화 함수 리팩토링
+    ) {
 
-    override fun initView() {
-        initButtons()
-        initTextViews()
+    private val viewList by lazy {
+        arrayListOf(
+            binding.tvDialogCreateScheduleEnterLocation,
+            binding.btnDialogCreateScheduleDateStart,
+            binding.btnDialogCreateScheduleTimeStart,
+            binding.btnDialogCreateScheduleDateEnd,
+            binding.btnDialogCreateScheduleTimeEnd,
+        )
     }
 
-    private fun initButtons() {
-        initSearchLocationButton()
-        initSelectDayStartButton()
-        initSelectTimeStartButton()
-        initSelectDayEndButton()
-        initSelectTimeEndButton()
+    private val dialogFragmentList by lazy {
+        arrayListOf(
+            SearchLocationDialog(),
+            DatePickerDialogFragment(),
+            TimePickerDialogFragment(),
+            DatePickerDialogFragment(),
+            TimePickerDialogFragment(),
+        )
+    }
+
+    private val requestKeyList by lazy {
+        arrayListOf(
+            "address",
+            "startDate",
+            "startTime",
+            "endDate",
+            "endTime"
+        )
+    }
+
+    override fun initView() {
+        initSelectButton()
+        initSelectTextView()
         initCancelButton()
     }
 
-    private fun initTextViews() {
-        initAddressTextView()
-        initStartDateTextView()
-        initStartTimeTextView()
-        initEndDateTextView()
-        initEndTimeTextView()
-    }
-
-    private fun initSearchLocationButton() {
-        binding.tvDialogCreateScheduleSearchLocation.setOnClickListener {
-            SearchLocationDialog().also {
-                it.show(
-                    requireActivity().supportFragmentManager,
-                    it.tag,
-                )
+    private fun initSelectButton() {
+        for (i in 0..4) {
+            viewList[i].setOnClickListener {
+                dialogFragmentList[i].run {
+                    val bundle = Bundle()
+                    bundle.putBoolean("isEnd", i == 3 || i == 4)
+                    arguments = bundle
+                    show(
+                        this@AddScheduleBottomSheetDialogFragment.requireActivity().supportFragmentManager,
+                        tag,
+                    )
+                }
             }
         }
     }
 
-    private fun initSelectDayStartButton() {
-        binding.btnDialogCreateScheduleDateStart.setOnClickListener {
-            DatePickerDialogFragment().also {
-                it.show(
-                    requireActivity().supportFragmentManager,
-                    it.tag,
-                )
+    private fun initSelectTextView() {
+        for (i in 0..4) {
+            requestKeyList[i].run {
+                setFragmentResultListener(this) { _, bundle ->
+                    viewList[i].text = bundle.getString(this)
+                }
             }
         }
     }
 
-    private fun initSelectTimeStartButton() {
-        binding.btnDialogCreateScheduleTimeStart.setOnClickListener {
-            TimePickerDialogFragment().also {
-                it.show(
-                    requireActivity().supportFragmentManager,
-                    it.tag,
-                )
-            }
-        }
-    }
-
-    private fun initSelectDayEndButton() {
-        binding.btnDialogCreateScheduleDateEnd.setOnClickListener {
-            DatePickerDialogFragment().also {
-                val bundle = Bundle()
-                bundle.putBoolean("isEnd", true)
-                it.arguments = bundle
-                it.show(
-                    requireActivity().supportFragmentManager,
-                    it.tag,
-                )
-            }
-        }
-    }
-
-    private fun initSelectTimeEndButton() {
-        binding.btnDialogCreateScheduleTimeEnd.setOnClickListener {
-            TimePickerDialogFragment().also {
-                val bundle = Bundle()
-                bundle.putBoolean("isEnd", true)
-                it.arguments = bundle
-                it.show(
-                    requireActivity().supportFragmentManager,
-                    it.tag,
-                )
-            }
-        }
-    }
-
-    private fun initAddressTextView() {
-        setFragmentResultListener("address") { _, bundle ->
-            binding.tvDialogCreateScheduleEnterLocation.text = bundle.getString("address")
-        }
-    }
-
-    private fun initStartDateTextView() {
-        setFragmentResultListener("startDate") { _, bundle ->
-            binding.btnDialogCreateScheduleDateStart.text = bundle.getString("startDate")
-        }
-    }
-
-    private fun initStartTimeTextView() {
-        setFragmentResultListener("startTime") { _, bundle ->
-            binding.btnDialogCreateScheduleTimeStart.text = bundle.getString("startTime")
-        }
-    }
-
-    private fun initEndDateTextView() {
-        setFragmentResultListener("endDate") { _, bundle ->
-            binding.btnDialogCreateScheduleDateEnd.text = bundle.getString("endDate")
-        }
-    }
-
-    private fun initEndTimeTextView() {
-        setFragmentResultListener("endTime") { _, bundle ->
-            binding.btnDialogCreateScheduleTimeEnd.text = bundle.getString("endTime")
-        }
-    }
-
-    private fun initCancelButton(){
+    private fun initCancelButton() {
         binding.btnDialogCreateScheduleCancel.setOnClickListener {
             dismiss()
         }
