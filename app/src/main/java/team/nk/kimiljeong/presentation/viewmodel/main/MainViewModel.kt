@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.model.remote.request.ChangeBirthdayRequest
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
@@ -60,6 +61,42 @@ class MainViewModel @Inject constructor(
                         R.string.error_failed_to_connect_to_server,
                     ),
                 )
+            }
+        }
+    }
+
+    private val _isEnterBirthdaySuccess = MutableLiveData<Boolean>()
+    val isEnterBirthdaySuccess: LiveData<Boolean>
+        get() = _isEnterBirthdaySuccess
+
+    private lateinit var selectedBirthday: String
+
+    internal fun setBirthday(birthday: String) {
+        selectedBirthday = birthday
+    }
+
+    internal fun enterBirthday() {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                userRepository.changeBirthdayRequest(
+                    ChangeBirthdayRequest(
+                        selectedBirthday,
+                    )
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    when (it.code()) {
+                        204 -> {
+                            _isEnterBirthdaySuccess.postValue(true)
+                        }
+                    }
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
             }
         }
     }
