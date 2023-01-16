@@ -56,7 +56,14 @@ class ChangePasswordViewModel @Inject constructor(
                     ))
                 }.onSuccess {
                     if (it.isSuccessful) {
-                        _isChangePasswordSucceed.postValue(true)
+                        when (it.code()) {
+                            204 -> _isChangePasswordSucceed.postValue(true)
+                            401 -> _snackBarMessage.postValue(
+                                mApplication.getString(
+                                    R.string.change_password_password_incorrect,
+                                ),
+                            )
+                        }
                     } else {
                         _snackBarMessage.postValue(
                             mApplication.getString(
