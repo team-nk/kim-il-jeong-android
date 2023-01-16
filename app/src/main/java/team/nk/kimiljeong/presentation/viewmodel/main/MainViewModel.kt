@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.presentation.viewmodel.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -52,15 +53,15 @@ class MainViewModel @Inject constructor(
             kotlin.runCatching {
                 userRepository.getSelfInformation()
             }.onSuccess {
-                _userInformation.postValue(
-                    if (it.isSuccessful) it.body() else null
-                )
-            }.onFailure {
-                _snackBarMessage.postValue(
-                    mApplication.getString(
-                        R.string.error_failed_to_connect_to_server,
-                    ),
-                )
+                if (it.isSuccessful) {
+                    _userInformation.postValue(it.body())
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
             }
         }
     }
