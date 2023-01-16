@@ -25,40 +25,40 @@ class ScheduleViewModel @Inject constructor(
     val isScheduleCreateSucceed: LiveData<Boolean>
         get() = _isScheduleCreateSucceed
 
-    private val _address = MutableLiveData<String>()
-    private val _color = MutableLiveData<String>()
-    private val _isAlways = MutableLiveData<Boolean>()
-    private val _startTime = MutableLiveData<String>()
-    private val _endTime = MutableLiveData<String>()
+    private var address: String = ""
+    private var color : String = ""
+    private var isAlways : Boolean = false
+    private var startTime : String = ""
+    private var endTime : String = ""
 
     internal fun setAddress(
         address: String,
     ) {
-        _address.value = address
+        this.address = address
     }
 
     internal fun setColor(
         color: String,
     ) {
-        _color.value = color
+        this.color = color
     }
 
     internal fun setAlways(
         isAlways: Boolean,
     ) {
-        _isAlways.value = isAlways
+        this.isAlways = isAlways
     }
 
     internal fun setStartTime(
         startTime: String,
     ) {
-        _startTime.value = startTime
+        this.startTime = startTime
     }
 
     internal fun setEndTime(
         endTime: String,
     ) {
-        _endTime.value = endTime
+        this.endTime = endTime
     }
 
     internal fun createSchedule(
@@ -70,11 +70,11 @@ class ScheduleViewModel @Inject constructor(
                     request = ScheduleInformation(
                         scheduleId = null,
                         content = content,
-                        color = _color.value,
-                        address = _address.value,
-                        startsAt = _startTime.value,
-                        endsAt = _endTime.value,
-                        isAllDay = _isAlways.value,
+                        color = color,
+                        address = address,
+                        startsAt = startTime,
+                        endsAt = endTime,
+                        isAllDay = isAlways,
                     )
                 )
             }.onSuccess {
