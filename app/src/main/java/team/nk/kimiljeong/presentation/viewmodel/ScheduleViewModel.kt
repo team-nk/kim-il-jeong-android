@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
@@ -71,11 +72,18 @@ class ScheduleViewModel @Inject constructor(
                     )
                 )
             }.onSuccess {
+                println(it.errorBody()?.string())
                 if (it.isSuccessful) {
                     _isScheduleCreateSucceed.postValue(true)
                     setStartTime("")
                     setEndTime("")
                 }
+            }.onFailure {
+                _snackBarMessage.postValue(
+                    mApplication.getString(
+                        R.string.error_failed_to_connect_to_server,
+                    )
+                )
             }
         }
     }
