@@ -137,6 +137,7 @@
     <string name="post_create_please_enter_content">내용을 입력해 주세요.</string>
     <string name="post_create_please_set_title_under_length_30">제목은 30자 이내로 입력해 주세요.</string>
     <string name="create_new_post_please_enter_content">내용을 입력하세요</string>
+    <string name="change_password_password_incorrect">비밀번호가 일치하지 않습니다.</string>
 
     <string-array name="clndr_day_of_the_week">
         <item>SUN</item>

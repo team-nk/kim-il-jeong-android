@@ -1,14 +1,20 @@
 package team.nk.kimiljeong.presentation.view.changepassword
 
+import android.util.Log
+import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityChangePasswordBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.viewmodel.changepassword.ChangePasswordViewModel
 
 @AndroidEntryPoint
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
     R.layout.activity_change_password,
 ) {
+
+    private val viewModel by viewModels<ChangePasswordViewModel>()
+
     override fun initView() {
         initCancelButton()
         initChangePasswordButton()
@@ -21,19 +27,39 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(
     }
 
     private fun initChangePasswordButton() {
-        binding.run {
+        with(binding) {
             btnActivityChangePasswordChange.setOnClickListener {
-                val oldPassword = binding.etActivityChangePasswordOldPassword.text.toString()
-                val newPassword = binding.etActivityChangePasswordNewPassword.text.toString()
-                val newPasswordRepeat =
-                    binding.etActivityChangePasswordNewPasswordRepeat.text.toString()
-                if (oldPassword.isNotEmpty() &&
-                    newPassword.isNotEmpty() ==
-                    newPasswordRepeat.isNotEmpty()
-                ) {
-                    // TODO server logic
-                }
+                Log.e(this.javaClass.simpleName, "initChangePasswordButton: ")
+                viewModel.changePassword(
+                    oldPassword = etActivityChangePasswordOldPassword.text.toString(),
+                    newPassword = etActivityChangePasswordNewPassword.text.toString(),
+                    newPasswordRepeat = etActivityChangePasswordNewPasswordRepeat.text.toString(),
+                )
             }
+        }
+    }
+
+    override fun observeEvent() {
+        super.observeEvent()
+        observeIsChangePasswordSucceed()
+    }
+
+    private fun observeIsChangePasswordSucceed() {
+        viewModel.isChangePasswordSucceed.observe(
+            this,
+        ) {
+            if (it) {
+                finish()
+            }
+        }
+    }
+
+    override fun observeSnackBarMessage() {
+        super.observeSnackBarMessage()
+        viewModel.snackBarMessage.observe(
+            this,
+        ) {
+            showShortSnackBar(it)
         }
     }
 }

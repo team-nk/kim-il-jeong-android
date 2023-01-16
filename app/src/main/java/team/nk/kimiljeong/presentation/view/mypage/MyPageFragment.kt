@@ -2,8 +2,6 @@ package team.nk.kimiljeong.presentation.view.mypage
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
@@ -16,6 +14,7 @@ import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivit
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.logout.LogoutDialogFragment
+import team.nk.kimiljeong.presentation.view.main.MainActivity
 import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
@@ -23,7 +22,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
 
-    private lateinit var myPageFragmentLauncher: ActivityResultLauncher<Intent>
+    private val myPageFragmentLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            showShortSnackBar(
+                text = "정보 변경 성공",
+            )
+            // TODO get string resource
+        }
+    }
 
     // TODO make MyPage ViewModel too
     private val viewModel by lazy {
@@ -36,11 +44,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initUserInformation()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initActivityResultLauncher()
-    }
-
     private fun initUserInformation() {
         with(binding) {
             viewModel.userInformation.value?.let {
@@ -48,7 +51,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 tvFragmentMypageEmail.text = it.email
                 imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl)
             } ?: {
-                //TODO서버 토큰 갱신 API로직 호출
+                //TODO 서버 토큰 갱신 API로직 호출
                 showShortSnackBar(
                     getString(
                         R.string.error_failed_to_connect_to_server,
@@ -63,6 +66,19 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initEditBirthdayButton()
         initChangePasswordButton()
         initLogoutButton()
+        initCheckMyScheduleButton()
+    }
+
+    // todo 버튼 클릭 시 인터페이스 참조를 통해 전환하는 로직으로 만들기
+    private fun initCheckMyScheduleButton() {
+        binding.btnFragmentMypageCheckMySchedule.setOnClickListener {
+            (activity as MainActivity).run {
+                changeFragment(calendarFragment)
+                setSelectedBottomNavigationItemId(
+                    R.id.item_bottom_navigation_main_calendar,
+                )
+            }
+        }
     }
 
     private fun initHeader() {
@@ -94,19 +110,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                     /* tag = */
                     this.tag,
                 )
-            }
-        }
-    }
-
-    private fun initActivityResultLauncher() {
-        myPageFragmentLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == RESULT_OK) {
-                showShortSnackBar(
-                    text = "정보 변경 성공",
-                )
-                // TODO get string resource
             }
         }
     }

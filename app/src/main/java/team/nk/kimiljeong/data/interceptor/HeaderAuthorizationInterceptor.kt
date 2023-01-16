@@ -23,9 +23,7 @@ class HeaderAuthorizationInterceptor @Inject constructor(
             "/user/check",
         )
 
-        if (ignorePath.contains(path)) {
-            return chain.proceed(request)
-        } else if (ignorePath.contains(path) && (path == ignorePath[1] && method == "POST")) {
+        if (ignorePath.contains(path) && (path == ignorePath[1] && method == "POST")) {
             return chain.proceed(request)
         }
 
