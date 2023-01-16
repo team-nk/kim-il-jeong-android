@@ -72,7 +72,6 @@ class ScheduleViewModel @Inject constructor(
                     )
                 )
             }.onSuccess {
-                println(it.errorBody()?.string())
                 if (it.isSuccessful) {
                     _isScheduleCreateSucceed.postValue(true)
                     setStartTime("")

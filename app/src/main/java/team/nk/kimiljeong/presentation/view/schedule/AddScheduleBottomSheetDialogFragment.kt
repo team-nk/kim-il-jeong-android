@@ -133,7 +133,7 @@ class AddScheduleBottomSheetDialogFragment :
             bundle.getString("startDate").toString().run {
                 startTime.append(this)
                 binding.btnDialogCreateScheduleDateStart.text = this
-                binding.btnDialogCreateScheduleTimeStart.unDisable()
+                binding.btnDialogCreateScheduleTimeStart.enable()
                 viewModel.setStartTime(startTime.toString())
             }
         }
@@ -142,7 +142,7 @@ class AddScheduleBottomSheetDialogFragment :
                 startTime.append("T").append(this.split(" ")[1])
                     .append(":00.000Z")
                 binding.btnDialogCreateScheduleTimeStart.text = this
-                binding.btnDialogCreateScheduleDateEnd.unDisable()
+                binding.btnDialogCreateScheduleDateEnd.enable()
                 viewModel.setStartTime(startTime.toString())
             }
         }
@@ -154,7 +154,7 @@ class AddScheduleBottomSheetDialogFragment :
             bundle.getString("endDate").toString().run {
                 endTime.append(this)
                 binding.btnDialogCreateScheduleDateEnd.text = this
-                binding.btnDialogCreateScheduleTimeEnd.unDisable()
+                binding.btnDialogCreateScheduleTimeEnd.enable()
                 viewModel.setEndTime(endTime.toString())
             }
 
@@ -197,6 +197,15 @@ class AddScheduleBottomSheetDialogFragment :
     private fun initSwitch() {
         binding.switchDialogCreateScheduleIsScheduleAllDay.setOnCheckedChangeListener { _, isChecked ->
             isAlways = isChecked
+            if(isChecked){
+                for(i in 1.until(viewList.size)){
+                    viewList[i].disable()
+                }
+            }else{
+                for(i in 1.until(viewList.size)){
+                    viewList[i].enable()
+                }
+            }
         }
     }
 
@@ -205,7 +214,7 @@ class AddScheduleBottomSheetDialogFragment :
         isEnabled = false
     }
 
-    private fun View.unDisable() {
+    private fun View.enable() {
         alpha = 1f
         isEnabled = true
     }
