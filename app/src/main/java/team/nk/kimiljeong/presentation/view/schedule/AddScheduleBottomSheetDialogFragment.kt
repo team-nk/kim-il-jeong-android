@@ -16,7 +16,7 @@ class AddScheduleBottomSheetDialogFragment :
 
     private val viewList by lazy {
         arrayListOf(
-            binding.tvDialogCreateScheduleEnterLocation,
+            binding.tvDialogCreateScheduleSearchLocation,
             binding.btnDialogCreateScheduleDateStart,
             binding.btnDialogCreateScheduleTimeStart,
             binding.btnDialogCreateScheduleDateEnd,
@@ -70,7 +70,12 @@ class AddScheduleBottomSheetDialogFragment :
         for (i in 0..4) {
             requestKeyList[i].run {
                 setFragmentResultListener(this) { _, bundle ->
-                    viewList[i].text = bundle.getString(this)
+                    val value = bundle.getString(this)
+                    if (i == 0) {
+                        binding.tvDialogCreateScheduleEnterLocation.text = value
+                    } else {
+                        viewList[i].text = value
+                    }
                 }
             }
         }

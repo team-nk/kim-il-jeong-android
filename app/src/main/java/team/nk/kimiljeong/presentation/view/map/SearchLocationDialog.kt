@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import team.nk.kimiljeong.R
@@ -14,7 +13,7 @@ import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
 
 class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
     R.layout.dialog_search_location,
-), OnMapReadyCallback {
+) {
 
     override fun onCreateDialog(
         savedInstanceState: Bundle?,
