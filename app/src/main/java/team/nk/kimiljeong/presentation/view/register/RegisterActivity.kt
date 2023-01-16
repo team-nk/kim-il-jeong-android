@@ -1,11 +1,11 @@
 package team.nk.kimiljeong.presentation.view.register
 
-import android.view.View
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityRegisterBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.util.disable
 import team.nk.kimiljeong.presentation.viewmodel.register.RegisterViewModel
 
 @AndroidEntryPoint
@@ -154,10 +154,5 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(
                 }
             }
         }
-    }
-
-    internal fun View.disable() {
-        alpha = 0.4f
-        isEnabled = false
     }
 }
