@@ -82,8 +82,8 @@ class AddScheduleBottomSheetDialogFragment :
         for (i in viewList.indices) {
             viewList[i].setOnClickListener {
                 dialogFragmentList.run {
-                    arguments = Bundle().also { it.putBoolean("isEnd", i == 3 || i == 4) }
-                    show(
+                    this[i].arguments = Bundle().also { it.putBoolean("isEnd", i == 3 || i == 4) }
+                    this[i].show(
                         this@AddScheduleBottomSheetDialogFragment.requireActivity().supportFragmentManager,
                         tag,
                     )
@@ -193,12 +193,12 @@ class AddScheduleBottomSheetDialogFragment :
         binding.switchDialogCreateScheduleIsScheduleAllDay.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setAlways(isChecked)
             if (isChecked) {
-                for (i in viewList) {
-                    i.disable()
+                for (view in viewList) {
+                    view.disable()
                 }
             } else {
-                for (i in viewList) {
-                    i.enable()
+                for (view in viewList) {
+                    view.enable()
                 }
             }
         }
