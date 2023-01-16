@@ -1,10 +1,13 @@
 package team.nk.kimiljeong.presentation.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
@@ -17,13 +20,63 @@ class ScheduleViewModel @Inject constructor(
     mApplication = application,
 ) {
 
+    private val _isScheduleCreateSucceed = MutableLiveData<Boolean>()
+    val isScheduleCreateSucceed: LiveData<Boolean>
+        get() = _isScheduleCreateSucceed
+
     private val _address = MutableLiveData<String>()
-    val aaddress: LiveData<String>
-        get() = _address
+    private val _color = MutableLiveData<String>()
+    private val _startTime = MutableLiveData<String>()
+    private val _endTime = MutableLiveData<String>()
 
     internal fun setAddress(
         address: String,
-    ){
+    ) {
         _address.value = address
+    }
+
+    internal fun setColor(
+        color: String,
+    ) {
+        _color.value = color
+    }
+
+    internal fun setStartTime(
+        startTime: String,
+    ) {
+        _startTime.value = startTime
+    }
+
+    internal fun setEndTime(
+        endTime: String,
+    ) {
+        _endTime.value = endTime
+    }
+
+    internal fun createSchedule(
+        content: String,
+        always: Boolean,
+    ) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.createSchedule(
+                    request = ScheduleInformation(
+                        scheduleId = null,
+                        content = content,
+                        color = _color.value,
+                        address = _address.value,
+                        startsAt = _startTime.value,
+                        endsAt = _endTime.value,
+                        isAllDay = always,
+                    )
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _isScheduleCreateSucceed.postValue(true)
+                    setStartTime("")
+                    setEndTime("")
+                }
+            }
+        }
     }
 }

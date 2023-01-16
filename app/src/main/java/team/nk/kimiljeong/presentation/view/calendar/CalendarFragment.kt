@@ -2,8 +2,8 @@ package team.nk.kimiljeong.presentation.view.calendar
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -12,14 +12,12 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
-import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.view.schedule.AddScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 
 @AndroidEntryPoint
@@ -47,6 +45,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             date = Calendar.getInstance().time,
             isToday = true,
         )
+        initFragmentResultListener()
     }
 
     private fun initHeader() {
@@ -105,7 +104,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
         }
     }
 
-    private fun initAddSchedulebutton(){
+    private fun initAddSchedulebutton() {
         binding.btnFragmentCalendarAddSchedule.setOnClickListener {
             AddScheduleBottomSheetDialogFragment().also {
                 it.show(
@@ -175,5 +174,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
             ).format(date),
             isToday = isToday
         )
+    }
+
+    private fun initFragmentResultListener() {
+        setFragmentResultListener("message") { _, bundle ->
+            showShortSnackBar(bundle.getString("message").toString())
+        }
     }
 }
