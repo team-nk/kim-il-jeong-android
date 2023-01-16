@@ -27,6 +27,7 @@ class ScheduleViewModel @Inject constructor(
 
     private val _address = MutableLiveData<String>()
     private val _color = MutableLiveData<String>()
+    private val _isAlways = MutableLiveData<Boolean>()
     private val _startTime = MutableLiveData<String>()
     private val _endTime = MutableLiveData<String>()
 
@@ -40,6 +41,12 @@ class ScheduleViewModel @Inject constructor(
         color: String,
     ) {
         _color.value = color
+    }
+
+    internal fun setAlways(
+        isAlways: Boolean,
+    ) {
+        _isAlways.value = isAlways
     }
 
     internal fun setStartTime(
@@ -56,7 +63,6 @@ class ScheduleViewModel @Inject constructor(
 
     internal fun createSchedule(
         content: String,
-        always: Boolean,
     ) {
         viewModelScope.launch(IO) {
             kotlin.runCatching {
@@ -68,7 +74,7 @@ class ScheduleViewModel @Inject constructor(
                         address = _address.value,
                         startsAt = _startTime.value,
                         endsAt = _endTime.value,
-                        isAllDay = always,
+                        isAllDay = _isAlways.value,
                     )
                 )
             }.onSuccess {

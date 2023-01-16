@@ -2,14 +2,18 @@ package team.nk.kimiljeong.presentation.view.schedule
 
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioButton
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.common.Color
 import team.nk.kimiljeong.databinding.DialogCreateScheduleBinding
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
+import team.nk.kimiljeong.presentation.util.disable
+import team.nk.kimiljeong.presentation.util.enable
 import team.nk.kimiljeong.presentation.view.calendar.DatePickerDialogFragment
 import team.nk.kimiljeong.presentation.view.calendar.TimePickerDialogFragment
 import team.nk.kimiljeong.presentation.view.map.SearchLocationDialog
@@ -22,8 +26,6 @@ class AddScheduleBottomSheetDialogFragment :
     ) {
 
     private val viewModel by viewModels<ScheduleViewModel>()
-
-    private var isAlways = false
 
     private val viewList by lazy {
         arrayListOf(
@@ -42,26 +44,6 @@ class AddScheduleBottomSheetDialogFragment :
             TimePickerDialogFragment(),
             DatePickerDialogFragment(),
             TimePickerDialogFragment(),
-        )
-    }
-
-    private val radioButtonList by lazy {
-        arrayListOf(
-            binding.radioBtnRadioGroupDialogScheduleAddictionColorRed,
-            binding.radioBtnRadioGroupDialogScheduleAddictionColorBlue,
-            binding.radioBtnRadioGroupDialogScheduleAddictionColorYellow,
-            binding.radioBtnRadioGroupDialogScheduleAddictionColorGreen,
-            binding.radioBtnRadioGroupDialogScheduleAddictionColorPurple,
-        )
-    }
-
-    private val colorList by lazy {
-        arrayListOf(
-            "RED",
-            "BLUE",
-            "YELLOW",
-            "GREEN",
-            "PURPLE"
         )
     }
 
@@ -97,12 +79,10 @@ class AddScheduleBottomSheetDialogFragment :
     }
 
     private fun initSelectButton() {
-        for (i in 0..4) {
+        for (i in viewList.indices) {
             viewList[i].setOnClickListener {
-                dialogFragmentList[i].run {
-                    val bundle = Bundle()
-                    bundle.putBoolean("isEnd", i == 3 || i == 4)
-                    arguments = bundle
+                dialogFragmentList.run {
+                    arguments = Bundle().also { it.putBoolean("isEnd", i == 3 || i == 4) }
                     show(
                         this@AddScheduleBottomSheetDialogFragment.requireActivity().supportFragmentManager,
                         tag,
@@ -180,42 +160,47 @@ class AddScheduleBottomSheetDialogFragment :
             btnDialogCreateScheduleCreate.setOnClickListener {
                 viewModel.createSchedule(
                     content = binding.etDlgCreateScheduleContent.text.toString(),
-                    always = isAlways,
                 )
             }
         }
     }
 
     private fun initRadioButton() {
-        for (i in 0.until(radioButtonList.size)) {
-            radioButtonList[i].setOnClickListener {
-                viewModel.setColor(colorList[i])
+        binding.radioGroupDialogCreateScheduleColorPallet.setOnCheckedChangeListener { group, checkedId ->
+            with(binding) {
+                when (group.findViewById<RadioButton>(checkedId)) {
+                    radioBtnRadioGroupDialogScheduleAddictionColorRed -> viewModel.setColor(
+                        Color.RED.toString()
+                    )
+                    radioBtnRadioGroupDialogScheduleAddictionColorBlue -> viewModel.setColor(
+                        Color.BLUE.toString()
+                    )
+                    radioBtnRadioGroupDialogScheduleAddictionColorGreen -> viewModel.setColor(
+                        Color.GREEN.toString()
+                    )
+                    radioBtnRadioGroupDialogScheduleAddictionColorYellow -> viewModel.setColor(
+                        Color.YELLOW.toString()
+                    )
+                    radioBtnRadioGroupDialogScheduleAddictionColorPurple -> viewModel.setColor(
+                        Color.PURPLE.toString()
+                    )
+                }
             }
         }
     }
 
     private fun initSwitch() {
         binding.switchDialogCreateScheduleIsScheduleAllDay.setOnCheckedChangeListener { _, isChecked ->
-            isAlways = isChecked
-            if(isChecked){
-                for(i in 1.until(viewList.size)){
-                    viewList[i].disable()
+            viewModel.setAlways(isChecked)
+            if (isChecked) {
+                for (i in viewList) {
+                    i.disable()
                 }
-            }else{
-                for(i in 1.until(viewList.size)){
-                    viewList[i].enable()
+            } else {
+                for (i in viewList) {
+                    i.enable()
                 }
             }
         }
-    }
-
-    private fun View.disable() {
-        alpha = 0.4f
-        isEnabled = false
-    }
-
-    private fun View.enable() {
-        alpha = 1f
-        isEnabled = true
     }
 }
