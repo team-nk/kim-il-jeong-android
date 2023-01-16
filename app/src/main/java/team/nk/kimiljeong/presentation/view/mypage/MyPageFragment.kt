@@ -51,7 +51,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 tvFragmentMypageEmail.text = it.email
                 imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl)
             } ?: {
-                //TODO서버 토큰 갱신 API로직 호출
+                //TODO 서버 토큰 갱신 API로직 호출
                 showShortSnackBar(
                     getString(
                         R.string.error_failed_to_connect_to_server,
