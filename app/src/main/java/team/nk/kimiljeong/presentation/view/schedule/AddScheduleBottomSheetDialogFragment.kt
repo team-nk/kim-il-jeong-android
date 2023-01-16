@@ -100,9 +100,9 @@ class AddScheduleBottomSheetDialogFragment :
 
     private fun setAddress() {
         setFragmentResultListener("address") { _, bundle ->
-            bundle.getString("address").toString().run {
+            bundle.getString("address").run {
                 binding.tvDialogCreateScheduleEnterLocation.text = this
-                viewModel.setAddress(this)
+                viewModel.setAddress(this!!)
             }
         }
     }
@@ -110,7 +110,7 @@ class AddScheduleBottomSheetDialogFragment :
     private fun setStartTime() {
         val startTime = StringBuilder()
         setFragmentResultListener("startDate") { _, bundle ->
-            bundle.getString("startDate").toString().run {
+            bundle.getString("startDate").run {
                 startTime.append(this)
                 binding.btnDialogCreateScheduleDateStart.text = this
                 binding.btnDialogCreateScheduleTimeStart.enable()
@@ -118,8 +118,8 @@ class AddScheduleBottomSheetDialogFragment :
             }
         }
         setFragmentResultListener("startTime") { _, bundle ->
-            bundle.getString("startTime").toString().run {
-                startTime.append("T").append(this.split(" ")[1])
+            bundle.getString("startTime").run {
+                startTime.append("T").append(this!!.split(" ")[1])
                     .append(":00.000Z")
                 binding.btnDialogCreateScheduleTimeStart.text = this
                 binding.btnDialogCreateScheduleDateEnd.enable()
@@ -131,7 +131,7 @@ class AddScheduleBottomSheetDialogFragment :
     private fun setEndTime() {
         val endTime = StringBuilder()
         setFragmentResultListener("endDate") { _, bundle ->
-            bundle.getString("endDate").toString().run {
+            bundle.getString("endDate").run {
                 endTime.append(this)
                 binding.btnDialogCreateScheduleDateEnd.text = this
                 binding.btnDialogCreateScheduleTimeEnd.enable()
@@ -140,8 +140,8 @@ class AddScheduleBottomSheetDialogFragment :
 
         }
         setFragmentResultListener("endTime") { _, bundle ->
-            bundle.getString("endTime").toString().run {
-                endTime.append("T").append(this.split(" ")[1])
+            bundle.getString("endTime").run {
+                endTime.append("T").append(this!!.split(" ")[1])
                     .append(":00.000Z")
                 binding.btnDialogCreateScheduleTimeEnd.text = this
                 viewModel.setEndTime(endTime.toString())
