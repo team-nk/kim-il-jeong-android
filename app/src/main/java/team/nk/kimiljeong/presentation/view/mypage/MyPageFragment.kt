@@ -2,7 +2,6 @@ package team.nk.kimiljeong.presentation.view.mypage
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
@@ -15,6 +14,7 @@ import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivit
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.logout.LogoutDialogFragment
+import team.nk.kimiljeong.presentation.view.main.MainActivity
 import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
@@ -66,6 +66,19 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initEditBirthdayButton()
         initChangePasswordButton()
         initLogoutButton()
+        initCheckMyScheduleButton()
+    }
+
+    // todo 버튼 클릭 시 인터페이스 참조를 통해 전환하는 로직으로 만들기
+    private fun initCheckMyScheduleButton() {
+        binding.btnFragmentMypageCheckMySchedule.setOnClickListener {
+            (activity as MainActivity).run {
+                changeFragment(calendarFragment)
+                setSelectedBottomNavigationItemId(
+                    R.id.item_bottom_navigation_main_calendar,
+                )
+            }
+        }
     }
 
     private fun initHeader() {

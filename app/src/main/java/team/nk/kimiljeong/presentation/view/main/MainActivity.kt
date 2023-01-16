@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.presentation.view.main
 
 import androidx.activity.viewModels
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +20,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main,
 ) {
 
+    internal val calendarFragment = CalendarFragment()
+
     private val viewModel by viewModels<MainViewModel>()
 
     override fun initView() {
@@ -30,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
             setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.item_bottom_navigation_main_calendar -> {
-                        changeFragment(CalendarFragment())
+                        changeFragment(calendarFragment)
                         return@setOnItemSelectedListener true
                     }
                     R.id.item_bottom_navigation_main_map -> {
@@ -52,10 +55,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         }
     }
 
-    private fun changeFragment(fragment: Fragment) {
+    internal fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(
             binding.containerActivityMain.id, fragment,
         ).commitAllowingStateLoss()
+    }
+
+    // TODO 이 코드 너무 더러워요;ㅔ;
+    internal fun setSelectedBottomNavigationItemId(
+        @IdRes id: Int,
+    ) {
+        binding.bottomNavigationViewActivityMain.selectedItemId = id
     }
 
     override fun observeEvent() {
