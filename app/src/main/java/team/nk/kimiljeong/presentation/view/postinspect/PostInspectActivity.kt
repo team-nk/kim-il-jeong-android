@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
-import team.nk.kimiljeong.data.model.remote.common.PostInformation
 import team.nk.kimiljeong.databinding.ActivityPostInspectBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.util.parseColorToResource
@@ -25,7 +24,7 @@ class PostInspectActivity @Inject constructor(
         ActivityResultContracts.StartActivityForResult(),
     ) {
         if ((it.resultCode == RESULT_OK) || (it.resultCode == RESULT_CANCELED)) {
-            viewModel.inquireComments()
+            viewModel.inquirePost()
         }
     }
 
@@ -40,7 +39,6 @@ class PostInspectActivity @Inject constructor(
     }
 
     override fun initView() {
-        initPostInformation()
         initButtons()
     }
 
@@ -49,6 +47,9 @@ class PostInspectActivity @Inject constructor(
             postLauncher.launch(
                 Intent(
                     this, CommentActivity::class.java,
+                ).putExtra(
+                    "postId",
+                    intent.getIntExtra("postId", 0),
                 ),
             )
         }
@@ -57,6 +58,7 @@ class PostInspectActivity @Inject constructor(
     override fun observeEvent() {
         super.observeEvent()
         observeComments()
+        observePostInformation()
     }
 
     @SuppressLint("SetTextI18n")
@@ -70,12 +72,15 @@ class PostInspectActivity @Inject constructor(
         }
     }
 
-    private fun initPostInformation() {
-        selectedPostInformation?.let {
+    private fun observePostInformation() {
+        viewModel.postInformation.observe(
+            this@PostInspectActivity,
+        ) {
             with(binding) {
                 tvActivityPostInspectTitle.text = it.title
-                tvActivityPostInspectContent.text = it.content
-                includedActivityPostScheduleContainer.run {
+                tvActivityPostInspectContent.text = it.scheduleContent
+                tvActivityPostInspectCommentsCount.text = it.commentCount.toString()
+                this.includedActivityPostScheduleContainer.run {
                     tvItemPostTitle.text = it.title
                     tvItemPostAccountId.text = it.accountId
                     tvItemPostAddress.text = it.address
@@ -86,10 +91,6 @@ class PostInspectActivity @Inject constructor(
                     )
                 }
             }
-
         }
     }
 }
-
-// 이런 코드는 클린하지 않아요. 사용하면 안됩니다 ㅠㅠ
-var selectedPostInformation: PostInformation? = null

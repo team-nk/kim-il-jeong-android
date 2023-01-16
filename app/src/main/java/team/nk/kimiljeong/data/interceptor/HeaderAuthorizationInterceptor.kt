@@ -16,11 +16,18 @@ class HeaderAuthorizationInterceptor @Inject constructor(
         val method = request.method
 
         val ignorePath = listOf(
+            "/mail",
+            "/user",
             "/user/login",
-            "/auth",
+            "/user/code",
+            "/user/check",
         )
 
-        if (ignorePath.contains(path)) return chain.proceed(request)
+        if (ignorePath.contains(path)) {
+            return chain.proceed(request)
+        } else if (ignorePath.contains(path) && (path == ignorePath[1] && method == "POST")) {
+            return chain.proceed(request)
+        }
 
         val accessToken = runBlocking {
             authPreferences.fetchTokens().first

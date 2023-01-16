@@ -11,7 +11,6 @@ import androidx.fragment.app.DialogFragment
 import team.nk.kimiljeong.presentation.common.ShowSnackBar
 import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showLongSnackBar
 import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
-
 abstract class BaseDialogFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
 ) : DialogFragment(){
@@ -29,7 +28,6 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(
             container,
             false,
         )
-
         return binding.root
     }
 

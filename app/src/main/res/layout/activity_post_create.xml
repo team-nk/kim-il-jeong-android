@@ -22,13 +22,25 @@
                 android:text="@string/create_new_post_create_new_post" />
 
             <EditText
+                android:id="@+id/et_create_new_post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/create_new_post_please_enter_title"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLength="30"
+                android:textSize="16sp" />
+
+            <EditText
                 android:id="@+id/et_create_new_post_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="@string/create_new_post_please_enter_content_first_line_is_title"
+                android:hint="@string/create_new_post_please_enter_content"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:maxEms="30"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -42,8 +54,8 @@
             app:layout_constraintStart_toStartOf="@id/guideline_activity_create_new_post_vertical_1"
             app:layout_constraintTop_toBottomOf="@id/layout_activity_create_new_post_text_input">
 
-            <!-- TODO Make this cardView as a Fragment -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/btn_activity_post_create_select_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"

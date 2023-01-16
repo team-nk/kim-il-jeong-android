@@ -10,6 +10,7 @@ import team.nk.kimiljeong.data.model.remote.request.CreatePostRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireBirthdayListResponse
 import team.nk.kimiljeong.data.model.remote.response.InquireCommentListResponse
 import team.nk.kimiljeong.data.model.remote.response.InquirePostListResponse
+import team.nk.kimiljeong.data.model.remote.response.InquireSinglePostResponse
 
 interface PostAPI {
 
@@ -20,6 +21,11 @@ interface PostAPI {
     suspend fun createPost(
         @Body request: CreatePostRequest,
     ): Response<Void>
+
+    @GET("/post/{post-id}")
+    suspend fun inquireSinglePost(
+        @Path("post-id") postId: Int,
+    ): Response<InquireSinglePostResponse>
 
     @GET("/post/birthday")
     suspend fun inquireBirthdayList(): Response<InquireBirthdayListResponse>

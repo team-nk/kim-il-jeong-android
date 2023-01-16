@@ -11,7 +11,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityChangeUserInformationBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
-import team.nk.kimiljeong.presentation.viewmodel.changepassword.ChangePasswordViewModel
+import team.nk.kimiljeong.presentation.viewmodel.changeinformation.ChangeUserInformationViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +37,7 @@ class ChangeUserInformationActivity @Inject constructor() :
         }
     }
 
-    private val viewModel by viewModels<ChangePasswordViewModel>()
+    private val viewModel by viewModels<ChangeUserInformationViewModel>()
 
     override fun initView() {
         initChangeImageButton()
@@ -72,11 +72,36 @@ class ChangeUserInformationActivity @Inject constructor() :
         binding.run {
             btnActivityChangeUserInformationChange.setOnClickListener {
                 if (etActivityChangeUserInformationEmail.text.isNotEmpty() && etActivityChangeUserInformationId.text.isNotEmpty()) {
-                    // TODO server logic
+                    viewModel.changeUserInformation(
+                        email = etActivityChangeUserInformationEmail.text.toString(),
+                        accountId = etActivityChangeUserInformationId.text.toString(),
+                        profile = "https://avatars.githubusercontent.com/u/102812085?v=4",
+                    )
+                    // TODO get image logic
                 } else {
                     // TODO show message logic
                 }
             }
+        }
+    }
+
+    override fun observeEvent() {
+        super.observeEvent()
+        viewModel.changeUserInformation.observe(
+            this,
+        ) {
+            if (it) {
+                setResult(RESULT_OK)
+                finish()
+                // TODO get string resource
+            }
+        }
+        viewModel.snackBarMessage.observe(
+            this,
+        ) {
+            showShortSnackBar(
+                text = it,
+            )
         }
     }
 }

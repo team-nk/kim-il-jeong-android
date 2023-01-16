@@ -86,14 +86,16 @@ class RegisterViewModel @Inject constructor(
                 if (it.isSuccessful) {
                     when (it.code()) {
                         200 -> {
-                            _isVerificationCodeChecked.postValue(true)
-                        }
-                        else -> {
-                            _snackBarMessage.postValue(
-                                mApplication.getString(
-                                    R.string.sign_up_error_please_enter_correct_verification_code,
-                                ),
-                            )
+                            it.body()!!.success.run {
+                                _isVerificationCodeChecked.postValue(this)
+                                if(this.not()){
+                                    _snackBarMessage.postValue(
+                                        mApplication.getString(
+                                            R.string.sign_up_error_please_enter_correct_verification_code,
+                                        ),
+                                    )
+                                }
+                            }
                         }
                     }
                 } else {
@@ -117,14 +119,17 @@ class RegisterViewModel @Inject constructor(
                 )
             }.onSuccess {
                 if (it.isSuccessful) {
-                    _checkIdDuplicationResponse.postValue(true)
-                    _isIdDuplicationChecked.postValue(true)
-                } else {
-                    _snackBarMessage.postValue(
-                        mApplication.getString(
-                            R.string.sign_up_error_id_already_exists,
-                        ),
-                    )
+                    it.body()!!.success.run {
+                        _checkIdDuplicationResponse.postValue(this)
+                        _isIdDuplicationChecked.postValue(this)
+                        if(this.not()){
+                            _snackBarMessage.postValue(
+                                mApplication.getString(
+                                    R.string.sign_up_error_id_already_exists,
+                                ),
+                            )
+                        }
+                    }
                 }
             }
         }
