@@ -31,6 +31,9 @@
     <string name="cancel">취소</string>
     <string name="next">다음</string>
 
+    <string name="dlg_time_picker_am">오전</string>
+    <string name="dlg_time_picker_pm">오후</string>
+
     <string name="introduction_content_description_next_icon">Introduction Next Page Icon</string>
     <string name="introduction_content_description_view_pager_image">ViewPager Image</string>
     <string name="introduction_please_accept_permission">위치 권한을 허용해 주세요.</string>
@@ -92,6 +95,8 @@
     <string name="create_schedule_time_end">종료 시간</string>
     <string name="create_schedule_create_new_schedule">새로운 일정 생성하기</string>
     <string name="create_schedule_enter_schedule">일정을 입력하세요</string>
+    <string name="create_schedule_date_start">시작 날짜</string>
+    <string name="create_schedule_date_end">종료 날짜</string>
 
     <string name="change_user_information_change_information">정보 변경하기</string>
     <string name="change_user_information_change_profile">이미지 변경하기</string>

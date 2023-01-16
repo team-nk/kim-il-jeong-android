@@ -42,12 +42,16 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="48dp">
+                        android:minHeight="48dp"
+                        app:boxStrokeColor="@color/text"
+                        app:hintTextColor="@color/text">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_dlg_create_schedule_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/create_schedule_enter_schedule" />
+                            android:hint="@string/create_schedule_enter_schedule"
+                            android:textCursorDrawable="@drawable/bg_create_schedule_edittext_cursor_black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,10 +61,13 @@
                         android:minHeight="48dp">
 
                         <TextView
+                            android:id="@+id/tv_dialog_create_schedule_enter_location"
                             style="@style/TextViewBodyPrimary"
+                            android:layout_width="0dp"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/create_schedule_enter_location"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/tv_dialog_create_schedule_search_location"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,10 +153,10 @@
                             android:id="@+id/switch_dialog_create_schedule_is_schedule_all_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:thumb="@drawable/selector_create_schedule_swch_thmb"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:thumbTint="@drawable/selector_create_schedule_swch_thmb" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,14 +181,14 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btn_dialog_create_schedule_day_start"
+                                android:id="@+id/btn_dialog_create_schedule_date_start"
                                 style="@style/ButtonDialogCreateScheduleTime"
-                                tools:text="2006-05-08" />
+                                android:text="@string/create_schedule_date_start" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btn_dialog_create_schedule_time_start"
                                 style="@style/ButtonDialogCreateScheduleTime"
-                                tools:text="오전 6:00" />
+                                android:text="@string/create_schedule_time_start" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -207,14 +214,14 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btn_dialog_create_schedule_date_start"
+                                android:id="@+id/btn_dialog_create_schedule_date_end"
                                 style="@style/ButtonDialogCreateScheduleTime"
-                                tools:text="종료 날짜" />
+                                android:text="@string/create_schedule_date_end" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btn_dialog_create_schedule_time_end"
                                 style="@style/ButtonDialogCreateScheduleTime"
-                                tools:text="종료 시간" />
+                                android:text="@string/create_schedule_time_end" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

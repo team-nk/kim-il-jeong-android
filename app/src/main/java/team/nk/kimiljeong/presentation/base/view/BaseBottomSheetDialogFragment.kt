@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.base.view
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,16 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import team.nk.kimiljeong.presentation.common.ShowSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showLongSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 
 abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
-) : BottomSheetDialogFragment() {
+) : BottomSheetDialogFragment(), ShowSnackBar {
 
     protected lateinit var binding: B
 
@@ -26,7 +32,14 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
             container,
             false,
         )
+
         return binding.root
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return BottomSheetDialog(requireActivity()).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +51,18 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(
     override fun onDestroyView() {
         super.onDestroyView()
         binding.unbind()
+    }
+
+    override fun showShortSnackBar(text: String) {
+        binding.root.showShortSnackBar(
+            text = text,
+        )
+    }
+
+    override fun showLongSnackBar(text: String) {
+        binding.root.showLongSnackBar(
+            text = text,
+        )
     }
 
     abstract fun initView()

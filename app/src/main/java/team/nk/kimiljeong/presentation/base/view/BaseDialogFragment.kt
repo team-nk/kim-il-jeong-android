@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
+import androidx.fragment.app.DialogFragment
+import team.nk.kimiljeong.presentation.common.ShowSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showLongSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 abstract class BaseDialogFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
-) : BottomSheetDialogFragment() {
+) : DialogFragment(){
 
     protected lateinit var binding: B
 
@@ -19,7 +21,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             layoutId,
@@ -32,7 +34,6 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
-        //binding.root.getwindow
         initView()
     }
 
