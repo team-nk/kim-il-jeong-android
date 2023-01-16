@@ -41,6 +41,8 @@ class DatePickerDialogFragment : BaseDialogFragment<DialogDatePickerBinding>(
             setTitleFormatter {
                 "${it.year}년 ${it.month + 1}월"
             }
+            selectDate =
+                SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(Calendar.getInstance().time)
             setOnDateChangedListener { _, date, _ ->
                 selectDate = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date.date)
                 if (date == today) {
