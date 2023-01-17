@@ -3,7 +3,6 @@ package team.nk.kimiljeong.data.repository.remote.origin
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.ScheduleAPI
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
-import team.nk.kimiljeong.data.model.remote.request.SpecificLocationOfScheduleListRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 
 interface ScheduleRepository : ScheduleAPI {
@@ -19,7 +18,7 @@ interface ScheduleRepository : ScheduleAPI {
 
     override suspend fun removeSchedule(scheduleId: String): Response<Void>
 
-    override suspend fun inquireSpecificLocationOfScheduleList(request: SpecificLocationOfScheduleListRequest): Response<InquireScheduleListResponse>
+    override suspend fun inquireSpecificLocationOfScheduleList(): Response<InquireScheduleListResponse>
 
     override suspend fun inquireEntireScheduleList(): Response<InquireScheduleListResponse>
 

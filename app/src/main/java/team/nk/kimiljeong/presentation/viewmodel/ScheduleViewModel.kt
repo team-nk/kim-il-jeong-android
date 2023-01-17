@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
+import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
 import javax.inject.Inject
@@ -21,15 +22,23 @@ class ScheduleViewModel @Inject constructor(
     mApplication = application,
 ) {
 
+    init {
+        inquireSpecificLocationOfScheduleList()
+    }
+
     private val _isScheduleCreateSucceed = MutableLiveData<Boolean>()
     val isScheduleCreateSucceed: LiveData<Boolean>
         get() = _isScheduleCreateSucceed
 
+    private val _schedules = MutableLiveData<InquireScheduleListResponse>()
+    val schedules: LiveData<InquireScheduleListResponse>
+        get() = _schedules
+
     private var address: String = ""
-    private var color : String = ""
-    private var isAlways : Boolean = false
-    private var startTime : String = ""
-    private var endTime : String = ""
+    private var color: String = ""
+    private var isAlways: Boolean = false
+    private var startTime: String = ""
+    private var endTime: String = ""
 
     internal fun setAddress(
         address: String,
@@ -88,6 +97,31 @@ class ScheduleViewModel @Inject constructor(
                     mApplication.getString(
                         R.string.error_failed_to_connect_to_server,
                     )
+                )
+            }
+        }
+    }
+
+    internal fun inquireSpecificLocationOfScheduleList() {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.inquireSpecificLocationOfScheduleList()
+            }.onSuccess {
+                _schedules.postValue(it.body()!!)
+                if (it.isSuccessful) {
+                    _schedules.postValue(it.body()!!)
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }.onFailure {
+                _snackBarMessage.postValue(
+                    mApplication.getString(
+                        R.string.error_failed_to_connect_to_server,
+                    ),
                 )
             }
         }

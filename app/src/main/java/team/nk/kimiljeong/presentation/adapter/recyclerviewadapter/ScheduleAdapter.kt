@@ -49,6 +49,7 @@ class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
     }
 
     override fun getItemCount(): Int {
+        println(schedules.size)
         return schedules.size
     }
 }
