@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -33,11 +32,13 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
 
     protected lateinit var binding: B
 
-    protected val mapFragment = SupportMapFragment.newInstance()
+    private val mapFragment = SupportMapFragment.newInstance()
 
-    private lateinit var currentLocation: LatLng
+    protected lateinit var currentLocation: LatLng
 
     protected lateinit var address: String
+
+    protected var mapViewId = 0
 
     private val locationManager by lazy {
         requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -65,37 +66,25 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
 
     abstract fun initView()
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.run {
-            mapType = GoogleMap.MAP_TYPE_NORMAL
-            addCustomMarker(
-                googleMap = googleMap,
-                latitude = currentLocation.latitude,
-                longtitude = currentLocation.longitude,
-            )
-            setMinZoomPreference(10F)
-            setMaxZoomPreference(18F)
-            moveCamera(
-                CameraUpdateFactory.newLatLng(currentLocation)
-            )
-            animateCamera(
-                CameraUpdateFactory.zoomTo(500F)
-            )
-            setOnMapClickListener {
-                addCustomMarker(
-                    googleMap = googleMap,
-                    latitude = it.latitude,
-                    longtitude = it.longitude,
-                )
-            }
-            setAddress(
-                latitude = currentLocation.latitude,
-                longtitude = currentLocation.longitude,
-            )
+    protected fun checkUserPermission() {
+        if (checkGranted()) {
+            setUserLocation()
+            initMapView()
+        } else {
+            moveToOption()
         }
     }
 
-    private fun addCustomMarker(
+    private fun initMapView() {
+        childFragmentManager.beginTransaction()
+            .replace(
+                mapViewId,
+                mapFragment,
+                "MapTag",
+            ).commit()
+    }
+
+    protected fun addCustomMarker(
         googleMap: GoogleMap,
         latitude: Double,
         longtitude: Double,
@@ -111,7 +100,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         )
     }
 
-    private fun setAddress(
+    protected fun setAddress(
         latitude: Double,
         longtitude: Double,
     ) {
@@ -125,7 +114,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         )?.first()?.getAddressLine(0).toString()
     }
 
-    protected fun checkGranted(): Boolean {
+    private fun checkGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireActivity(),
             Manifest.permission.ACCESS_FINE_LOCATION,
