@@ -19,8 +19,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        manifestPlaceholders = [GOOGLE_MAPS_API_KEY:properties["GOOGLE_MAPS_API_KEY"]]
         buildConfigField "String", "BASE_URL", properties["BASE_URL"]
-        buildConfigField "String", "GOOGLE_MAPS_API_KEY", properties["GOOGLE_MAPS_API_KEY"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
