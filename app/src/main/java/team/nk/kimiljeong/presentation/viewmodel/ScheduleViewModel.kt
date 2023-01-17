@@ -107,7 +107,6 @@ class ScheduleViewModel @Inject constructor(
             kotlin.runCatching {
                 scheduleRepository.inquireSpecificLocationOfScheduleList()
             }.onSuccess {
-                _schedules.postValue(it.body()!!)
                 if (it.isSuccessful) {
                     _schedules.postValue(it.body()!!)
                 } else {
