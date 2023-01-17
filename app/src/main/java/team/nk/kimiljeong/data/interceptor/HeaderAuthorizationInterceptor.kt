@@ -17,13 +17,14 @@ class HeaderAuthorizationInterceptor @Inject constructor(
 
         val ignorePath = listOf(
             "/mail",
-            "/user",
             "/user/login",
             "/user/code",
             "/user/check",
         )
 
-        if (ignorePath.contains(path) && (path == ignorePath[1] && method == "POST")) {
+        if (ignorePath.contains(path)) {
+            return chain.proceed(request)
+        }else if(path == "/users" && method == "POST"){
             return chain.proceed(request)
         }
 

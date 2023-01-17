@@ -3,7 +3,6 @@ package team.nk.kimiljeong.data.repository.remote.implement
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.ScheduleAPI
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
-import team.nk.kimiljeong.data.model.remote.request.SpecificLocationOfScheduleListRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import javax.inject.Inject
@@ -39,10 +38,8 @@ class ScheduleRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun inquireSpecificLocationOfScheduleList(request: SpecificLocationOfScheduleListRequest): Response<InquireScheduleListResponse> {
-        return scheduleAPI.inquireSpecificLocationOfScheduleList(
-            request = request,
-        )
+    override suspend fun inquireSpecificLocationOfScheduleList(): Response<InquireScheduleListResponse> {
+        return scheduleAPI.inquireSpecificLocationOfScheduleList()
     }
 
     override suspend fun inquireEntireScheduleList(): Response<InquireScheduleListResponse> {

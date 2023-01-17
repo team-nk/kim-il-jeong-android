@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import team.nk.kimiljeong.R
@@ -13,7 +16,7 @@ import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
 
 class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
     R.layout.dialog_search_location,
-) {
+), OnMapReadyCallback {
 
     override fun onCreateDialog(
         savedInstanceState: Bundle?,
@@ -40,8 +43,38 @@ class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
         }
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.run {
+            mapType = GoogleMap.MAP_TYPE_NORMAL
+            addCustomMarker(
+                googleMap = googleMap,
+                latitude = currentLocation.latitude,
+                longtitude = currentLocation.longitude,
+            )
+            setMinZoomPreference(10F)
+            setMaxZoomPreference(18F)
+            moveCamera(
+                CameraUpdateFactory.newLatLng(currentLocation)
+            )
+            animateCamera(
+                CameraUpdateFactory.zoomTo(500F)
+            )
+            setOnMapClickListener {
+                addCustomMarker(
+                    googleMap = googleMap,
+                    latitude = it.latitude,
+                    longtitude = it.longitude,
+                )
+            }
+            setAddress(
+                latitude = currentLocation.latitude,
+                longtitude = currentLocation.longitude,
+            )
+        }
+    }
+
     override fun initView() {
-        initMapView()
+        mapViewId = binding.mapDialogSearchLocationMapMain.id
         initCloseButton()
         checkUserPermission()
         initSelectButton()
@@ -51,24 +84,6 @@ class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
         binding.btnDialogSearchLocationCancel.setOnClickListener {
             dismiss()
         }
-    }
-
-    private fun checkUserPermission() {
-        if (checkGranted()) {
-            setUserLocation()
-            initMapView()
-        } else {
-            moveToOption()
-        }
-    }
-
-    private fun initMapView() {
-        childFragmentManager.beginTransaction()
-            .replace(
-                R.id.map_dialog_search_location_map_main,
-                mapFragment,
-                "MapTag",
-            ).commit()
     }
 
     private fun initSelectButton() {

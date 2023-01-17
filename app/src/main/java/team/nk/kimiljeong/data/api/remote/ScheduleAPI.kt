@@ -1,7 +1,6 @@
 package team.nk.kimiljeong.data.api.remote
 
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
-import team.nk.kimiljeong.data.model.remote.request.SpecificLocationOfScheduleListRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -30,9 +29,7 @@ interface ScheduleAPI {
     ): Response<Void>
 
     @GET("/schedule/map")
-    suspend fun inquireSpecificLocationOfScheduleList(
-        @Body request: SpecificLocationOfScheduleListRequest,
-    ): Response<InquireScheduleListResponse>
+    suspend fun inquireSpecificLocationOfScheduleList(): Response<InquireScheduleListResponse>
 
     @GET("/schedule/list")
     suspend fun inquireEntireScheduleList(): Response<InquireScheduleListResponse>
