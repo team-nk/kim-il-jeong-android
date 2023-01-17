@@ -146,7 +146,8 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                             "HH:mm:ss",
                             Locale.KOREA
                         ).format(Calendar.getInstance().time)
-                    )
+                    ),
+                null,
                 )
                 layoutManager = LinearLayoutManager(requireActivity())
             }

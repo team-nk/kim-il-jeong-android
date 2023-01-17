@@ -6,19 +6,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
-import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import team.nk.kimiljeong.databinding.FragmentMapBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
-import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.viewmodel.ScheduleViewModel
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class MapFragment : BaseMapFragment<FragmentMapBinding>(
@@ -26,6 +20,8 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
 ) {
 
     private val viewModel by viewModels<ScheduleViewModel>()
+
+    private val addressList: ArrayList<String?> = ArrayList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,11 +58,49 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
     private fun observeEvent() {
         viewModel.schedules.observe(
             viewLifecycleOwner,
-        ) {
+        ) { it ->
             binding.rvFragmentMapTodaySchedule.run {
-                adapter = ScheduleAdapter(it.schedules)
+                adapter = ScheduleAdapter(
+                    schedules = it.schedules,
+                    onItemClick = object : ScheduleItemClickListener {
+                        override fun onScheduleItemClick(
+                            scheduleId: Int,
+                            content: String,
+                            address: String,
+                            startsAt: String,
+                            endsAt: String
+                        ) {
+                            ScheduleDetailDialog().run {
+                                show(
+                                    this@MapFragment.requireActivity().supportFragmentManager,
+                                    tag
+                                )
+                                arguments = Bundle().also {
+                                    it.putInt("scheduleId", scheduleId)
+                                    it.putString("content", content)
+                                    it.putString("address", address)
+                                    it.putString("startsAt", startsAt)
+                                    it.putString("endsAt", endsAt)
+                                }
+                            }
+                        }
+
+                    })
                 layoutManager = LinearLayoutManager(requireActivity())
+            }
+            for (i in it.schedules.indices) {
+                addressList.add(it.schedules[i].address)
             }
         }
     }
+}
+
+interface ScheduleItemClickListener {
+    fun onScheduleItemClick(
+        scheduleId: Int,
+        content: String,
+        address: String,
+        startsAt: String,
+        endsAt: String
+    )
 }

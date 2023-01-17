@@ -8,10 +8,13 @@ import team.nk.kimiljeong.data.common.Color.*
 import team.nk.kimiljeong.data.extension.toColor
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.ItemScheduleBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import team.nk.kimiljeong.presentation.view.map.ScheduleItemClickListener
+import team.nk.kimiljeong.presentation.view.post.ItemClickListener
 
-class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
+class ScheduleAdapter(
+    private val schedules: List<ScheduleInformation>,
+    private val onItemClick: ScheduleItemClickListener?,
+) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
 
@@ -46,10 +49,18 @@ class ScheduleAdapter(private val schedules: List<ScheduleInformation>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(schedules[position])
+        holder.itemView.setOnClickListener {
+            onItemClick?.onScheduleItemClick(
+                scheduleId = schedules[position].scheduleId!!,
+                content = schedules[position].content!!,
+                address = schedules[position].address!!,
+                startsAt = schedules[position].startsAt!!,
+                endsAt = schedules[position].endsAt!!,
+            )
+        }
     }
 
     override fun getItemCount(): Int {
-        println(schedules.size)
         return schedules.size
     }
 }
