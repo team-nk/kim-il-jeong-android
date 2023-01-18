@@ -56,22 +56,12 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
     }
 
     private fun observeEvent() {
-//        viewModel.schedules.observe(
-//            viewLifecycleOwner,
-//        ) { it ->
+        viewModel.schedules.observe(
+            viewLifecycleOwner,
+        ) { it ->
             binding.rvFragmentMapTodaySchedule.run {
                 adapter = ScheduleAdapter(
-                    schedules = arrayListOf(
-                        ScheduleInformation(
-                            1,
-                            "대덕대학교 자습",
-                            "RED",
-                            "대전광역시",
-                            null,
-                            null,
-                            true,
-                        )
-                    ),
+                    schedules = it.schedules,
                     onItemClick = object : ScheduleItemClickListener {
                         override fun onScheduleItemClick(
                             scheduleId: Int,
@@ -100,10 +90,10 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                     })
                 layoutManager = LinearLayoutManager(requireActivity())
             }
-//            for (i in it.schedules.indices) {
-//                addressList.add(it.schedules[i].address)
-//            }
-//        }
+            for (i in it.schedules.indices) {
+                addressList.add(it.schedules[i].address)
+            }
+        }
     }
 }
 
