@@ -19,9 +19,21 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
                 )
                 tvDialogScheduleDetailTitle.text = getString("content")
                 tvDialogScheduleDetailAddress.text = getString("address")
-                tvDialogScheduleDetailTime.text =
-                    "${getString("startsAt")} ~ ${getString("endsAt")}"
+                tvDialogScheduleDetailTime.text = setTime(
+                    startsAt = getString("startsAt")!!,
+                    endsAt = getString("endsAt")!!,
+                )
             }
         }
     }
+
+    private fun setTime(
+        startsAt: String,
+        endsAt: String,
+    ): String =
+        StringBuilder().run {
+            append(startsAt)
+            append(" ~ ")
+            append(endsAt)
+        }.toString()
 }
