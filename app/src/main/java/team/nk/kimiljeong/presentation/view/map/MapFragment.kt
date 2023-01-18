@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.view.map
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,7 +9,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
-import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentMapBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
@@ -52,6 +52,16 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 latitude = currentLocation.latitude,
                 longtitude = currentLocation.longitude,
             )
+            for (i in 0.until(addressList.size)) {
+                Geocoder(requireActivity()).getFromLocationName(addressList[i].toString(), 10)
+                    ?.get(0)?.run {
+                    addCustomMarker(
+                        googleMap = googleMap,
+                        latitude = latitude,
+                        longtitude = longitude
+                    )
+                }
+            }
         }
     }
 
