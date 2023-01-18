@@ -58,7 +58,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                     addCustomMarker(
                         googleMap = googleMap,
                         latitude = latitude,
-                        longtitude = longitude
+                        longtitude = longitude,
                     )
                 }
             }
@@ -79,7 +79,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                             content: String,
                             address: String,
                             startsAt: String,
-                            endsAt: String
+                            endsAt: String,
                         ) {
                             ScheduleDetailDialog().run {
                                 show(
@@ -114,6 +114,6 @@ interface ScheduleItemClickListener {
         content: String,
         address: String,
         startsAt: String,
-        endsAt: String
+        endsAt: String,
     )
 }
