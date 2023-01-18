@@ -7,6 +7,7 @@ import team.nk.kimiljeong.databinding.DialogScheduleDetailBinding
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.util.parseColorToResource
 import team.nk.kimiljeong.presentation.view.delete.DeleteDialogFragment
+import team.nk.kimiljeong.presentation.view.schedule.AddScheduleBottomSheetDialogFragment
 
 class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailBinding>(
     R.layout.dialog_schedule_detail,
@@ -19,6 +20,7 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
         allDay = getString(R.string.allDay)
         initTextViews()
         initDeleteButton()
+        initModifyButton()
     }
 
     private fun initTextViews() {
@@ -45,6 +47,28 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
                         "scheduleId",
                         this@ScheduleDetailDialog.requireArguments().getInt("scheduleId"),
                     )
+                }
+                show(
+                    this@ScheduleDetailDialog.requireActivity().supportFragmentManager,
+                    tag,
+                )
+            }
+        }
+    }
+
+    private fun initModifyButton(){
+        binding.btnDialogMapLocationModify.setOnClickListener {
+            AddScheduleBottomSheetDialogFragment().run {
+                arguments = Bundle().also {
+                    this@ScheduleDetailDialog.requireArguments().run {
+                        it.putBoolean("isModify", true)
+                        it.putBoolean("isAllDay", getBoolean("isAllDay"))
+                        it.putString("content", getString("content"))
+                        it.putString("address", getString("address"))
+                        it.putString("color", getString("color"))
+                        it.putString("startsAt", getString("startsAt"))
+                        it.putString("endsAt", getString("endsAt"))
+                    }
                 }
                 show(
                     this@ScheduleDetailDialog.requireActivity().supportFragmentManager,

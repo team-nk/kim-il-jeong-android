@@ -54,6 +54,7 @@ class AddScheduleBottomSheetDialogFragment :
 
     override fun initView() {
         initButtons()
+        initModifyView()
     }
 
     private fun observeEvent() {
@@ -199,6 +200,52 @@ class AddScheduleBottomSheetDialogFragment :
             } else {
                 for (view in viewList) {
                     view.enable()
+                }
+            }
+        }
+    }
+
+    private fun initModifyView(){
+            if (arguments?.getBoolean("isModify") == true) {
+                arguments?.run {
+                    with(binding) {
+                        tvDialogCreateScheduleTitle.text = getString(R.string.modify_schedule)
+                        etDlgCreateScheduleContent.hint = getString("content")
+                        tvDialogCreateScheduleEnterLocation.text = getString("address")
+                        initSelectedRadioButton(getString("color"))
+                        switchDialogCreateScheduleIsScheduleAllDay.isChecked = getBoolean("isAllDay")
+                        btnDialogCreateScheduleDateStart.text = getString("startsAt")?.split(" ")?.get(0)
+                            ?: getString(R.string.create_schedule_date_start)
+                        btnDialogCreateScheduleTimeStart.text = getString("startsAt")?.split(" ")?.get(1)
+                            ?: getString(R.string.create_schedule_time_start)
+                        btnDialogCreateScheduleDateEnd.text = getString("endsAt")?.split(" ")?.get(0)
+                            ?: getString(R.string.create_schedule_date_start)
+                        btnDialogCreateScheduleTimeEnd.text = getString("endsAt")?.split(" ")?.get(1)
+                            ?: getString(R.string.create_schedule_time_end)
+                        btnDialogCreateScheduleCreate.text = getString(R.string.do_change)
+                    }
+                }
+            } else {
+                with(binding) {
+                    etDlgCreateScheduleContent.hint =
+                        getString(R.string.create_schedule_enter_schedule)
+                }
+            }
+    }
+
+
+
+    private fun initSelectedRadioButton(
+        color: String?,
+    ){
+        with(binding){
+            radioGroupDialogCreateScheduleColorPallet.run {
+                when(color){
+                    "BLUE" -> check(radioBtnRadioGroupDialogScheduleAddictionColorRed.id)
+                    "GREEN" -> check(radioBtnRadioGroupDialogScheduleAddictionColorGreen.id)
+                    "YELLOW" -> check(radioBtnRadioGroupDialogScheduleAddictionColorYellow.id)
+                    "PURPLE" -> check(radioBtnRadioGroupDialogScheduleAddictionColorPurple.id)
+                    else -> check(radioBtnRadioGroupDialogScheduleAddictionColorRed.id)
                 }
             }
         }

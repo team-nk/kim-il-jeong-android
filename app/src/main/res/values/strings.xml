@@ -35,6 +35,8 @@
     <string name="dlg_time_picker_pm">오후</string>
     <string name="allDay">하루종일</string>
 
+    <string name="modify_schedule">일정 변경하기</string>
+
     <string name="dlg_delete_delete">정말로 삭제하시겠습니까?</string>
     <string name="success_delete">성공적으로 삭제되었습니다!</string>
 

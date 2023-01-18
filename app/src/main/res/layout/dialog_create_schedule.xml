@@ -50,7 +50,6 @@
                             android:id="@+id/et_dlg_create_schedule_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/create_schedule_enter_schedule"
                             android:textCursorDrawable="@drawable/bg_create_schedule_edittext_cursor_black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
