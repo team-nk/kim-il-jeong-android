@@ -12,8 +12,11 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
     R.layout.dialog_schedule_detail,
 ) {
 
+    private lateinit var allDay: String
+
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        allDay = getString(R.string.allDay)
         initTextViews()
         initDeleteButton()
     }
@@ -54,10 +57,15 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
     private fun setTime(
         startsAt: String,
         endsAt: String,
-    ): String =
-        StringBuilder().run {
-            append(startsAt)
-            append(" ~ ")
-            append(endsAt)
-        }.toString()
+    ): String {
+        return if(startsAt == allDay) {
+            allDay
+        }else{
+            StringBuilder().run {
+                append(startsAt)
+                append(" ~ ")
+                append(endsAt)
+            }.toString()
+        }
+    }
 }
