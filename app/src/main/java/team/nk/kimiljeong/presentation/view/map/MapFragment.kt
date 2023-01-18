@@ -65,6 +65,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                     onItemClick = object : ScheduleItemClickListener {
                         override fun onScheduleItemClick(
                             scheduleId: Int,
+                            color: String,
                             content: String,
                             address: String,
                             startsAt: String,
@@ -77,6 +78,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                 )
                                 arguments = Bundle().also {
                                     it.putInt("scheduleId", scheduleId)
+                                    it.putString("color", color)
                                     it.putString("content", content)
                                     it.putString("address", address)
                                     it.putString("startsAt", startsAt)
@@ -98,6 +100,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
 interface ScheduleItemClickListener {
     fun onScheduleItemClick(
         scheduleId: Int,
+        color: String,
         content: String,
         address: String,
         startsAt: String,

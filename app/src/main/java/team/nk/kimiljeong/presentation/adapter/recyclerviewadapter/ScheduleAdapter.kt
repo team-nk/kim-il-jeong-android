@@ -52,6 +52,7 @@ class ScheduleAdapter(
         holder.itemView.setOnClickListener {
             onItemClick?.onScheduleItemClick(
                 scheduleId = schedules[position].scheduleId!!,
+                color = schedules[position].color!!,
                 content = schedules[position].content!!,
                 address = schedules[position].address!!,
                 startsAt = schedules[position].startsAt!!,
