@@ -110,7 +110,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         ).getFromLocation(
             latitude,
             longtitude,
-            1,
+            100,
         )?.get(0)?.getAddressLine(0).toString()
     }
 
