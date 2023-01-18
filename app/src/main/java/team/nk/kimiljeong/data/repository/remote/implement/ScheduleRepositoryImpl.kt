@@ -32,7 +32,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun removeSchedule(scheduleId: String): Response<Void> {
+    override suspend fun removeSchedule(scheduleId: Int): Response<Void> {
         return scheduleAPI.removeSchedule(
             scheduleId = scheduleId,
         )

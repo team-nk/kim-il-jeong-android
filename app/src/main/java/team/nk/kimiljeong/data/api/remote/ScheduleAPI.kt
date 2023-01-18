@@ -23,9 +23,9 @@ interface ScheduleAPI {
         @Body request: ScheduleInformation,
     ): Response<Void>
 
-    @DELETE("/schedule/{schedule-id")
+    @DELETE("/schedule/{schedule-id}")
     suspend fun removeSchedule(
-        @Path("schedule-id") scheduleId: String,
+        @Path("schedule-id") scheduleId: Int,
     ): Response<Void>
 
     @GET("/schedule/map")

@@ -16,7 +16,7 @@ interface ScheduleRepository : ScheduleAPI {
         request: ScheduleInformation,
     ): Response<Void>
 
-    override suspend fun removeSchedule(scheduleId: String): Response<Void>
+    override suspend fun removeSchedule(scheduleId: Int): Response<Void>
 
     override suspend fun inquireSpecificLocationOfScheduleList(): Response<InquireScheduleListResponse>
 
