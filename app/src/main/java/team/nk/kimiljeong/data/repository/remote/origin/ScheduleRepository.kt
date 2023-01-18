@@ -12,7 +12,7 @@ interface ScheduleRepository : ScheduleAPI {
     override suspend fun createSchedule(request: ScheduleInformation): Response<Void>
 
     override suspend fun editSchedule(
-        scheduleId: String,
+        scheduleId: Int,
         request: ScheduleInformation,
     ): Response<Void>
 

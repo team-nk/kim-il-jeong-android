@@ -68,6 +68,7 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
                         it.putString("color", getString("color"))
                         it.putString("startsAt", getString("startsAt"))
                         it.putString("endsAt", getString("endsAt"))
+                        it.putInt("scheduleId", getInt("scheduleId"))
                     }
                 }
                 show(

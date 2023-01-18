@@ -205,42 +205,77 @@ class AddScheduleBottomSheetDialogFragment :
         }
     }
 
-    private fun initModifyView(){
-            if (arguments?.getBoolean("isModify") == true) {
-                arguments?.run {
-                    with(binding) {
-                        tvDialogCreateScheduleTitle.text = getString(R.string.modify_schedule)
-                        etDlgCreateScheduleContent.hint = getString("content")
-                        tvDialogCreateScheduleEnterLocation.text = getString("address")
-                        initSelectedRadioButton(getString("color"))
-                        switchDialogCreateScheduleIsScheduleAllDay.isChecked = getBoolean("isAllDay")
-                        btnDialogCreateScheduleDateStart.text = getString("startsAt")?.split(" ")?.get(0)
-                            ?: getString(R.string.create_schedule_date_start)
-                        btnDialogCreateScheduleTimeStart.text = getString("startsAt")?.split(" ")?.get(1)
-                            ?: getString(R.string.create_schedule_time_start)
-                        btnDialogCreateScheduleDateEnd.text = getString("endsAt")?.split(" ")?.get(0)
-                            ?: getString(R.string.create_schedule_date_start)
-                        btnDialogCreateScheduleTimeEnd.text = getString("endsAt")?.split(" ")?.get(1)
-                            ?: getString(R.string.create_schedule_time_end)
-                        btnDialogCreateScheduleCreate.text = getString(R.string.do_change)
-                    }
-                }
-            } else {
+    private fun initModifyView() {
+        if (arguments?.getBoolean("isModify") == true) {
+            arguments?.run {
                 with(binding) {
-                    etDlgCreateScheduleContent.hint =
-                        getString(R.string.create_schedule_enter_schedule)
+                    tvDialogCreateScheduleTitle.text = getString(R.string.modify_schedule)
+                    etDlgCreateScheduleContent.hint = getString("content")
+                    tvDialogCreateScheduleEnterLocation.text = getString("address")
+                    initSelectedRadioButton(getString("color"))
+                    switchDialogCreateScheduleIsScheduleAllDay.isChecked = getBoolean("isAllDay")
+                    btnDialogCreateScheduleCreate.text = getString(R.string.do_change)
+                    initModifyButtons()
                 }
             }
+        } else {
+            with(binding) {
+                etDlgCreateScheduleContent.hint =
+                    getString(R.string.create_schedule_enter_schedule)
+            }
+        }
     }
 
-
+    private fun initModifyButtons() {
+        arguments?.run {
+            with(binding) {
+                btnDialogCreateScheduleDateStart.text = getString("startsAt")?.split(" ")?.get(0)
+                    ?: getString(R.string.create_schedule_date_start)
+                btnDialogCreateScheduleTimeStart.text = getString("startsAt")?.split(" ")?.get(1)
+                    ?: getString(R.string.create_schedule_time_start)
+                btnDialogCreateScheduleDateEnd.text = getString("endsAt")?.split(" ")?.get(0)
+                    ?: getString(R.string.create_schedule_date_start)
+                btnDialogCreateScheduleTimeEnd.text = getString("endsAt")?.split(" ")?.get(1)
+                    ?: getString(R.string.create_schedule_time_end)
+                binding.btnDialogCreateScheduleCreate.setOnClickListener {
+                    with(binding) {
+                        viewModel.setColor(
+                            when (radioGroupDialogCreateScheduleColorPallet.checkedRadioButtonId) {
+                                radioBtnRadioGroupDialogScheduleAddictionColorRed.id -> "RED"
+                                radioBtnRadioGroupDialogScheduleAddictionColorBlue.id -> "BLUE"
+                                radioBtnRadioGroupDialogScheduleAddictionColorYellow.id -> "YELLOW"
+                                radioBtnRadioGroupDialogScheduleAddictionColorGreen.id -> "GREEN"
+                                else -> "PURPLE"
+                            }
+                        )
+                    }
+                    viewModel.setAddress(binding.tvDialogCreateScheduleEnterLocation.text.toString())
+                    viewModel.setStartTime(
+                        StringBuilder().append(btnDialogCreateScheduleDateStart.text).append("T")
+                            .append(btnDialogCreateScheduleTimeStart.text).append(".000Z")
+                            .toString()
+                    )
+                    viewModel.setEndTime(
+                        StringBuilder().append(btnDialogCreateScheduleDateEnd.text).append("T")
+                            .append(btnDialogCreateScheduleTimeEnd.text).append(".000Z")
+                            .toString()
+                    )
+                    viewModel.setAlways(binding.switchDialogCreateScheduleIsScheduleAllDay.isChecked)
+                    viewModel.editSchedule(
+                        scheduleId = getInt("scheduleId"),
+                        content = binding.etDlgCreateScheduleContent.text.toString()
+                    )
+                }
+            }
+        }
+    }
 
     private fun initSelectedRadioButton(
         color: String?,
-    ){
-        with(binding){
+    ) {
+        with(binding) {
             radioGroupDialogCreateScheduleColorPallet.run {
-                when(color){
+                when (color) {
                     "BLUE" -> check(radioBtnRadioGroupDialogScheduleAddictionColorRed.id)
                     "GREEN" -> check(radioBtnRadioGroupDialogScheduleAddictionColorGreen.id)
                     "YELLOW" -> check(radioBtnRadioGroupDialogScheduleAddictionColorYellow.id)

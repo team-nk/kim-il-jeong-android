@@ -38,6 +38,10 @@ class ScheduleViewModel @Inject constructor(
     val removeSchedule: LiveData<Boolean>
         get() = _removeSchedule
 
+    private val _editSchedule = MutableLiveData<Boolean>()
+    val editSchedule: LiveData<Boolean>
+        get() = _editSchedule
+
     private var address: String = ""
     private var color: String = ""
     private var isAlways: Boolean = false
@@ -137,14 +141,57 @@ class ScheduleViewModel @Inject constructor(
             kotlin.runCatching {
                 scheduleRepository.removeSchedule(scheduleId)
             }.onSuccess {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
                     _removeSchedule.postValue(true)
-                }else{
+                } else {
                     _snackBarMessage.postValue(
                         mApplication.getString(
                             R.string.error_failed_to_connect_to_server,
                         )
                     )
+                }
+            }.onFailure {
+                _snackBarMessage.postValue(
+                    mApplication.getString(
+                        R.string.error_failed_to_connect_to_server,
+                    )
+                )
+            }
+        }
+    }
+
+    internal fun editSchedule(
+        scheduleId: Int,
+        content: String,
+    ) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                println(ScheduleInformation(
+                    scheduleId = null,
+                    content = content,
+                    color = color,
+                    address = address,
+                    startsAt = startTime,
+                    endsAt = endTime,
+                    isAllDay = isAlways,
+                ))
+                scheduleRepository.editSchedule(
+                    request = ScheduleInformation(
+                        scheduleId = null,
+                        content = content,
+                        color = color,
+                        address = address,
+                        startsAt = startTime,
+                        endsAt = endTime,
+                        isAllDay = isAlways,
+                    ),
+                    scheduleId = scheduleId,
+                )
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _editSchedule.postValue(true)
+                    setStartTime("")
+                    setEndTime("")
                 }
             }.onFailure {
                 _snackBarMessage.postValue(

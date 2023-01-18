@@ -19,7 +19,7 @@ interface ScheduleAPI {
 
     @PUT("/schedule/{schedule-id}")
     suspend fun editSchedule(
-        @Path("schedule-id") scheduleId: String,
+        @Path("schedule-id") scheduleId: Int,
         @Body request: ScheduleInformation,
     ): Response<Void>
 
