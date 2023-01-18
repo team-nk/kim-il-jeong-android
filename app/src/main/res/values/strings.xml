@@ -34,6 +34,8 @@
     <string name="dlg_time_picker_am">오전</string>
     <string name="dlg_time_picker_pm">오후</string>
 
+    <string name="dlg_delete_delete">정말로 삭제하시겠습니까?</string>
+
     <string name="introduction_content_description_next_icon">Introduction Next Page Icon</string>
     <string name="introduction_content_description_view_pager_image">ViewPager Image</string>
     <string name="introduction_please_accept_permission">위치 권한을 허용해 주세요.</string>
