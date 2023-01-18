@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentMapBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
@@ -66,12 +67,22 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
     }
 
     private fun observeEvent() {
-        viewModel.schedules.observe(
-            viewLifecycleOwner,
-        ) { it ->
+//        viewModel.schedules.observe(
+//            viewLifecycleOwner,
+//        ) { it ->
             binding.rvFragmentMapTodaySchedule.run {
                 adapter = ScheduleAdapter(
-                    schedules = it.schedules,
+                    schedules = arrayListOf(
+                        ScheduleInformation(
+                            1,
+                            "대덕대학교 자습",
+                            "PURPLE",
+                            "대전광역시 유성구 가정동 가정북로 74",
+                            "2023-01-30T13:00:00",
+                            "2023-01-30T15:00:00",
+                            false,
+                        )
+                    ),
                     onItemClick = object : ScheduleItemClickListener {
                         override fun onScheduleItemClick(
                             scheduleId: Int,
@@ -79,7 +90,8 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                             content: String,
                             address: String,
                             startsAt: String,
-                            endsAt: String
+                            endsAt: String,
+                            isAllDay: Boolean,
                         ) {
                             ScheduleDetailDialog().run {
                                 show(
@@ -93,6 +105,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                     it.putString("address", address)
                                     it.putString("startsAt", startsAt)
                                     it.putString("endsAt", endsAt)
+                                    it.putBoolean("isAllDay", isAllDay)
                                 }
                             }
                         }
@@ -100,10 +113,10 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                     })
                 layoutManager = LinearLayoutManager(requireActivity())
             }
-            for (i in it.schedules.indices) {
-                addressList.add(it.schedules[i].address)
-            }
-        }
+//            for (i in it.schedules.indices) {
+//                addressList.add(it.schedules[i].address)
+//            }
+//        }
     }
 }
 
@@ -114,6 +127,7 @@ interface ScheduleItemClickListener {
         content: String,
         address: String,
         startsAt: String,
-        endsAt: String
+        endsAt: String,
+        isAllDay: Boolean,
     )
 }
