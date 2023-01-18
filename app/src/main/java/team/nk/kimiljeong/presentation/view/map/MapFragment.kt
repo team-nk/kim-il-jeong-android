@@ -59,7 +59,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                     addCustomMarker(
                         googleMap = googleMap,
                         latitude = latitude,
-                        longtitude = longitude
+                        longtitude = longitude,
                     )
                 }
             }
