@@ -110,8 +110,8 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         ).getFromLocation(
             latitude,
             longtitude,
-            1,
-        )?.first()?.getAddressLine(0).toString()
+            100,
+        )?.get(0)?.getAddressLine(0).toString()
     }
 
     private fun checkGranted(): Boolean {

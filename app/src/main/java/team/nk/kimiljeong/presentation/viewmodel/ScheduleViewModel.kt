@@ -34,6 +34,10 @@ class ScheduleViewModel @Inject constructor(
     val schedules: LiveData<InquireScheduleListResponse>
         get() = _schedules
 
+    private val _removeSchedule = MutableLiveData<Boolean>()
+    val removeSchedule: LiveData<Boolean>
+        get() = _removeSchedule
+
     private var address: String = ""
     private var color: String = ""
     private var isAlways: Boolean = false
@@ -121,6 +125,32 @@ class ScheduleViewModel @Inject constructor(
                     mApplication.getString(
                         R.string.error_failed_to_connect_to_server,
                     ),
+                )
+            }
+        }
+    }
+
+    internal fun removeSchedule(
+        scheduleId: Int,
+    ) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.removeSchedule(scheduleId)
+            }.onSuccess {
+                if(it.isSuccessful){
+                    _removeSchedule.postValue(true)
+                }else{
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        )
+                    )
+                }
+            }.onFailure {
+                _snackBarMessage.postValue(
+                    mApplication.getString(
+                        R.string.error_failed_to_connect_to_server,
+                    )
                 )
             }
         }

@@ -1,5 +1,6 @@
 package team.nk.kimiljeong.presentation.adapter.recyclerviewadapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,10 @@ class ScheduleAdapter(
         internal fun bind(schedule: ScheduleInformation) {
             with(binding) {
                 tvItemCalendarTodayScheduleTitle.text = schedule.content
-                tvItemCalendarTodayScheduleDate.text = schedule.startsAt?.replace("T", " ")
+                tvItemCalendarTodayScheduleDate.text = setTime(
+                    time = schedule.startsAt,
+                    context = binding.root.context,
+                )
                 indicatorItemCalendarTodaySchedule.setBackgroundResource(
                     when (schedule.color?.toColor()) {
                         RED -> R.drawable.bg_create_schedule_color_indicator_red_unchecked
@@ -52,10 +56,17 @@ class ScheduleAdapter(
         holder.itemView.setOnClickListener {
             onItemClick?.onScheduleItemClick(
                 scheduleId = schedules[position].scheduleId!!,
+                color = schedules[position].color!!,
                 content = schedules[position].content!!,
                 address = schedules[position].address!!,
-                startsAt = schedules[position].startsAt!!,
-                endsAt = schedules[position].endsAt!!,
+                startsAt = setTime(
+                    time = schedules[position].startsAt,
+                    context = holder.itemView.context,
+                ),
+                endsAt = setTime(
+                    time = schedules[position].endsAt,
+                    context = holder.itemView.context,
+                ),
             )
         }
     }
@@ -63,4 +74,12 @@ class ScheduleAdapter(
     override fun getItemCount(): Int {
         return schedules.size
     }
+
+    private fun setTime(
+        time: String?,
+        context: Context?,
+    ): String =
+        StringBuilder().run {
+            time?.replace("T", " ")?.split('.')?.get(0) ?: context!!.getString(R.string.allDay)
+        }
 }

@@ -33,6 +33,10 @@
 
     <string name="dlg_time_picker_am">오전</string>
     <string name="dlg_time_picker_pm">오후</string>
+    <string name="allDay">하루종일</string>
+
+    <string name="dlg_delete_delete">정말로 삭제하시겠습니까?</string>
+    <string name="success_delete">성공적으로 삭제되었습니다!</string>
 
     <string name="introduction_content_description_next_icon">Introduction Next Page Icon</string>
     <string name="introduction_content_description_view_pager_image">ViewPager Image</string>
