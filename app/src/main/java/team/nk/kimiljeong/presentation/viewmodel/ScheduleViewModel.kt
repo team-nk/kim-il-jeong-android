@@ -119,6 +119,8 @@ class ScheduleViewModel @Inject constructor(
                     setStartTime("")
                     setEndDate("")
                     setEndTime("")
+                }else{
+                    _isScheduleCreateSucceed.postValue(false)
                 }
             }.onFailure {
                 _snackBarMessage.postValue(

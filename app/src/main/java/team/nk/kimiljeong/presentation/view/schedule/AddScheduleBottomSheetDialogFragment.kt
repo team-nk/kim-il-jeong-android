@@ -67,6 +67,8 @@ class AddScheduleBottomSheetDialogFragment :
                     bundleOf("message" to getString(R.string.create_schedule_succeed))
                 )
                 dismiss()
+            }else{
+                binding.tvDlgCreateScheduleError.visibility = View.VISIBLE
             }
         }
         viewModel.editSchedule.observe(
