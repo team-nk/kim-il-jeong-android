@@ -88,11 +88,13 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         googleMap: GoogleMap,
         latitude: Double,
         longtitude: Double,
+        isCurrent: Boolean,
     ) {
         setAddress(
             latitude = latitude,
             longtitude = longtitude,
         )
+        if(isCurrent) address = "현위치"
         googleMap.addMarker(
             MarkerOptions()
                 .title(address)

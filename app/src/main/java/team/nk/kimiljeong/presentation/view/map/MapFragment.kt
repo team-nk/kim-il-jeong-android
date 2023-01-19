@@ -3,7 +3,6 @@ package team.nk.kimiljeong.presentation.view.map
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentMapBinding
@@ -49,6 +48,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 googleMap = googleMap,
                 latitude = currentLocation.latitude,
                 longtitude = currentLocation.longitude,
+                isCurrent = true,
             )
             setMinZoomPreference(10F)
             setMaxZoomPreference(18F)
@@ -69,6 +69,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                             googleMap = googleMap,
                             latitude = latitude,
                             longtitude = longitude,
+                            isCurrent = false,
                         )
                     }
             }
