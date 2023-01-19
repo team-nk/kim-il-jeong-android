@@ -76,6 +76,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 showShortSnackBar(
                     text = getString(R.string.success_delete),
                 )
+                viewModel.inquireSpecificLocationOfScheduleList()
             }
         }
         setFragmentResultListener("isModifySucceedSecondary"){ _, bundle ->
@@ -83,6 +84,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 showShortSnackBar(
                     text = getString(R.string.modify_schedule_succeed)
                 )
+                viewModel.inquireSpecificLocationOfScheduleList()
             }
         }
     }

@@ -122,7 +122,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
     }
 
     protected fun setUserLocation() {
-        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.run {
+        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)?.run {
             currentLocation = LatLng(this.latitude, this.longitude)
             mapFragment.getMapAsync(this@BaseMapFragment)
         }
