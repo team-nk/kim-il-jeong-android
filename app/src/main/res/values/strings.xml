@@ -37,6 +37,8 @@
 
     <string name="create_schedule_succeed">일정이 성공적으로 생성되었습니다!</string>
 
+    <string name="schedule_list">일정 목록</string>
+
     <string name="modify_schedule">일정 변경하기</string>
     <string name="modify_schedule_succeed">일정이 성공적으로 변경되었습니다!</string>
 
