@@ -3,22 +3,24 @@ package team.nk.kimiljeong.presentation.view.map
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
-import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.databinding.FragmentMapBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
+import team.nk.kimiljeong.presentation.common.ShowSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.viewmodel.ScheduleViewModel
 
 @AndroidEntryPoint
 class MapFragment : BaseMapFragment<FragmentMapBinding>(
     R.layout.fragment_map,
-) {
+), ShowSnackBar {
 
     private val viewModel by viewModels<ScheduleViewModel>()
 
@@ -28,6 +30,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
         super.onViewCreated(view, savedInstanceState)
         mapViewId = binding.mapFragmentMapMain.id
         checkUserPermission()
+        initFragmentResultListener()
         observeEvent()
     }
 
@@ -56,33 +59,33 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
             for (i in 0.until(addressList.size)) {
                 Geocoder(requireActivity()).getFromLocationName(addressList[i].toString(), 10)
                     ?.get(0)?.run {
-                    addCustomMarker(
-                        googleMap = googleMap,
-                        latitude = latitude,
-                        longtitude = longitude,
-                    )
-                }
+                        addCustomMarker(
+                            googleMap = googleMap,
+                            latitude = latitude,
+                            longtitude = longitude,
+                        )
+                    }
+            }
+        }
+    }
+
+    private fun initFragmentResultListener() {
+        setFragmentResultListener("isRemoveSucceedSecondary") { _, bundle ->
+            if (bundle.getBoolean("remove")) {
+                showShortSnackBar(
+                    text = getString(R.string.success_delete),
+                )
             }
         }
     }
 
     private fun observeEvent() {
-//        viewModel.schedules.observe(
-//            viewLifecycleOwner,
-//        ) { it ->
+        viewModel.schedules.observe(
+            viewLifecycleOwner,
+        ) { it ->
             binding.rvFragmentMapTodaySchedule.run {
                 adapter = ScheduleAdapter(
-                    schedules = arrayListOf(
-                        ScheduleInformation(
-                            1,
-                            "대덕대학교 자습",
-                            "PURPLE",
-                            "대전광역시 유성구 가정동 가정북로 74",
-                            "2023-01-30T13:00:00",
-                            "2023-01-30T15:00:00",
-                            false,
-                        )
-                    ),
+                    schedules = it.schedules,
                     onItemClick = object : ScheduleItemClickListener {
                         override fun onScheduleItemClick(
                             scheduleId: Int,
@@ -109,15 +112,20 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                 }
                             }
                         }
-
                     })
                 layoutManager = LinearLayoutManager(requireActivity())
             }
-//            for (i in it.schedules.indices) {
-//                addressList.add(it.schedules[i].address)
-//            }
-//        }
+            for (i in it.schedules.indices) {
+                addressList.add(it.schedules[i].address)
+            }
+        }
     }
+
+    override fun showShortSnackBar(text: String) {
+        binding.root.showShortSnackBar(text)
+    }
+
+    override fun showLongSnackBar(text: String) {}
 }
 
 interface ScheduleItemClickListener {

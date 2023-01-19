@@ -102,14 +102,6 @@ class ScheduleViewModel @Inject constructor(
         viewModelScope.launch(IO) {
             kotlin.runCatching {
                 setTimeByAlways(isAlways)
-                println(CreateScheduleRequest(
-                    content = content,
-                    color = color,
-                    address = address,
-                    startsAt = start,
-                    endsAt = end,
-                    isAllDay = isAlways,
-                ))
                 scheduleRepository.createSchedule(
                     request = CreateScheduleRequest(
                         content = content,
@@ -121,7 +113,6 @@ class ScheduleViewModel @Inject constructor(
                     )
                 )
             }.onSuccess {
-                println(it.errorBody()?.string())
                 if (it.isSuccessful) {
                     _isScheduleCreateSucceed.postValue(true)
                     setStartDate("")
@@ -130,7 +121,6 @@ class ScheduleViewModel @Inject constructor(
                     setEndTime("")
                 }
             }.onFailure {
-                println(it.toString())
                 _snackBarMessage.postValue(
                     mApplication.getString(
                         R.string.error_failed_to_connect_to_server,
@@ -142,14 +132,14 @@ class ScheduleViewModel @Inject constructor(
 
     internal fun setTimeByAlways(
         isAlways: Boolean,
-    ){
+    ) {
         val startBuilder = StringBuilder()
         val endBuilder = StringBuilder()
         startBuilder.append(startDate)
         endBuilder.append(endDate)
-        start = if(!isAlways) startBuilder.append(startTime).toString()
+        start = if (!isAlways) startBuilder.append(startTime).toString()
         else startBuilder.append("T00:00:00").toString()
-        end = if(!isAlways) endBuilder.append(endTime).toString()
+        end = if (!isAlways) endBuilder.append(endTime).toString()
         else endBuilder.append("T00:00:00").toString()
     }
 

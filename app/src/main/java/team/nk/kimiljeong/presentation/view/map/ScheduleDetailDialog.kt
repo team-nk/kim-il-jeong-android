@@ -2,6 +2,9 @@ package team.nk.kimiljeong.presentation.view.map
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogScheduleDetailBinding
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
@@ -41,6 +44,12 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
 
     private fun initDeleteButton() {
         binding.btnDialogMapLocationDelete.setOnClickListener {
+            setFragmentResultListener("isRemoveSucceed") { _, bundle ->
+                if (bundle.getBoolean("remove")) {
+                    setFragmentResult("isRemoveSucceedSecondary", bundleOf("remove" to true))
+                    dismiss()
+                }
+            }
             DeleteDialogFragment().run {
                 arguments = Bundle().also {
                     it.putInt(
@@ -56,7 +65,7 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
         }
     }
 
-    private fun initModifyButton(){
+    private fun initModifyButton() {
         binding.btnDialogMapLocationModify.setOnClickListener {
             AddScheduleBottomSheetDialogFragment().run {
                 arguments = Bundle().also {
@@ -83,9 +92,9 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
         startsAt: String,
         endsAt: String,
     ): String {
-        return if(startsAt == allDay) {
+        return if (startsAt == allDay) {
             allDay
-        }else{
+        } else {
             StringBuilder().run {
                 append(startsAt)
                 append(" ~ ")
