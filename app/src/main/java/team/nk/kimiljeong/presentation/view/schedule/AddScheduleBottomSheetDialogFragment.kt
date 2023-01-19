@@ -133,7 +133,7 @@ class AddScheduleBottomSheetDialogFragment :
             bundle.getString("startTime").run {
                 builder.clear()
                 binding.btnDialogCreateScheduleTimeStart.text = this
-                viewModel.setStartTime(builder.append("T").append(this!!.split(" ")[1]).append("00").toString())
+                viewModel.setStartTime(builder.append("T").append(this!!.split(" ")[1]).append(":00").toString())
             }
         }
     }
@@ -152,7 +152,7 @@ class AddScheduleBottomSheetDialogFragment :
             bundle.getString("endTime").run {
                 builder.clear()
                 binding.btnDialogCreateScheduleTimeEnd.text = this
-                viewModel.setEndTime(builder.append("T").append(this!!.split(" ")[1]).append("00").toString())
+                viewModel.setEndTime(builder.append("T").append(this!!.split(" ")[1]).append(":00").toString())
             }
         }
     }
@@ -163,9 +163,13 @@ class AddScheduleBottomSheetDialogFragment :
         setEndTime()
         with(binding) {
             btnDialogCreateScheduleCreate.setOnClickListener {
-                viewModel.createSchedule(
-                    content = binding.etDlgCreateScheduleContent.text.toString(),
-                )
+                if(binding.etDlgCreateScheduleContent.text.toString().isNotBlank()) {
+                    viewModel.createSchedule(
+                        content = binding.etDlgCreateScheduleContent.text.toString(),
+                    )
+                }else{
+                    binding.tvDlgCreateScheduleError.visibility = View.VISIBLE
+                }
             }
         }
     }

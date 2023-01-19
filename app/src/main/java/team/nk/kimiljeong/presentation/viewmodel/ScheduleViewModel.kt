@@ -43,16 +43,16 @@ class ScheduleViewModel @Inject constructor(
     val editSchedule: LiveData<Boolean>
         get() = _editSchedule
 
-    private var address: String = ""
-    private var color: String = "RED"
+    private lateinit var address: String
+    private lateinit var color: String
     private var isAlways: Boolean = false
-    private var startDate: String = ""
-    private var startTime: String = ""
-    private var endDate: String = ""
-    private var endTime: String = ""
+    private lateinit var startDate: String
+    private lateinit var startTime: String
+    private lateinit var endDate: String
+    private lateinit var endTime: String
 
-    private var start: String = ""
-    private var end: String = ""
+    private lateinit var start: String
+    private lateinit var end: String
 
     internal fun setAddress(
         address: String,
@@ -100,36 +100,53 @@ class ScheduleViewModel @Inject constructor(
         content: String,
     ) {
         viewModelScope.launch(IO) {
-            kotlin.runCatching {
+            if (checkInitialized()) {
                 setTimeByAlways(isAlways)
-                scheduleRepository.createSchedule(
-                    request = CreateScheduleRequest(
-                        content = content,
-                        color = color,
-                        address = address,
-                        startsAt = start,
-                        endsAt = end,
-                        isAllDay = isAlways,
+                kotlin.runCatching {
+                    scheduleRepository.createSchedule(
+                        request = CreateScheduleRequest(
+                            content = content,
+                            color = color,
+                            address = address,
+                            startsAt = start,
+                            endsAt = end,
+                            isAllDay = isAlways,
+                        )
                     )
-                )
-            }.onSuccess {
-                if (it.isSuccessful) {
-                    _isScheduleCreateSucceed.postValue(true)
-                    setStartDate("")
-                    setStartTime("")
-                    setEndDate("")
-                    setEndTime("")
-                }else{
-                    _isScheduleCreateSucceed.postValue(false)
+                }.onSuccess {
+                    if (it.isSuccessful) {
+                        _isScheduleCreateSucceed.postValue(true)
+                        setStartDate("")
+                        setStartTime("")
+                        setEndDate("")
+                        setEndTime("")
+                    } else {
+                        _isScheduleCreateSucceed.postValue(false)
+                    }
+                }.onFailure {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        )
+                    )
                 }
-            }.onFailure {
-                _snackBarMessage.postValue(
-                    mApplication.getString(
-                        R.string.error_failed_to_connect_to_server,
-                    )
-                )
+            } else {
+                _isScheduleCreateSucceed.postValue(false)
             }
         }
+    }
+
+    private fun checkInitialized(): Boolean {
+        if (!this::color.isInitialized) color = "RED"
+        if (this::address.isInitialized &&
+            this::startDate.isInitialized &&
+            this::endDate.isInitialized
+        ){
+            return !(!isAlways && (!this::startTime.isInitialized || !this::endTime.isInitialized))
+        }else{
+            return false
+        }
+
     }
 
     internal fun setTimeByAlways(
