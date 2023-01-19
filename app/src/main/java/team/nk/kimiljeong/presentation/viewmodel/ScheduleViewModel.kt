@@ -201,7 +201,7 @@ class ScheduleViewModel @Inject constructor(
             kotlin.runCatching {
                 scheduleRepository.editSchedule(
                     request = ScheduleInformation(
-                        scheduleId = null,
+                        scheduleId = scheduleId,
                         content = content,
                         color = color,
                         address = address,

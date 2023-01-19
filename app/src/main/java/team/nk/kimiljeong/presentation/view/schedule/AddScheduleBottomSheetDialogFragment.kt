@@ -64,7 +64,18 @@ class AddScheduleBottomSheetDialogFragment :
             if (it) {
                 setFragmentResult(
                     "message",
-                    bundleOf("message" to "일정 생성 완료")
+                    bundleOf("message" to getString(R.string.create_schedule_succeed))
+                )
+                dismiss()
+            }
+        }
+        viewModel.editSchedule.observe(
+            viewLifecycleOwner,
+        ){
+            if(it){
+                setFragmentResult(
+                    "isModifySucceed",
+                    bundleOf("modify" to true)
                 )
                 dismiss()
             }

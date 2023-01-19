@@ -3,6 +3,7 @@ package team.nk.kimiljeong.presentation.view.map
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -74,6 +75,13 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
             if (bundle.getBoolean("remove")) {
                 showShortSnackBar(
                     text = getString(R.string.success_delete),
+                )
+            }
+        }
+        setFragmentResultListener("isModifySucceedSecondary"){ _, bundle ->
+            if(bundle.getBoolean("modify")){
+                showShortSnackBar(
+                    text = getString(R.string.modify_schedule_succeed)
                 )
             }
         }

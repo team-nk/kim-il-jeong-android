@@ -67,17 +67,17 @@ class ScheduleDetailDialog : BaseBottomSheetDialogFragment<DialogScheduleDetailB
 
     private fun initModifyButton() {
         binding.btnDialogMapLocationModify.setOnClickListener {
+            setFragmentResultListener("isModifySucceed") { _, bundle ->
+                if (bundle.getBoolean("modify")) {
+                    setFragmentResult("isModifySucceedSecondary", bundleOf("modify" to true))
+                    dismiss()
+                }
+            }
             AddScheduleBottomSheetDialogFragment().run {
                 arguments = Bundle().also {
                     this@ScheduleDetailDialog.requireArguments().run {
+                        it.putAll(this)
                         it.putBoolean("isModify", true)
-                        it.putBoolean("isAllDay", getBoolean("isAllDay"))
-                        it.putString("content", getString("content"))
-                        it.putString("address", getString("address"))
-                        it.putString("color", getString("color"))
-                        it.putString("startsAt", getString("startsAt"))
-                        it.putString("endsAt", getString("endsAt"))
-                        it.putInt("scheduleId", getInt("scheduleId"))
                     }
                 }
                 show(
