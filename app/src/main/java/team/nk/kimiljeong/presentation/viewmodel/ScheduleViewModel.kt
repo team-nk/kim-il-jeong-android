@@ -44,10 +44,15 @@ class ScheduleViewModel @Inject constructor(
         get() = _editSchedule
 
     private var address: String = ""
-    private var color: String = ""
+    private var color: String = "RED"
     private var isAlways: Boolean = false
+    private var startDate: String = ""
     private var startTime: String = ""
+    private var endDate: String = ""
     private var endTime: String = ""
+
+    private var start: String = ""
+    private var end: String = ""
 
     internal fun setAddress(
         address: String,
@@ -67,10 +72,22 @@ class ScheduleViewModel @Inject constructor(
         this.isAlways = isAlways
     }
 
+    internal fun setStartDate(
+        startDate: String,
+    ) {
+        this.startDate = startDate
+    }
+
     internal fun setStartTime(
         startTime: String,
     ) {
         this.startTime = startTime
+    }
+
+    internal fun setEndDate(
+        endDate: String,
+    ) {
+        this.endDate = endDate
     }
 
     internal fun setEndTime(
@@ -84,31 +101,36 @@ class ScheduleViewModel @Inject constructor(
     ) {
         viewModelScope.launch(IO) {
             kotlin.runCatching {
-                println("request :: ${CreateScheduleRequest(
+                setTimeByAlways(isAlways)
+                println(CreateScheduleRequest(
                     content = content,
                     color = color,
                     address = address,
-                    startsAt = startTime,
-                    endsAt = endTime,
+                    startsAt = start,
+                    endsAt = end,
                     isAllDay = isAlways,
-                )}")
+                ))
                 scheduleRepository.createSchedule(
                     request = CreateScheduleRequest(
                         content = content,
                         color = color,
                         address = address,
-                        startsAt = startTime,
-                        endsAt = endTime,
+                        startsAt = start,
+                        endsAt = end,
                         isAllDay = isAlways,
                     )
                 )
             }.onSuccess {
+                println(it.errorBody()?.string())
                 if (it.isSuccessful) {
                     _isScheduleCreateSucceed.postValue(true)
+                    setStartDate("")
                     setStartTime("")
+                    setEndDate("")
                     setEndTime("")
                 }
             }.onFailure {
+                println(it.toString())
                 _snackBarMessage.postValue(
                     mApplication.getString(
                         R.string.error_failed_to_connect_to_server,
@@ -116,6 +138,19 @@ class ScheduleViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    internal fun setTimeByAlways(
+        isAlways: Boolean,
+    ){
+        val startBuilder = StringBuilder()
+        val endBuilder = StringBuilder()
+        startBuilder.append(startDate)
+        endBuilder.append(endDate)
+        start = if(!isAlways) startBuilder.append(startTime).toString()
+        else startBuilder.append("T00:00:00").toString()
+        end = if(!isAlways) endBuilder.append(endTime).toString()
+        else endBuilder.append("T00:00:00").toString()
     }
 
     internal fun inquireSpecificLocationOfScheduleList() {
@@ -174,15 +209,6 @@ class ScheduleViewModel @Inject constructor(
     ) {
         viewModelScope.launch(IO) {
             kotlin.runCatching {
-                println(ScheduleInformation(
-                    scheduleId = null,
-                    content = content,
-                    color = color,
-                    address = address,
-                    startsAt = startTime,
-                    endsAt = endTime,
-                    isAllDay = isAlways,
-                ))
                 scheduleRepository.editSchedule(
                     request = ScheduleInformation(
                         scheduleId = null,
@@ -198,6 +224,8 @@ class ScheduleViewModel @Inject constructor(
             }.onSuccess {
                 if (it.isSuccessful) {
                     _editSchedule.postValue(true)
+                    setStartDate("")
+                    setEndDate("")
                     setStartTime("")
                     setEndTime("")
                 }

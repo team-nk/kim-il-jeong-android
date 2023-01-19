@@ -109,43 +109,37 @@ class AddScheduleBottomSheetDialogFragment :
     }
 
     private fun setStartTime() {
-        val startTime = StringBuilder()
         setFragmentResultListener("startDate") { _, bundle ->
             bundle.getString("startDate").run {
-                startTime.append(this)
                 binding.btnDialogCreateScheduleDateStart.text = this
-                binding.btnDialogCreateScheduleTimeStart.enable()
-                viewModel.setStartTime(startTime.toString())
+                viewModel.setStartDate(this.toString())
             }
         }
+        val builder = StringBuilder()
         setFragmentResultListener("startTime") { _, bundle ->
             bundle.getString("startTime").run {
-                startTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00")
+                builder.clear()
                 binding.btnDialogCreateScheduleTimeStart.text = this
-                binding.btnDialogCreateScheduleDateEnd.enable()
-                viewModel.setStartTime(startTime.toString())
+                viewModel.setStartTime(builder.append("T").append(this!!.split(" ")[1]).append("00").toString())
             }
         }
     }
 
     private fun setEndTime() {
-        val endTime = StringBuilder()
         setFragmentResultListener("endDate") { _, bundle ->
             bundle.getString("endDate").run {
-                endTime.append(this)
                 binding.btnDialogCreateScheduleDateEnd.text = this
-                binding.btnDialogCreateScheduleTimeEnd.enable()
-                viewModel.setEndTime(endTime.toString())
+                viewModel.setEndDate(this.toString())
+
             }
 
         }
+        val builder = StringBuilder()
         setFragmentResultListener("endTime") { _, bundle ->
             bundle.getString("endTime").run {
-                endTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00")
+                builder.clear()
                 binding.btnDialogCreateScheduleTimeEnd.text = this
-                viewModel.setEndTime(endTime.toString())
+                viewModel.setEndTime(builder.append("T").append(this!!.split(" ")[1]).append("00").toString())
             }
         }
     }
@@ -155,9 +149,6 @@ class AddScheduleBottomSheetDialogFragment :
         setStartTime()
         setEndTime()
         with(binding) {
-            btnDialogCreateScheduleTimeStart.disable()
-            btnDialogCreateScheduleDateEnd.disable()
-            btnDialogCreateScheduleTimeEnd.disable()
             btnDialogCreateScheduleCreate.setOnClickListener {
                 viewModel.createSchedule(
                     content = binding.etDlgCreateScheduleContent.text.toString(),
@@ -194,13 +185,11 @@ class AddScheduleBottomSheetDialogFragment :
         binding.switchDialogCreateScheduleIsScheduleAllDay.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setAlways(isChecked)
             if (isChecked) {
-                for (view in viewList) {
-                    view.disable()
-                }
-            } else {
-                for (view in viewList) {
-                    view.enable()
-                }
+                binding.btnDialogCreateScheduleTimeStart.disable()
+                binding.btnDialogCreateScheduleTimeEnd.disable()
+            }else{
+                binding.btnDialogCreateScheduleTimeStart.enable()
+                binding.btnDialogCreateScheduleTimeEnd.enable()
             }
         }
     }
