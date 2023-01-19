@@ -66,7 +66,7 @@ class AddScheduleBottomSheetDialogFragment :
                     "message",
                     bundleOf("message" to "일정 생성 완료")
                 )
-                // TODO get string resource
+                dismiss()
             }
         }
     }
@@ -121,7 +121,7 @@ class AddScheduleBottomSheetDialogFragment :
         setFragmentResultListener("startTime") { _, bundle ->
             bundle.getString("startTime").run {
                 startTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00.000Z")
+                    .append(":00")
                 binding.btnDialogCreateScheduleTimeStart.text = this
                 binding.btnDialogCreateScheduleDateEnd.enable()
                 viewModel.setStartTime(startTime.toString())
@@ -143,7 +143,7 @@ class AddScheduleBottomSheetDialogFragment :
         setFragmentResultListener("endTime") { _, bundle ->
             bundle.getString("endTime").run {
                 endTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00.000Z")
+                    .append(":00")
                 binding.btnDialogCreateScheduleTimeEnd.text = this
                 viewModel.setEndTime(endTime.toString())
             }

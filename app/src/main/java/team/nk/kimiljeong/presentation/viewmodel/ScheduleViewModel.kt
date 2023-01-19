@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
+import team.nk.kimiljeong.data.model.remote.request.CreateScheduleRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
@@ -83,9 +84,16 @@ class ScheduleViewModel @Inject constructor(
     ) {
         viewModelScope.launch(IO) {
             kotlin.runCatching {
+                println("request :: ${CreateScheduleRequest(
+                    content = content,
+                    color = color,
+                    address = address,
+                    startsAt = startTime,
+                    endsAt = endTime,
+                    isAllDay = isAlways,
+                )}")
                 scheduleRepository.createSchedule(
-                    request = ScheduleInformation(
-                        scheduleId = null,
+                    request = CreateScheduleRequest(
                         content = content,
                         color = color,
                         address = address,

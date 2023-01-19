@@ -38,7 +38,7 @@ class TimePickerDialogFragment : BaseDialogFragment<DialogTimePickerBinding>(
         minute: Int,
     ) {
         val zeroMinute = if (minute < 10) "0" else ""
-        val zeroHour = if (hour < 10) "0" else ""
+        val zeroHour = if (hour - 12 < 10) "0" else ""
         val strBuilder = StringBuilder()
         selectTime =
             if (hour > 12) {

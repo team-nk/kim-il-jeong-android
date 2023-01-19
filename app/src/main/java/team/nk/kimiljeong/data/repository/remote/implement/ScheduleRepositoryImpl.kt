@@ -3,6 +3,7 @@ package team.nk.kimiljeong.data.repository.remote.implement
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.ScheduleAPI
 import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
+import team.nk.kimiljeong.data.model.remote.request.CreateScheduleRequest
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import team.nk.kimiljeong.data.repository.remote.origin.ScheduleRepository
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun createSchedule(request: ScheduleInformation): Response<Void> {
+    override suspend fun createSchedule(request: CreateScheduleRequest): Response<Void> {
         return scheduleAPI.createSchedule(
             request = request,
         )
