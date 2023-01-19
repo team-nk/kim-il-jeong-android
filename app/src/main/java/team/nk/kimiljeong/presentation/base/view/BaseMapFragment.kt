@@ -32,7 +32,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
 
     protected lateinit var binding: B
 
-    private val mapFragment = SupportMapFragment.newInstance()
+    protected val mapFragment = SupportMapFragment.newInstance()
 
     protected lateinit var currentLocation: LatLng
 
