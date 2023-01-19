@@ -3,12 +3,14 @@ package team.nk.kimiljeong.presentation.view.map
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentMapBinding
@@ -67,6 +69,11 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                         )
                     }
             }
+            setFragmentResultListener("address"){ _, bundle ->
+                moveCamera(
+                    CameraUpdateFactory.newLatLng(LatLng(bundle.getDouble("latitude"), bundle.getDouble("longtitude")))
+                )
+            }
         }
     }
 
@@ -120,6 +127,9 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                     it.putString("endsAt", endsAt)
                                     it.putBoolean("isAllDay", isAllDay)
                                 }
+                            }
+                            Geocoder(requireActivity()).getFromLocationName(address, 10)?.first()?.run {
+                                setFragmentResult("address", bundleOf("latitude" to latitude, "longtitude" to longitude))
                             }
                         }
                     })
