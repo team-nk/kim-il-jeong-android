@@ -12,6 +12,7 @@ import team.nk.kimiljeong.presentation.adapter.bindingadapter.loadImageFrom
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.view.changeuserinformation.ChangeUserInformationActivity
+import team.nk.kimiljeong.presentation.view.checkmypost.CheckMyPostActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.logout.LogoutDialogFragment
 import team.nk.kimiljeong.presentation.view.main.MainActivity
@@ -67,6 +68,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initChangePasswordButton()
         initLogoutButton()
         initCheckMyScheduleButton()
+        initCheckMyPostsButton()
+    }
+
+    private fun initCheckMyPostsButton() {
+        binding.btnFragmentMypageShowMyPost.setOnClickListener {
+            requireActivity().startActivity(
+                requireActivity(),
+                CheckMyPostActivity::class.java,
+            )
+        }
     }
 
     // todo 버튼 클릭 시 인터페이스 참조를 통해 전환하는 로직으로 만들기
