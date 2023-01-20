@@ -56,5 +56,8 @@
         <activity
             android:name=".presentation.view.postcreate.PostCreateActivity"
             android:exported="true" />
+        <activity
+            android:name=".presentation.view.checkmypost.CheckMyPostActivity"
+            android:exported="true" />
     </application>
 </manifest>
