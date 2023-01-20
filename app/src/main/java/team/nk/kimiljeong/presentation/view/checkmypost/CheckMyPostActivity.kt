@@ -40,9 +40,7 @@ class CheckMyPostActivity : BaseActivity<ActivityPostHistoryBinding>(
                     }
                 },
             ).run {
-                with(binding.rvActivityPostHistoryMain) {
-                    adapter = this@run
-                }
+                binding.rvActivityPostHistoryMain.adapter = this@run
             }
         }
     }
