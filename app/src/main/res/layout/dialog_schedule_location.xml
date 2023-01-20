@@ -35,7 +35,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_dialog_map_location_schedule"
+                android:id="@+id/tv_dialog_map_location_schedule_time"
                 style="@style/TextViewDescriptionPrimary"
                 android:layout_marginTop="4dp"
                 tools:text="2022-05-02 16:30 ~ 2022-05-02 20:00" />
@@ -56,7 +56,7 @@
             <com.google.android.gms.maps.MapView
                 android:id="@+id/map_dialog_map_location_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
