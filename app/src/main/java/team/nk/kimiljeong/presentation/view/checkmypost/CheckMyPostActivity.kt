@@ -2,6 +2,7 @@ package team.nk.kimiljeong.presentation.view.checkmypost
 
 import android.content.Intent
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityPostHistoryBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.PostAdapter
@@ -10,6 +11,7 @@ import team.nk.kimiljeong.presentation.view.post.ItemClickListener
 import team.nk.kimiljeong.presentation.view.postinspect.PostInspectActivity
 import team.nk.kimiljeong.presentation.viewmodel.post.PostViewModel
 
+@AndroidEntryPoint
 class CheckMyPostActivity : BaseActivity<ActivityPostHistoryBinding>(
     R.layout.activity_post_history,
 ) {
