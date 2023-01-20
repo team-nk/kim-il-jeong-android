@@ -32,7 +32,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
 
     protected lateinit var binding: B
 
-    private val mapFragment = SupportMapFragment.newInstance()
+    protected val mapFragment = SupportMapFragment.newInstance()
 
     protected lateinit var currentLocation: LatLng
 
@@ -88,11 +88,13 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
         googleMap: GoogleMap,
         latitude: Double,
         longtitude: Double,
+        isCurrent: Boolean,
     ) {
         setAddress(
             latitude = latitude,
             longtitude = longtitude,
         )
+        if(isCurrent) address = "현위치"
         googleMap.addMarker(
             MarkerOptions()
                 .title(address)
@@ -122,7 +124,7 @@ abstract class BaseMapFragment<B : ViewDataBinding>(
     }
 
     protected fun setUserLocation() {
-        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.run {
+        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)?.run {
             currentLocation = LatLng(this.latitude, this.longitude)
             mapFragment.getMapAsync(this@BaseMapFragment)
         }

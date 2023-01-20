@@ -4,6 +4,7 @@ import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import retrofit2.Response
 import retrofit2.http.*
+import team.nk.kimiljeong.data.model.remote.request.CreateScheduleRequest
 
 interface ScheduleAPI {
 
@@ -14,12 +15,12 @@ interface ScheduleAPI {
 
     @POST("/schedule")
     suspend fun createSchedule(
-        @Body request: ScheduleInformation,
+        @Body request: CreateScheduleRequest,
     ): Response<Void>
 
     @PUT("/schedule/{schedule-id}")
     suspend fun editSchedule(
-        @Path("schedule-id") scheduleId: String,
+        @Path("schedule-id") scheduleId: Int,
         @Body request: ScheduleInformation,
     ): Response<Void>
 

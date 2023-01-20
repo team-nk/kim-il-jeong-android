@@ -50,6 +50,7 @@ class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
                 googleMap = googleMap,
                 latitude = currentLocation.latitude,
                 longtitude = currentLocation.longitude,
+                isCurrent = true,
             )
             setMinZoomPreference(10F)
             setMaxZoomPreference(18F)
@@ -64,6 +65,7 @@ class SearchLocationDialog : BaseMapFragment<DialogSearchLocationBinding>(
                     googleMap = googleMap,
                     latitude = it.latitude,
                     longtitude = it.longitude,
+                    isCurrent = false,
                 )
             }
             setAddress(

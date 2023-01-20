@@ -3,21 +3,29 @@ package team.nk.kimiljeong.presentation.view.map
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentMapBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseMapFragment
+import team.nk.kimiljeong.presentation.common.ShowSnackBar
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.viewmodel.ScheduleViewModel
 
 @AndroidEntryPoint
 class MapFragment : BaseMapFragment<FragmentMapBinding>(
     R.layout.fragment_map,
-) {
+), ShowSnackBar {
 
     private val viewModel by viewModels<ScheduleViewModel>()
 
@@ -27,6 +35,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
         super.onViewCreated(view, savedInstanceState)
         mapViewId = binding.mapFragmentMapMain.id
         checkUserPermission()
+        initFragmentResultListener()
         observeEvent()
     }
 
@@ -39,6 +48,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 googleMap = googleMap,
                 latitude = currentLocation.latitude,
                 longtitude = currentLocation.longitude,
+                isCurrent = true,
             )
             setMinZoomPreference(10F)
             setMaxZoomPreference(18F)
@@ -55,12 +65,37 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
             for (i in 0.until(addressList.size)) {
                 Geocoder(requireActivity()).getFromLocationName(addressList[i].toString(), 10)
                     ?.get(0)?.run {
-                    addCustomMarker(
-                        googleMap = googleMap,
-                        latitude = latitude,
-                        longtitude = longitude,
-                    )
-                }
+                        addCustomMarker(
+                            googleMap = googleMap,
+                            latitude = latitude,
+                            longtitude = longitude,
+                            isCurrent = false,
+                        )
+                    }
+            }
+            setFragmentResultListener("address"){ _, bundle ->
+                moveCamera(
+                    CameraUpdateFactory.newLatLng(LatLng(bundle.getDouble("latitude"), bundle.getDouble("longtitude")))
+                )
+            }
+        }
+    }
+
+    private fun initFragmentResultListener() {
+        setFragmentResultListener("isRemoveSucceedSecondary") { _, bundle ->
+            if (bundle.getBoolean("remove")) {
+                showShortSnackBar(
+                    text = getString(R.string.success_delete),
+                )
+                viewModel.inquireSpecificLocationOfScheduleList()
+            }
+        }
+        setFragmentResultListener("isModifySucceedSecondary"){ _, bundle ->
+            if(bundle.getBoolean("modify")){
+                showShortSnackBar(
+                    text = getString(R.string.modify_schedule_succeed)
+                )
+                viewModel.inquireSpecificLocationOfScheduleList()
             }
         }
     }
@@ -80,6 +115,7 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                             address: String,
                             startsAt: String,
                             endsAt: String,
+                            isAllDay: Boolean,
                         ) {
                             ScheduleDetailDialog().run {
                                 show(
@@ -93,10 +129,15 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                     it.putString("address", address)
                                     it.putString("startsAt", startsAt)
                                     it.putString("endsAt", endsAt)
+                                    it.putBoolean("isAllDay", isAllDay)
                                 }
                             }
+                            Geocoder(requireActivity()).getFromLocationName(address, 10)?.first()?.run {
+                                setFragmentResult("address", bundleOf("latitude" to latitude, "longtitude" to longitude))
+                            }
+                            val bottomSheetBehavior = from(binding.clFragmentMapBottomSheet)
+                            bottomSheetBehavior.state = STATE_COLLAPSED
                         }
-
                     })
                 layoutManager = LinearLayoutManager(requireActivity())
             }
@@ -105,6 +146,12 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
             }
         }
     }
+
+    override fun showShortSnackBar(text: String) {
+        binding.root.showShortSnackBar(text)
+    }
+
+    override fun showLongSnackBar(text: String) {}
 }
 
 interface ScheduleItemClickListener {
@@ -115,5 +162,6 @@ interface ScheduleItemClickListener {
         address: String,
         startsAt: String,
         endsAt: String,
+        isAllDay: Boolean,
     )
 }

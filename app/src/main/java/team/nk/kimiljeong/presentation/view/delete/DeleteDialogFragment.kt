@@ -2,6 +2,8 @@ package team.nk.kimiljeong.presentation.view.delete
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
@@ -12,9 +14,9 @@ import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
 import team.nk.kimiljeong.presentation.viewmodel.ScheduleViewModel
 
 @AndroidEntryPoint
-class DeleteDialogFragment: BaseDialogFragment<DialogDeleteBinding>(
+class DeleteDialogFragment : BaseDialogFragment<DialogDeleteBinding>(
     R.layout.dialog_delete,
-) , ShowSnackBar{
+), ShowSnackBar {
 
     private val viewModel by viewModels<ScheduleViewModel>()
 
@@ -28,28 +30,29 @@ class DeleteDialogFragment: BaseDialogFragment<DialogDeleteBinding>(
         initDeleteButton()
     }
 
-    private fun observeEvent(){
+    private fun observeEvent() {
         deleteEvent()
     }
 
-    private fun initCancelButton(){
+    private fun initCancelButton() {
         binding.btnDialogDeleteButtonCancel.setOnClickListener {
             dismiss()
         }
     }
 
-    private fun initDeleteButton(){
-        viewModel.removeSchedule(requireArguments().getInt("scheduleId"))
+    private fun initDeleteButton() {
+        binding.btnDialogDeleteButtonAction.setOnClickListener {
+            viewModel.removeSchedule(requireArguments().getInt("scheduleId"))
+        }
     }
 
     private fun deleteEvent() {
         viewModel.removeSchedule.observe(
             viewLifecycleOwner,
         ) {
-            if(it){
-                showShortSnackBar(
-                    text = getString(R.string.success_delete),
-                )
+            if (it) {
+                setFragmentResult("isRemoveSucceed", bundleOf("remove" to true))
+                dismiss()
             }
         }
     }

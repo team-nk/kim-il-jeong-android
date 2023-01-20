@@ -54,6 +54,7 @@ class AddScheduleBottomSheetDialogFragment :
 
     override fun initView() {
         initButtons()
+        initModifyView()
     }
 
     private fun observeEvent() {
@@ -63,9 +64,22 @@ class AddScheduleBottomSheetDialogFragment :
             if (it) {
                 setFragmentResult(
                     "message",
-                    bundleOf("message" to "일정 생성 완료")
+                    bundleOf("message" to getString(R.string.create_schedule_succeed))
                 )
-                // TODO get string resource
+                dismiss()
+            }else{
+                binding.tvDlgCreateScheduleError.visibility = View.VISIBLE
+            }
+        }
+        viewModel.editSchedule.observe(
+            viewLifecycleOwner,
+        ){
+            if(it){
+                setFragmentResult(
+                    "isModifySucceed",
+                    bundleOf("modify" to true)
+                )
+                dismiss()
             }
         }
     }
@@ -108,43 +122,37 @@ class AddScheduleBottomSheetDialogFragment :
     }
 
     private fun setStartTime() {
-        val startTime = StringBuilder()
         setFragmentResultListener("startDate") { _, bundle ->
             bundle.getString("startDate").run {
-                startTime.append(this)
                 binding.btnDialogCreateScheduleDateStart.text = this
-                binding.btnDialogCreateScheduleTimeStart.enable()
-                viewModel.setStartTime(startTime.toString())
+                viewModel.setStartDate(this.toString())
             }
         }
+        val builder = StringBuilder()
         setFragmentResultListener("startTime") { _, bundle ->
             bundle.getString("startTime").run {
-                startTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00.000Z")
+                builder.clear()
                 binding.btnDialogCreateScheduleTimeStart.text = this
-                binding.btnDialogCreateScheduleDateEnd.enable()
-                viewModel.setStartTime(startTime.toString())
+                viewModel.setStartTime(builder.append("T").append(this!!.split(" ")[1]).append(":00").toString())
             }
         }
     }
 
     private fun setEndTime() {
-        val endTime = StringBuilder()
         setFragmentResultListener("endDate") { _, bundle ->
             bundle.getString("endDate").run {
-                endTime.append(this)
                 binding.btnDialogCreateScheduleDateEnd.text = this
-                binding.btnDialogCreateScheduleTimeEnd.enable()
-                viewModel.setEndTime(endTime.toString())
+                viewModel.setEndDate(this.toString())
+
             }
 
         }
+        val builder = StringBuilder()
         setFragmentResultListener("endTime") { _, bundle ->
             bundle.getString("endTime").run {
-                endTime.append("T").append(this!!.split(" ")[1])
-                    .append(":00.000Z")
+                builder.clear()
                 binding.btnDialogCreateScheduleTimeEnd.text = this
-                viewModel.setEndTime(endTime.toString())
+                viewModel.setEndTime(builder.append("T").append(this!!.split(" ")[1]).append(":00").toString())
             }
         }
     }
@@ -154,13 +162,14 @@ class AddScheduleBottomSheetDialogFragment :
         setStartTime()
         setEndTime()
         with(binding) {
-            btnDialogCreateScheduleTimeStart.disable()
-            btnDialogCreateScheduleDateEnd.disable()
-            btnDialogCreateScheduleTimeEnd.disable()
             btnDialogCreateScheduleCreate.setOnClickListener {
-                viewModel.createSchedule(
-                    content = binding.etDlgCreateScheduleContent.text.toString(),
-                )
+                if(binding.etDlgCreateScheduleContent.text.toString().isNotBlank()) {
+                    viewModel.createSchedule(
+                        content = binding.etDlgCreateScheduleContent.text.toString(),
+                    )
+                }else{
+                    binding.tvDlgCreateScheduleError.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -193,12 +202,91 @@ class AddScheduleBottomSheetDialogFragment :
         binding.switchDialogCreateScheduleIsScheduleAllDay.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setAlways(isChecked)
             if (isChecked) {
-                for (view in viewList) {
-                    view.disable()
+                binding.btnDialogCreateScheduleTimeStart.disable()
+                binding.btnDialogCreateScheduleTimeEnd.disable()
+            }else{
+                binding.btnDialogCreateScheduleTimeStart.enable()
+                binding.btnDialogCreateScheduleTimeEnd.enable()
+            }
+        }
+    }
+
+    private fun initModifyView() {
+        if (arguments?.getBoolean("isModify") == true) {
+            arguments?.run {
+                with(binding) {
+                    tvDialogCreateScheduleTitle.text = getString(R.string.modify_schedule)
+                    etDlgCreateScheduleContent.hint = getString("content")
+                    tvDialogCreateScheduleEnterLocation.text = getString("address")
+                    initSelectedRadioButton(getString("color"))
+                    switchDialogCreateScheduleIsScheduleAllDay.isChecked = getBoolean("isAllDay")
+                    btnDialogCreateScheduleCreate.text = getString(R.string.do_change)
+                    initModifyButtons()
                 }
-            } else {
-                for (view in viewList) {
-                    view.enable()
+            }
+        } else {
+            with(binding) {
+                etDlgCreateScheduleContent.hint =
+                    getString(R.string.create_schedule_enter_schedule)
+            }
+        }
+    }
+
+    private fun initModifyButtons() {
+        arguments?.run {
+            with(binding) {
+                btnDialogCreateScheduleDateStart.text = getString("startsAt")?.split(" ")?.get(0)
+                    ?: getString(R.string.create_schedule_date_start)
+                btnDialogCreateScheduleTimeStart.text = getString("startsAt")?.split(" ")?.get(1)
+                    ?: getString(R.string.create_schedule_time_start)
+                btnDialogCreateScheduleDateEnd.text = getString("endsAt")?.split(" ")?.get(0)
+                    ?: getString(R.string.create_schedule_date_start)
+                btnDialogCreateScheduleTimeEnd.text = getString("endsAt")?.split(" ")?.get(1)
+                    ?: getString(R.string.create_schedule_time_end)
+                binding.btnDialogCreateScheduleCreate.setOnClickListener {
+                    with(binding) {
+                        viewModel.setColor(
+                            when (radioGroupDialogCreateScheduleColorPallet.checkedRadioButtonId) {
+                                radioBtnRadioGroupDialogScheduleAddictionColorRed.id -> "RED"
+                                radioBtnRadioGroupDialogScheduleAddictionColorBlue.id -> "BLUE"
+                                radioBtnRadioGroupDialogScheduleAddictionColorYellow.id -> "YELLOW"
+                                radioBtnRadioGroupDialogScheduleAddictionColorGreen.id -> "GREEN"
+                                else -> "PURPLE"
+                            }
+                        )
+                    }
+                    viewModel.setAddress(binding.tvDialogCreateScheduleEnterLocation.text.toString())
+                    viewModel.setStartTime(
+                        StringBuilder().append(btnDialogCreateScheduleDateStart.text).append("T")
+                            .append(btnDialogCreateScheduleTimeStart.text).append(".000Z")
+                            .toString()
+                    )
+                    viewModel.setEndTime(
+                        StringBuilder().append(btnDialogCreateScheduleDateEnd.text).append("T")
+                            .append(btnDialogCreateScheduleTimeEnd.text).append(".000Z")
+                            .toString()
+                    )
+                    viewModel.setAlways(binding.switchDialogCreateScheduleIsScheduleAllDay.isChecked)
+                    viewModel.editSchedule(
+                        scheduleId = getInt("scheduleId"),
+                        content = binding.etDlgCreateScheduleContent.text.toString()
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initSelectedRadioButton(
+        color: String?,
+    ) {
+        with(binding) {
+            radioGroupDialogCreateScheduleColorPallet.run {
+                when (color) {
+                    "BLUE" -> check(radioBtnRadioGroupDialogScheduleAddictionColorRed.id)
+                    "GREEN" -> check(radioBtnRadioGroupDialogScheduleAddictionColorGreen.id)
+                    "YELLOW" -> check(radioBtnRadioGroupDialogScheduleAddictionColorYellow.id)
+                    "PURPLE" -> check(radioBtnRadioGroupDialogScheduleAddictionColorPurple.id)
+                    else -> check(radioBtnRadioGroupDialogScheduleAddictionColorRed.id)
                 }
             }
         }

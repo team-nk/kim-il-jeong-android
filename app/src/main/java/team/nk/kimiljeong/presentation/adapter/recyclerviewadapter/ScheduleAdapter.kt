@@ -67,6 +67,7 @@ class ScheduleAdapter(
                     time = schedules[position].endsAt,
                     context = holder.itemView.context,
                 ),
+                isAllDay = schedules[position].isAllDay!!,
             )
         }
     }

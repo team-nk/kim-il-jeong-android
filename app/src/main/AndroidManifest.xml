@@ -20,6 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".presentation.view.main.MainActivity"
             android:exported="true">
             <intent-filter>
