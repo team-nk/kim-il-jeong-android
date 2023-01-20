@@ -15,6 +15,7 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
+import team.nk.kimiljeong.presentation.view.map.ScheduleItemClickListener
 import team.nk.kimiljeong.presentation.view.schedule.AddScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 import java.text.SimpleDateFormat
@@ -147,7 +148,33 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                             Locale.KOREA
                         ).format(Calendar.getInstance().time)
                     ),
-                null,
+                    onItemClick = object: ScheduleItemClickListener{
+                        override fun onScheduleItemClick(
+                            scheduleId: Int,
+                            color: String,
+                            content: String,
+                            address: String,
+                            startsAt: String,
+                            endsAt: String,
+                            isAllDay: Boolean
+                        ) {
+                            ScheduleLocationBottomSheetDialogFragment().run {
+                                arguments = Bundle().also{
+                                    it.putString("color", color)
+                                    it.putString("content", content)
+                                    it.putString("startsAt", startsAt)
+                                    it.putString("endsAt", endsAt)
+                                    it.putInt("scheduleId", scheduleId)
+                                    it.putBoolean("isAllDay", isAllDay)
+                                }
+                                show(
+                                    this@CalendarFragment.requireActivity().supportFragmentManager,
+                                    tag
+                                )
+                            }
+                        }
+
+                    },
                 )
                 layoutManager = LinearLayoutManager(requireActivity())
             }
