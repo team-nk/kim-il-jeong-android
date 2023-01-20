@@ -73,9 +73,14 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                         )
                     }
             }
-            setFragmentResultListener("address"){ _, bundle ->
+            setFragmentResultListener("address") { _, bundle ->
                 moveCamera(
-                    CameraUpdateFactory.newLatLng(LatLng(bundle.getDouble("latitude"), bundle.getDouble("longtitude")))
+                    CameraUpdateFactory.newLatLng(
+                        LatLng(
+                            bundle.getDouble("latitude"),
+                            bundle.getDouble("longtitude")
+                        )
+                    )
                 )
             }
         }
@@ -90,8 +95,8 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                 viewModel.inquireSpecificLocationOfScheduleList()
             }
         }
-        setFragmentResultListener("isModifySucceedSecondary"){ _, bundle ->
-            if(bundle.getBoolean("modify")){
+        setFragmentResultListener("isModifySucceedSecondary") { _, bundle ->
+            if (bundle.getBoolean("modify")) {
                 showShortSnackBar(
                     text = getString(R.string.modify_schedule_succeed)
                 )
@@ -132,13 +137,19 @@ class MapFragment : BaseMapFragment<FragmentMapBinding>(
                                     it.putBoolean("isAllDay", isAllDay)
                                 }
                             }
-                            Geocoder(requireActivity()).getFromLocationName(address, 10)?.first()?.run {
-                                setFragmentResult("address", bundleOf("latitude" to latitude, "longtitude" to longitude))
-                            }
+                            Geocoder(requireActivity()).getFromLocationName(address, 10)?.first()
+                                ?.run {
+                                    setFragmentResult(
+                                        "address",
+                                        bundleOf("latitude" to latitude, "longtitude" to longitude)
+                                    )
+                                }
                             val bottomSheetBehavior = from(binding.clFragmentMapBottomSheet)
                             bottomSheetBehavior.state = STATE_COLLAPSED
                         }
-                    })
+                    }
+
+                )
                 layoutManager = LinearLayoutManager(requireActivity())
             }
             for (i in it.schedules.indices) {

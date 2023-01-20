@@ -166,6 +166,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                                     it.putString("endsAt", endsAt)
                                     it.putInt("scheduleId", scheduleId)
                                     it.putBoolean("isAllDay", isAllDay)
+                                    it.putString("address", address)
                                 }
                                 show(
                                     this@CalendarFragment.requireActivity().supportFragmentManager,
@@ -196,7 +197,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     ) {
         viewModel.inquireDateScheduleList(
             date = SimpleDateFormat(
-                "yyyy-MM-dd'T'00:00:00.SSS'Z'",
+                "yyyy-MM-dd'T'00:00:00",
                 Locale.KOREA,
             ).format(date),
             isToday = isToday
