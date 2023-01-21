@@ -14,7 +14,7 @@ interface ScheduleRepository : ScheduleAPI {
 
     override suspend fun editSchedule(
         scheduleId: Int,
-        request: ScheduleInformation,
+        request: CreateScheduleRequest,
     ): Response<Void>
 
     override suspend fun removeSchedule(scheduleId: Int): Response<Void>

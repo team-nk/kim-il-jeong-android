@@ -25,7 +25,7 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun editSchedule(
         scheduleId: Int,
-        request: ScheduleInformation,
+        request: CreateScheduleRequest,
     ): Response<Void> {
         return scheduleAPI.editSchedule(
             scheduleId = scheduleId,
