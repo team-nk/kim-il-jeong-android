@@ -27,6 +27,8 @@ class AddScheduleBottomSheetDialogFragment :
 
     private val viewModel by viewModels<ScheduleViewModel>()
 
+    private lateinit var content: String
+
     private val viewList by lazy {
         arrayListOf(
             binding.tvDialogCreateScheduleSearchLocation,
@@ -80,6 +82,8 @@ class AddScheduleBottomSheetDialogFragment :
                     bundleOf("modify" to true)
                 )
                 dismiss()
+            }else{
+                binding.tvDlgCreateScheduleError.visibility = View.VISIBLE
             }
         }
     }
@@ -217,6 +221,7 @@ class AddScheduleBottomSheetDialogFragment :
                 with(binding) {
                     tvDialogCreateScheduleTitle.text = getString(R.string.modify_schedule)
                     etDlgCreateScheduleContent.hint = getString("content")
+                    content = getString("content").toString()
                     tvDialogCreateScheduleEnterLocation.text = getString("address")
                     initSelectedRadioButton(getString("color"))
                     switchDialogCreateScheduleIsScheduleAllDay.isChecked = getBoolean("isAllDay")
@@ -258,18 +263,23 @@ class AddScheduleBottomSheetDialogFragment :
                     viewModel.setAddress(binding.tvDialogCreateScheduleEnterLocation.text.toString())
                     viewModel.setStartTime(
                         StringBuilder().append(btnDialogCreateScheduleDateStart.text).append("T")
-                            .append(btnDialogCreateScheduleTimeStart.text).append(".000Z")
+                            .append(btnDialogCreateScheduleTimeStart.text)
                             .toString()
                     )
                     viewModel.setEndTime(
                         StringBuilder().append(btnDialogCreateScheduleDateEnd.text).append("T")
-                            .append(btnDialogCreateScheduleTimeEnd.text).append(".000Z")
+                            .append(btnDialogCreateScheduleTimeEnd.text)
                             .toString()
                     )
                     viewModel.setAlways(binding.switchDialogCreateScheduleIsScheduleAllDay.isChecked)
+                    binding.etDlgCreateScheduleContent.text.toString().run {
+                        if (this.isNotBlank()) {
+                            content = this
+                        }
+                    }
                     viewModel.editSchedule(
                         scheduleId = getInt("scheduleId"),
-                        content = binding.etDlgCreateScheduleContent.text.toString()
+                        content = content
                     )
                 }
             }
