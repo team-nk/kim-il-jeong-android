@@ -141,9 +141,11 @@ class ScheduleViewModel @Inject constructor(
         if (this::address.isInitialized &&
             this::startDate.isInitialized &&
             this::endDate.isInitialized
-        ){
-            return !(!isAlways && (!this::startTime.isInitialized || !this::endTime.isInitialized))
-        }else{
+        ) {
+            return if (isAlways) true
+            else this::startTime.isInitialized && this::endTime.isInitialized
+
+        } else {
             return false
         }
 
@@ -219,8 +221,7 @@ class ScheduleViewModel @Inject constructor(
         viewModelScope.launch(IO) {
             kotlin.runCatching {
                 scheduleRepository.editSchedule(
-                    request = ScheduleInformation(
-                        scheduleId = scheduleId,
+                    request = CreateScheduleRequest(
                         content = content,
                         color = color,
                         address = address,
@@ -231,6 +232,7 @@ class ScheduleViewModel @Inject constructor(
                     scheduleId = scheduleId,
                 )
             }.onSuccess {
+                println(it.code())
                 if (it.isSuccessful) {
                     _editSchedule.postValue(true)
                     setStartDate("")

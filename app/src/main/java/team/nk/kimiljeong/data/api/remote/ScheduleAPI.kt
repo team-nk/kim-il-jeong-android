@@ -21,7 +21,7 @@ interface ScheduleAPI {
     @PUT("/schedule/{schedule-id}")
     suspend fun editSchedule(
         @Path("schedule-id") scheduleId: Int,
-        @Body request: ScheduleInformation,
+        @Body request: CreateScheduleRequest,
     ): Response<Void>
 
     @DELETE("/schedule/{schedule-id}")

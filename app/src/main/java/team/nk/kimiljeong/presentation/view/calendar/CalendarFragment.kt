@@ -15,6 +15,8 @@ import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.FragmentCalendarBinding
 import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseFragment
+import team.nk.kimiljeong.presentation.util.ShowSnackBarUtil.showShortSnackBar
+import team.nk.kimiljeong.presentation.view.map.ScheduleItemClickListener
 import team.nk.kimiljeong.presentation.view.schedule.AddScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.calendar.CalendarViewModel
 import java.text.SimpleDateFormat
@@ -147,7 +149,34 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                             Locale.KOREA
                         ).format(Calendar.getInstance().time)
                     ),
-                null,
+                    onItemClick = object : ScheduleItemClickListener {
+                        override fun onScheduleItemClick(
+                            scheduleId: Int,
+                            color: String,
+                            content: String,
+                            address: String,
+                            startsAt: String,
+                            endsAt: String,
+                            isAllDay: Boolean
+                        ) {
+                            ScheduleLocationBottomSheetDialogFragment().run {
+                                arguments = Bundle().also {
+                                    it.putString("color", color)
+                                    it.putString("content", content)
+                                    it.putString("startsAt", startsAt)
+                                    it.putString("endsAt", endsAt)
+                                    it.putInt("scheduleId", scheduleId)
+                                    it.putBoolean("isAllDay", isAllDay)
+                                    it.putString("address", address)
+                                }
+                                show(
+                                    this@CalendarFragment.requireActivity().supportFragmentManager,
+                                    tag
+                                )
+                            }
+                        }
+
+                    },
                 )
                 layoutManager = LinearLayoutManager(requireActivity())
             }
@@ -169,7 +198,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
     ) {
         viewModel.inquireDateScheduleList(
             date = SimpleDateFormat(
-                "yyyy-MM-dd'T'00:00:00.SSS'Z'",
+                "yyyy-MM-dd'T'00:00:00",
                 Locale.KOREA,
             ).format(date),
             isToday = isToday
@@ -180,5 +209,33 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
         setFragmentResultListener("message") { _, bundle ->
             showShortSnackBar(bundle.getString("message").toString())
         }
+        setFragmentResultListener("isRemoveSucceedSecondary") { _, bundle ->
+            if (bundle.getBoolean("remove")) {
+                showShortSnackBar(
+                    text = getString(R.string.success_delete),
+                )
+                inquireDateScheduleList(
+                    date = Calendar.getInstance().time,
+                    isToday = true,
+                )
+            }
+        }
+        setFragmentResultListener("isModifySucceedSecondary") { _, bundle ->
+            if (bundle.getBoolean("modify")) {
+                showShortSnackBar(
+                    text = getString(R.string.modify_schedule_succeed)
+                )
+                inquireDateScheduleList(
+                    date = Calendar.getInstance().time,
+                    isToday = true,
+                )
+            }
+        }
     }
+
+    override fun showShortSnackBar(text: String) {
+        binding.root.showShortSnackBar(text)
+    }
+
+    override fun showLongSnackBar(text: String) {}
 }
