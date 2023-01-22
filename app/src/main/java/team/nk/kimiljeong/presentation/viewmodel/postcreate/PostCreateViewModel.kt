@@ -23,6 +23,8 @@ class PostCreateViewModel @Inject constructor(
     private val postRepository: PostRepository,
 ) : BaseViewModel(application), Selectable {
 
+    var canContinue = false
+
     private val _selectedScheduleId = MutableLiveData(NOT_SELECTED)
     internal val selectedScheduleId: LiveData<Int> = _selectedScheduleId
 
@@ -60,6 +62,13 @@ class PostCreateViewModel @Inject constructor(
         title: String,
         content: String,
     ) {
+        if (canContinue.not()) {
+            _snackBarMessage.postValue(
+                "계속할 수 없습니다",
+            )
+            return
+        }
+
         if (title.isBlank()) {
             _snackBarMessage.postValue(
                 mApplication.getString(
@@ -128,9 +137,9 @@ class PostCreateViewModel @Inject constructor(
         }
     }
 
-    override fun select(value: Int) {
-        _selectedScheduleId.value = value
+    override fun select(`value`: Int) {
         inquireSpecificScheduleInformation(value)
+        _selectedScheduleId.value = value
     }
 }
 
