@@ -15,7 +15,7 @@ interface ScheduleAPI {
 
     @GET("/schedule/{schedule-id}")
     suspend fun inquireSpecificScheduleInformation(
-        @Query("schedule-id") id: Int,
+        @Path("schedule-id") id: Int,
     ): Response<ScheduleInformation>
 
     @POST("/schedule")
