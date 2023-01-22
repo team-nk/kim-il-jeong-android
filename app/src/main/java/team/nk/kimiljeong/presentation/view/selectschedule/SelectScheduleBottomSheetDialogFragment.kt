@@ -33,12 +33,11 @@ class SelectScheduleBottomSheetDialogFragment :
             viewLifecycleOwner,
         ) {
             SelectScheduleAdapter(
-                it,
-                fun(scheduleId: Int) {
-                    viewModel.select(scheduleId)
-                    this.dismiss()
-                }
-            ).apply {
+                it
+            ) { scheduleId: Int ->
+                viewModel.select(scheduleId)
+                this.dismiss()
+            }.apply {
                 binding.rvDialogSelectScheduleMain.adapter = this
             }
         }
