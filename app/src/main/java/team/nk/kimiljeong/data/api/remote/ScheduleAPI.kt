@@ -1,10 +1,10 @@
 package team.nk.kimiljeong.data.api.remote
 
-import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
-import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 import retrofit2.Response
 import retrofit2.http.*
+import team.nk.kimiljeong.data.model.remote.common.ScheduleInformation
 import team.nk.kimiljeong.data.model.remote.request.CreateScheduleRequest
+import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 
 interface ScheduleAPI {
 
@@ -12,6 +12,11 @@ interface ScheduleAPI {
     suspend fun inquireDateScheduleList(
         @Query("date") date: String,
     ): Response<InquireScheduleListResponse>
+
+    @GET("/schedule/{schedule-id}")
+    suspend fun inquireSpecificScheduleInformation(
+        @Query("schedule-id") id: Int,
+    ): Response<ScheduleInformation>
 
     @POST("/schedule")
     suspend fun createSchedule(

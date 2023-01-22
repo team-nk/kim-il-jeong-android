@@ -8,6 +8,8 @@ import team.nk.kimiljeong.data.model.remote.response.InquireScheduleListResponse
 
 interface ScheduleRepository : ScheduleAPI {
 
+    override suspend fun inquireSpecificScheduleInformation(id: Int): Response<ScheduleInformation>
+
     override suspend fun inquireDateScheduleList(date: String): Response<InquireScheduleListResponse>
 
     override suspend fun createSchedule(request: CreateScheduleRequest): Response<Void>
