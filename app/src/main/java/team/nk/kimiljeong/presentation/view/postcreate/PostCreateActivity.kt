@@ -5,6 +5,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityPostCreateBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.view.scheduleinformation.ScheduleInformationBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.selectschedule.SelectScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.postcreate.PostCreateViewModel
 
@@ -60,6 +61,24 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
             this@PostCreateActivity,
         ) {
             showShortSnackBar(it)
+        }
+    }
+
+    override fun observeEvent() {
+        super.observeEvent()
+        observeSelectedScheduleInformationId()
+    }
+
+    private fun observeSelectedScheduleInformationId() {
+        viewModel.selectedScheduleInformation.observe(
+            this@PostCreateActivity,
+        ) {
+            ScheduleInformationBottomSheetDialogFragment(it).also { dialog ->
+                dialog.show(
+                    supportFragmentManager,
+                    this.javaClass.simpleName,
+                )
+            }
         }
     }
 }
