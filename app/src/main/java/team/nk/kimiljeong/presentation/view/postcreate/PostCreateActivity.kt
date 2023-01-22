@@ -1,10 +1,13 @@
 package team.nk.kimiljeong.presentation.view.postcreate
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityPostCreateBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
+import team.nk.kimiljeong.presentation.view.scheduleinformation.IS_ITEM_CHOSEN
+import team.nk.kimiljeong.presentation.view.scheduleinformation.SELECT_SCHEDULE
 import team.nk.kimiljeong.presentation.view.scheduleinformation.ScheduleInformationBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.selectschedule.SelectScheduleBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.postcreate.PostCreateViewModel
@@ -15,6 +18,27 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
 ) {
 
     private val viewModel by viewModels<PostCreateViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setSelectScheduleResultListener()
+    }
+
+    private fun setSelectScheduleResultListener() {
+        supportFragmentManager.setFragmentResultListener(
+            SELECT_SCHEDULE,
+            this@PostCreateActivity
+        ) { _, bundle ->
+            if (bundle.getBoolean(IS_ITEM_CHOSEN, false)) {
+                viewModel.canContinue = true
+            }
+            viewModel.selectedScheduleInformation.value?.run {
+                with(binding) {
+                    tvCreateNewPostSelectSchedule.text = content
+                }
+            }
+        }
+    }
 
     override fun initView() {
         initButtons()
@@ -67,6 +91,18 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
     override fun observeEvent() {
         super.observeEvent()
         observeSelectedScheduleInformationId()
+        observeCreateScheduleSucceed()
+    }
+
+    private fun observeCreateScheduleSucceed() {
+        viewModel.isCreateScheduleSucceed.observe(
+            this@PostCreateActivity,
+        ) {
+            if (it) {
+                setResult(RESULT_OK)
+                finish()
+            }
+        }
     }
 
     private fun observeSelectedScheduleInformationId() {
