@@ -23,10 +23,12 @@ class PostCreateViewModel @Inject constructor(
     private val postRepository: PostRepository,
 ) : BaseViewModel(application) {
 
-    private var selectedScheduleId: Int = NOT_SELECTED
+    private var selectedScheduleId = MutableLiveData(NOT_SELECTED)
 
     internal fun setSelectedScheduleId(id: Int) {
-        selectedScheduleId = id
+        selectedScheduleId.value = id.also {
+            Log.e(this.javaClass.simpleName, "setSelectedScheduleId: $it")
+        }
     }
 
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
@@ -77,7 +79,7 @@ class PostCreateViewModel @Inject constructor(
                     R.string.post_create_please_enter_content,
                 ),
             )
-        } else if (selectedScheduleId == NOT_SELECTED) {
+        } else if (selectedScheduleId.value == NOT_SELECTED) {
             _snackBarMessage.postValue(
                 mApplication.getString(
                     R.string.create_new_post_please_select_schedule,
@@ -88,7 +90,7 @@ class PostCreateViewModel @Inject constructor(
                 kotlin.runCatching {
                     postRepository.createPost(
                         CreatePostRequest(
-                            scheduleId = selectedScheduleId,
+                            scheduleId = selectedScheduleId.value!!,
                             title = title,
                             content = content,
                         ),
