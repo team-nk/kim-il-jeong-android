@@ -176,7 +176,3 @@ interface ScheduleItemClickListener {
         isAllDay: Boolean,
     )
 }
-
-internal interface SelectScheduleItemClickListener {
-    fun onItemClick()
-}
