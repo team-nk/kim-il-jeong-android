@@ -21,15 +21,14 @@ class PostCreateViewModel @Inject constructor(
     application: Application,
     private val scheduleRepository: ScheduleRepository,
     private val postRepository: PostRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(application), Selectable {
 
-    private var selectedScheduleId = MutableLiveData(NOT_SELECTED)
+    private val _selectedScheduleId = MutableLiveData(NOT_SELECTED)
+    internal val selectedScheduleId: LiveData<Int> = _selectedScheduleId
 
-    internal fun setSelectedScheduleId(id: Int) {
-        selectedScheduleId.value = id.also {
-            Log.e(this.javaClass.simpleName, "setSelectedScheduleId: $it")
-        }
-    }
+    private val _selectedScheduleInformation = MutableLiveData<ScheduleInformation>()
+    internal val selectedScheduleInformation: LiveData<ScheduleInformation> =
+        _selectedScheduleInformation
 
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
     internal val schedules: LiveData<List<ScheduleInformation>>
@@ -110,6 +109,34 @@ class PostCreateViewModel @Inject constructor(
             }
         }
     }
+
+    private fun inquireSpecificScheduleInformation(scheduleId: Int) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.inquireSpecificScheduleInformation(scheduleId)
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _selectedScheduleInformation.postValue(it.body())
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    override fun select(value: Int) {
+        _selectedScheduleId.value = value
+        inquireSpecificScheduleInformation(value)
+    }
+}
+
+// 큰 의미를 가지면 안 되는 험블 코드
+interface Selectable {
+    fun select(value: Int)
 }
 
 const val NOT_SELECTED = -1

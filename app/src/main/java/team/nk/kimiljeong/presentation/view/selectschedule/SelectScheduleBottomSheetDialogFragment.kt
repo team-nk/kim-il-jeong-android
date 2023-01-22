@@ -35,7 +35,7 @@ class SelectScheduleBottomSheetDialogFragment :
             SelectScheduleAdapter(
                 it,
                 fun(scheduleId: Int) {
-                    viewModel.setSelectedScheduleId(scheduleId)
+                    viewModel.select(scheduleId)
                     this.dismiss()
                 }
             ).apply {
