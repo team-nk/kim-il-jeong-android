@@ -26,8 +26,7 @@ class PostFragment @Inject constructor() : BaseFragment<FragmentPostBinding>(
     ) {
         if (it.resultCode == RESULT_OK) {
             kotlin.runCatching {
-                postAdapter.notifyDataSetChanged()
-                binding.rvFragmentPostMain.adapter = postAdapter
+                viewModel.inquirePosts()
             }.onFailure {
                 showShortSnackBar(
                     getString(
