@@ -33,9 +33,7 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
                 viewModel.canContinue = true
             }
             viewModel.selectedScheduleInformation.value?.run {
-                with(binding) {
-                    tvCreateNewPostSelectSchedule.text = content
-                }
+                tvCreateNewPostSelectSchedule.text = content
             }
         }
     }
