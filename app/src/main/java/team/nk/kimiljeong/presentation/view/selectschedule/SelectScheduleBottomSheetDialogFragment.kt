@@ -33,7 +33,7 @@ class SelectScheduleBottomSheetDialogFragment :
             viewLifecycleOwner,
         ) {
             SelectScheduleAdapter(
-                it
+                it,
             ) { scheduleId: Int ->
                 viewModel.select(scheduleId)
                 this.dismiss()
