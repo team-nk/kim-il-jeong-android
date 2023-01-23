@@ -27,7 +27,7 @@ class PostCreateActivity : BaseActivity<ActivityPostCreateBinding>(
     private fun setSelectScheduleResultListener() {
         supportFragmentManager.setFragmentResultListener(
             SELECT_SCHEDULE,
-            this@PostCreateActivity
+            this@PostCreateActivity,
         ) { _, bundle ->
             if (bundle.getBoolean(IS_ITEM_CHOSEN, false)) {
                 viewModel.canContinue = true
