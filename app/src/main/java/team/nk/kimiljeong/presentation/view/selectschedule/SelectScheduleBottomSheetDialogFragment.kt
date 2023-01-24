@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.DialogSelectScheduleBinding
-import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.ScheduleAdapter
+import team.nk.kimiljeong.presentation.adapter.recyclerviewadapter.SelectScheduleAdapter
 import team.nk.kimiljeong.presentation.base.view.BaseBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.viewmodel.postcreate.PostCreateViewModel
 
@@ -32,7 +32,12 @@ class SelectScheduleBottomSheetDialogFragment :
         viewModel.schedules.observe(
             viewLifecycleOwner,
         ) {
-            ScheduleAdapter(it, null).run {
+            SelectScheduleAdapter(
+                it,
+            ) { scheduleId: Int ->
+                viewModel.select(scheduleId)
+                this.dismiss()
+            }.apply {
                 binding.rvDialogSelectScheduleMain.adapter = this
             }
         }

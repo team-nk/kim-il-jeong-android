@@ -11,6 +11,10 @@ import javax.inject.Inject
 class ScheduleRepositoryImpl @Inject constructor(
     private val scheduleAPI: ScheduleAPI,
 ) : ScheduleRepository {
+    override suspend fun inquireSpecificScheduleInformation(id: Int): Response<ScheduleInformation> {
+        return scheduleAPI.inquireSpecificScheduleInformation(id)
+    }
+
     override suspend fun inquireDateScheduleList(date: String): Response<InquireScheduleListResponse> {
         return scheduleAPI.inquireDateScheduleList(
             date = date,

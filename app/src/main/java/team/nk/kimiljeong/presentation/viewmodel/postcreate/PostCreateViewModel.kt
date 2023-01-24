@@ -21,13 +21,16 @@ class PostCreateViewModel @Inject constructor(
     application: Application,
     private val scheduleRepository: ScheduleRepository,
     private val postRepository: PostRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(application), Selectable {
 
-    private var selectedScheduleId: Int = NOT_SELECTED
+    var canContinue = false
 
-    internal fun setSelectedScheduleId(id: Int) {
-        selectedScheduleId = id
-    }
+    private val _selectedScheduleId = MutableLiveData(NOT_SELECTED)
+    internal val selectedScheduleId: LiveData<Int> = _selectedScheduleId
+
+    private val _selectedScheduleInformation = MutableLiveData<ScheduleInformation>()
+    internal val selectedScheduleInformation: LiveData<ScheduleInformation> =
+        _selectedScheduleInformation
 
     private val _schedules = MutableLiveData<List<ScheduleInformation>>()
     internal val schedules: LiveData<List<ScheduleInformation>>
@@ -59,6 +62,13 @@ class PostCreateViewModel @Inject constructor(
         title: String,
         content: String,
     ) {
+        if (canContinue.not()) {
+            _snackBarMessage.postValue(
+                "계속할 수 없습니다",
+            )
+            return
+        }
+
         if (title.isBlank()) {
             _snackBarMessage.postValue(
                 mApplication.getString(
@@ -77,7 +87,7 @@ class PostCreateViewModel @Inject constructor(
                     R.string.post_create_please_enter_content,
                 ),
             )
-        } else if (selectedScheduleId == NOT_SELECTED) {
+        } else if (selectedScheduleId.value == NOT_SELECTED) {
             _snackBarMessage.postValue(
                 mApplication.getString(
                     R.string.create_new_post_please_select_schedule,
@@ -88,7 +98,7 @@ class PostCreateViewModel @Inject constructor(
                 kotlin.runCatching {
                     postRepository.createPost(
                         CreatePostRequest(
-                            scheduleId = selectedScheduleId,
+                            scheduleId = selectedScheduleId.value!!,
                             title = title,
                             content = content,
                         ),
@@ -108,6 +118,34 @@ class PostCreateViewModel @Inject constructor(
             }
         }
     }
+
+    private fun inquireSpecificScheduleInformation(scheduleId: Int) {
+        viewModelScope.launch(IO) {
+            kotlin.runCatching {
+                scheduleRepository.inquireSpecificScheduleInformation(scheduleId)
+            }.onSuccess {
+                if (it.isSuccessful) {
+                    _selectedScheduleInformation.postValue(it.body())
+                } else {
+                    _snackBarMessage.postValue(
+                        mApplication.getString(
+                            R.string.error_failed_to_connect_to_server,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    override fun select(`value`: Int) {
+        inquireSpecificScheduleInformation(value)
+        _selectedScheduleId.value = value
+    }
+}
+
+// 큰 의미를 가지면 안 되는 험블 코드
+interface Selectable {
+    fun select(value: Int)
 }
 
 const val NOT_SELECTED = -1

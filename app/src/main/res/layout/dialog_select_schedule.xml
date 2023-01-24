@@ -19,6 +19,7 @@
             android:id="@+id/rv_dialog_select_schedule_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_dialog_select_schedule_vertical_2"
             app:layout_constraintStart_toStartOf="@id/guideline_dialog_select_schedule_vertical_1"
