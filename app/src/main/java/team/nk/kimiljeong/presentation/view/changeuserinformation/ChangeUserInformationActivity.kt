@@ -80,15 +80,19 @@ class ChangeUserInformationActivity @Inject constructor() :
     }
 
     private fun initChangeInformationButton() {
-        binding.run {
+        with(binding) {
             btnActivityChangeUserInformationChange.setOnClickListener {
-                if (etActivityChangeUserInformationEmail.text.isNotEmpty() && etActivityChangeUserInformationId.text.isNotEmpty()) {
-                    viewModel.changeUserInformation(
-                        email = etActivityChangeUserInformationEmail.text.toString(),
-                        accountId = etActivityChangeUserInformationId.text.toString(),
-                        profile = image,
-                    )
+                val email = etActivityChangeUserInformationEmail.text.toString().ifBlank {
+                    intent.getStringExtra("email")
                 }
+                val id = etActivityChangeUserInformationId.text.toString().ifBlank {
+                    intent.getStringExtra("id")
+                }
+                viewModel.changeUserInformation(
+                    email = email!!,
+                    accountId = id!!,
+                    profile = image
+                )
             }
         }
     }
@@ -112,7 +116,7 @@ class ChangeUserInformationActivity @Inject constructor() :
         }
     }
 
-    private fun initLoadProfileImage(){
+    private fun initLoadProfileImage() {
         binding.imageActivityChangeUserInformationUserProfile.loadImageFrom(
             url = intent.getStringExtra("imageUrl")
         )
