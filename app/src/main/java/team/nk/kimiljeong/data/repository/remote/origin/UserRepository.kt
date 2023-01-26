@@ -53,7 +53,7 @@ interface UserRepository {
     ): Response<BooleanResponse>
 
     suspend fun uploadImage(
-        image: List<MultipartBody.Part>,
+        image: MultipartBody.Part,
     ): Response<UploadImageResponse>
 
     suspend fun saveAccessToken(
@@ -73,5 +73,5 @@ interface UserRepository {
 
     suspend fun changeUserInformation(
         request: ChangeUserInformationRequest,
-    ) : Response<Void>
+    ): Response<Void>
 }

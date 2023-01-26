@@ -103,7 +103,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun uploadImage(
-        image: List<MultipartBody.Part>,
+        image: MultipartBody.Part,
     ): Response<UploadImageResponse> {
         return authApi.uploadImage(
             image = image,

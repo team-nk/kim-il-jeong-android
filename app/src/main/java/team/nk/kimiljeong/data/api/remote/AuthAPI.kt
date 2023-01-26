@@ -59,11 +59,11 @@ interface AuthAPI {
     @Multipart
     @POST("/image")
     suspend fun uploadImage(
-        @Part image: List<MultipartBody.Part>
+        @Part image: MultipartBody.Part
     ): Response<UploadImageResponse>
 
     @PATCH("/user")
     suspend fun changeUserInformation(
         @Body request: ChangeUserInformationRequest,
-    ) : Response<Void>
+    ): Response<Void>
 }
