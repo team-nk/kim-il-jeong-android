@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.data.api.remote
 
 import com.gram.kimiljeong.data.model.remote.response.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 import team.nk.kimiljeong.data.model.remote.request.*
@@ -55,9 +56,10 @@ interface AuthAPI {
         @Query("account-id") id: String,
     ): Response<BooleanResponse>
 
+    @Multipart
     @POST("/image")
     suspend fun uploadImage(
-        @Body request: UploadImageRequest,
+        @Part image: List<MultipartBody.Part>
     ): Response<UploadImageResponse>
 
     @PATCH("/user")

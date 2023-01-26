@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.data.repository.remote.implement
 
 import com.gram.kimiljeong.data.model.remote.response.SelfInformationResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import team.nk.kimiljeong.data.api.remote.AuthAPI
 import team.nk.kimiljeong.data.common.preferences.AuthPreferences
@@ -102,10 +103,10 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun uploadImage(
-        request: UploadImageRequest,
+        image: List<MultipartBody.Part>,
     ): Response<UploadImageResponse> {
         return authApi.uploadImage(
-            request = request,
+            image = image,
         )
     }
 
