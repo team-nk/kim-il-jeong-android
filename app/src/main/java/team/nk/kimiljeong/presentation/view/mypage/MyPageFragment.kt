@@ -23,14 +23,15 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     R.layout.fragment_mypage,
 ) {
 
+    private lateinit var imageUrl: String
+
     private val myPageFragmentLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
             showShortSnackBar(
-                text = "정보 변경 성공",
+                text = getString(R.string.change_information_success),
             )
-            // TODO get string resource
         }
     }
 
@@ -48,6 +49,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
     private fun initUserInformation() {
         with(binding) {
             viewModel.userInformation.value?.let {
+                imageUrl = it.profileUrl
                 tvFragmentMypageId.text = it.id
                 tvFragmentMypageEmail.text = it.email
                 imageFragmentMypageUserProfile.loadImageFrom(it.profileUrl)
@@ -107,7 +109,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 Intent(
                     requireActivity(),
                     ChangeUserInformationActivity::class.java,
-                )
+                ).putExtra("imageUrl", imageUrl)
             )
         }
     }

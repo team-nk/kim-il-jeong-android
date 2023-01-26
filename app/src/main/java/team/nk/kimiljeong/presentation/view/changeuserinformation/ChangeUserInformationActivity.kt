@@ -10,6 +10,7 @@ import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityChangeUserInformationBinding
+import team.nk.kimiljeong.presentation.adapter.bindingadapter.loadImageFrom
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.viewmodel.changeinformation.ChangeUserInformationViewModel
@@ -31,6 +32,7 @@ class ChangeUserInformationActivity @Inject constructor() :
         initMoveChangePasswordActivityButton()
         initCancleButton()
         initChangeInformationButton()
+        initLoadProfileImage()
     }
 
     private fun initChangeImageButton() {
@@ -108,5 +110,11 @@ class ChangeUserInformationActivity @Inject constructor() :
                 text = it,
             )
         }
+    }
+
+    private fun initLoadProfileImage(){
+        binding.imageActivityChangeUserInformationUserProfile.loadImageFrom(
+            url = intent.getStringExtra("imageUrl")
+        )
     }
 }
