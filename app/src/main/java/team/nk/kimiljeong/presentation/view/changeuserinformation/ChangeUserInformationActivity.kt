@@ -1,17 +1,19 @@
 package team.nk.kimiljeong.presentation.view.changeuserinformation
 
-import android.graphics.ImageDecoder
-import android.os.Build
+import android.net.Uri
 import android.provider.MediaStore
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import app.junsu.startactivityutil.StartActivityUtil.startActivity
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import gun0912.tedimagepicker.builder.TedImagePicker
+import gun0912.tedimagepicker.builder.type.MediaType
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.databinding.ActivityChangeUserInformationBinding
 import team.nk.kimiljeong.presentation.base.view.BaseActivity
 import team.nk.kimiljeong.presentation.view.changepassword.ChangePasswordActivity
 import team.nk.kimiljeong.presentation.viewmodel.changeinformation.ChangeUserInformationViewModel
+import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,22 +22,7 @@ class ChangeUserInformationActivity @Inject constructor() :
         R.layout.activity_change_user_information,
     ) {
 
-    private val imageResult = registerForActivityResult(
-        StartActivityForResult(),
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val imageUri = result.data?.data
-            imageUri?.let {
-                if (Build.VERSION.SDK_INT < 28) {
-                    val bitmap =
-                        MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-                } else {
-                    val source = ImageDecoder.createSource(this.contentResolver, imageUri)
-                    val bitmap = ImageDecoder.decodeBitmap(source)
-                }
-            }
-        }
-    }
+    private lateinit var image: File
 
     private val viewModel by viewModels<ChangeUserInformationViewModel>()
 
@@ -46,11 +33,33 @@ class ChangeUserInformationActivity @Inject constructor() :
         initChangeInformationButton()
     }
 
-
     private fun initChangeImageButton() {
         binding.tvActivityChangeUserInformationChangeImage.setOnClickListener {
-            // TODO server logic
+            TedImagePicker.with(this)
+                .mediaType(MediaType.IMAGE)
+                .start { uri ->
+                    initProfileImageView(uri)
+                    image = File(getRealPathFromUri(uri).toString())
+                }
         }
+    }
+
+    private fun initProfileImageView(uri: Uri) {
+        Glide.with(this)
+            .load(uri)
+            .into(binding.imageActivityChangeUserInformationUserProfile)
+    }
+
+    private fun getRealPathFromUri(uri: Uri): String? {
+        val loader = contentResolver.query(
+            uri,
+            arrayOf(MediaStore.Images.Media.DATA),
+            null,
+            null,
+            null,
+        )
+        loader!!.moveToFirst()
+        return loader.getString(loader.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
     }
 
     private fun initMoveChangePasswordActivityButton() {
@@ -75,11 +84,8 @@ class ChangeUserInformationActivity @Inject constructor() :
                     viewModel.changeUserInformation(
                         email = etActivityChangeUserInformationEmail.text.toString(),
                         accountId = etActivityChangeUserInformationId.text.toString(),
-                        profile = "https://avatars.githubusercontent.com/u/102812085?v=4",
+                        profile = image,
                     )
-                    // TODO get image logic
-                } else {
-                    // TODO show message logic
                 }
             }
         }
@@ -93,7 +99,6 @@ class ChangeUserInformationActivity @Inject constructor() :
             if (it) {
                 setResult(RESULT_OK)
                 finish()
-                // TODO get string resource
             }
         }
         viewModel.snackBarMessage.observe(
