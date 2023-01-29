@@ -35,7 +35,10 @@
     <string name="dlg_time_picker_pm">오후</string>
     <string name="allDay">하루종일</string>
 
-    <string name="create_schedule_succeed">일정이 성공적으로 생성되었습니다!</string>
+    <string name="create_schedule_succeed">일정이 성공적으로 생성되었습니다!</string>른
+
+    <string name="please_enter_correct_information">올바른 정보를 입력해주세요</string>
+    <string name="change_information_success">정보가 성공적으로 변경되었습니다!</string>
 
     <string name="schedule_list">일정 목록</string>
 

@@ -1,6 +1,7 @@
 package team.nk.kimiljeong.data.repository.remote.origin
 
 import com.gram.kimiljeong.data.model.remote.response.SelfInformationResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import team.nk.kimiljeong.data.model.remote.request.*
 import team.nk.kimiljeong.data.model.remote.response.BooleanResponse
@@ -52,7 +53,7 @@ interface UserRepository {
     ): Response<BooleanResponse>
 
     suspend fun uploadImage(
-        request: UploadImageRequest,
+        image: MultipartBody.Part,
     ): Response<UploadImageResponse>
 
     suspend fun saveAccessToken(
@@ -72,5 +73,5 @@ interface UserRepository {
 
     suspend fun changeUserInformation(
         request: ChangeUserInformationRequest,
-    ) : Response<Void>
+    ): Response<Void>
 }

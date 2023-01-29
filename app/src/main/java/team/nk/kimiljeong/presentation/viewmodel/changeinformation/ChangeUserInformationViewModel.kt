@@ -7,10 +7,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import team.nk.kimiljeong.R
 import team.nk.kimiljeong.data.model.remote.request.ChangeUserInformationRequest
 import team.nk.kimiljeong.data.repository.remote.origin.UserRepository
 import team.nk.kimiljeong.presentation.base.viewmodel.BaseViewModel
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,31 +27,47 @@ class ChangeUserInformationViewModel @Inject constructor(
     val changeUserInformation: LiveData<Boolean>
         get() = _changeUserInformation
 
+    private lateinit var imageUrl: String
+
     internal fun changeUserInformation(
         email: String,
         accountId: String,
-        profile: String,
-    ){
-        viewModelScope.launch(IO){
-            kotlin.runCatching {
-                userRepository.changeUserInformation(
-                    request = ChangeUserInformationRequest(
-                        email = email,
-                        accountId = accountId,
-                        profile = profile,
-                    )
+        profile: File?,
+    ) {
+        viewModelScope.launch(IO) {
+            runCatching {
+                userRepository.uploadImage(
+                    image = profile!!.toMultipart()
                 )
             }.onSuccess {
-                if(it.isSuccessful){
-                    _changeUserInformation.postValue(true)
-                }else{
-                    _snackBarMessage.postValue(
-                        "올바른 정보를 입력해 주세요."
+                imageUrl = it.body()!!.imageUrl
+                kotlin.runCatching {
+                    userRepository.changeUserInformation(
+                        request = ChangeUserInformationRequest(
+                            email = email,
+                            accountId = accountId,
+                            profile = imageUrl
+                        )
                     )
-                    // TODO string resource
+                }.onSuccess {
+                    if (it.isSuccessful) {
+                        _changeUserInformation.postValue(true)
+                    } else {
+                        _snackBarMessage.postValue(
+                            mApplication.getString(
+                                R.string.please_enter_correct_information,
+                            )
+                        )
+                    }
+                }.onFailure {
+                    _changeUserInformation.postValue(false)
                 }
             }
         }
     }
 
+    internal fun File.toMultipart(): MultipartBody.Part {
+        val fileBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), this)
+        return MultipartBody.Part.createFormData("image", this.name, fileBody)
+    }
 }
