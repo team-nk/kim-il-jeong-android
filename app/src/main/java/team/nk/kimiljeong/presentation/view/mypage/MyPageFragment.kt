@@ -16,6 +16,7 @@ import team.nk.kimiljeong.presentation.view.checkmypost.CheckMyPostActivity
 import team.nk.kimiljeong.presentation.view.enterbirthday.EnterBirthdayBottomSheetDialogFragment
 import team.nk.kimiljeong.presentation.view.logout.LogoutDialogFragment
 import team.nk.kimiljeong.presentation.view.main.MainActivity
+import team.nk.kimiljeong.presentation.view.report.ReportActivity
 import team.nk.kimiljeong.presentation.viewmodel.main.MainViewModel
 
 @AndroidEntryPoint
@@ -71,6 +72,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
         initLogoutButton()
         initCheckMyScheduleButton()
         initCheckMyPostsButton()
+        initReportButton()
     }
 
     private fun initCheckMyPostsButton() {
@@ -146,6 +148,17 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
                 it.show(
                     requireActivity().supportFragmentManager,
                     this.tag,
+                )
+            }
+        }
+    }
+
+    private fun initReportButton() {
+        binding.btnFragmentMypageReport.setOnClickListener {
+            requireActivity().run {
+                startActivity(
+                    context = this@run,
+                    to = ReportActivity::class.java,
                 )
             }
         }
