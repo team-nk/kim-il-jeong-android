@@ -14,6 +14,7 @@
     <string name="do_change">변경하기</string>
     <string name="do_enter">입력하기</string>
     <string name="do_select">선택하기</string>
+    <string name="do_report">신고하기</string>
 
     <string name="login_en">Login</string>
     <string name="post_en">Post</string>
