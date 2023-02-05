@@ -36,6 +36,10 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
             showShortSnackBar(
                 text = getString(R.string.change_information_success),
             )
+        }else if(it.resultCode == 200){
+            showShortSnackBar(
+                text = getString(R.string.report_success),
+            )
         }
     }
 
@@ -155,12 +159,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(
 
     private fun initReportButton() {
         binding.btnFragmentMypageReport.setOnClickListener {
-            requireActivity().run {
-                startActivity(
-                    context = this@run,
-                    to = ReportActivity::class.java,
+            myPageFragmentLauncher.launch(
+                Intent(
+                    requireActivity(),
+                    ReportActivity::class.java,
                 )
-            }
+            )
         }
     }
 }
