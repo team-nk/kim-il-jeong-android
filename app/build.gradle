@@ -1,21 +1,26 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
-    namespace 'app.junsu.kimiljeong'
+    namespace 'team.nk.kimiljeong'
     compileSdk 33
 
     defaultConfig {
-        applicationId "app.junsu.kimiljeong"
+        applicationId "team.nk.kimiljeong"
         minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
+        manifestPlaceholders = [GOOGLE_MAPS_API_KEY:properties["GOOGLE_MAPS_API_KEY"]]
+        buildConfigField "String", "BASE_URL", properties["BASE_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,17 +37,50 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
 
-    implementation "com.google.dagger:hilt-android:2.44.2"
-    kapt "com.google.dagger:hilt-compiler:2.44.2"
+    def hilt_version = "2.44.2"
+    def retrofit_version = "2.9.0"
+    def okhttp_version = "4.10.0"
+    def nav_version = "2.5.3"
+    def calendarview_version = "1.4.3"
+    def gms_maps_version = "18.1.0"
+    def gms_location_version = "21.0.1"
+    def circleimageview_version = "3.1.0"
+    def start_activity_util_version = "0.0.1"
+    def glide_version = "4.14.2"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "io.github.ParkSangGwon:tedimagepicker:1.4.1"
 
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation "com.github.Android-Utility:start-activity-utility:$start_activity_util_version"
+
+    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+
+    implementation "com.google.android.gms:play-services-maps:$gms_maps_version"
+    implementation "com.google.android.gms:play-services-location:$gms_location_version"
+
+    implementation "com.prolificinteractive:material-calendarview:$calendarview_version"
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

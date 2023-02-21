@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <View
+            android:id="@+id/indicator_item_post_color"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_post_title"
+            style="@style/TextViewPostTitle"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/indicator_item_post_color"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="자치 회의를 시작하려 합니다" />
+
+        <TextView
+            android:id="@+id/tv_item_post_accountId"
+            style="@style/TextViewPostTitle"
+            android:layout_marginStart="6dp"
+            android:textSize="11sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="JunJaBoy" />
+
+        <TextView
+            android:id="@+id/tv_item_post_schedule_content"
+            style="@style/TextViewPostTitle"
+            android:layout_marginTop="2dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_post_title"
+            tools:text="학교 자치 회의" />
+
+        <TextView
+            android:id="@+id/tv_item_post_date"
+            style="@style/TextViewHintSecondary"
+            android:layout_marginTop="2dp"
+            android:textSize="9sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_post_accountId"
+            tools:ignore="SmallSp"
+            tools:text="2022-12-12" />
+
+        <TextView
+            android:id="@+id/tv_item_post_address"
+            style="@style/TextViewHintSecondary"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_post_schedule_content"
+            tools:text="태양계-지구-대한민국-대전광역시-유성구-가정북로-76" />
+
+        <View
+            style="@style/SectionLinePrimary"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_post_address" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
